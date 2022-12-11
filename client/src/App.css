@@ -1,1 +1,47 @@
 
+/* Reminder: delete empty rulesets */
+
+/* ****************************** */
+/*       Universal selector       */
+/* ****************************** */
+* {
+
+}
+
+/* ****************************** */
+/*        Color selectors         */
+/* ****************************** */
+:root {
+--variableName: #000000;
+}
+
+/* ****************************** */
+/*       Element selectors        */
+/* ****************************** */
+
+/* ****************************** */
+/*        Class selectors         */
+/* ****************************** */
+
+/* ****************************** */
+/*          ID selectors          */
+/* ****************************** */
+
+/* ****************************** */
+/* Formatting for media inquiries */
+/* ****************************** */
+
+/* Laptop */
+@media screen and (max-width: 1024px) {
+
+}
+
+/* iPads and Tablets */
+@media screen and (max-width: 768px) {
+
+}
+
+/* Mobile devices */
+@media screen and (max-width: 480px) {
+
+}
