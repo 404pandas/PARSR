@@ -1,19 +1,21 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// // // Defines user as a type
-//   type User {
-//     // Defines User fields and data type for each field
-//     // Acceptable data types - String, Int, Float, Boolean, and ID
-//     // Adding ! at the end of a datatype means the field is required
+// // // Defines pet as a type
+//   type Pet {
+//     // Defines Pet fields and data type for each field
 //     _id: ID!
-//     username: String!
-//     email: String!
-//     // Relationship between user and pet. ! in square bracket means returned
-//     // pet list can't include items that are null
-//     pets: [Pet!]
+//     name: String!
+//     animalType: enum!
+//     description: String!
+//     microchipRegistry: String
+//     microchipNumber: Int
+//     isMissing: Boolean!
+//     // Relationship between pet and user
+//     user: User!
+//   }
 
-const userSchema = new Schema(
+const petSchema = new Schema(
   {
     username: {
       type: String,
@@ -27,10 +29,6 @@ const userSchema = new Schema(
       match: [/.+@.+\..+/, 'Must use a valid email address'],
     },
     password: {
-      type: String,
-      required: true,
-    },
-    pets: {
       type: String,
       required: true,
     },
@@ -55,6 +53,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = model('User', userSchema);
+const Pet = model('Pet', petSchema);
 
-module.exports = User;
+module.exports = Pet;
