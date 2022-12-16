@@ -1,39 +1,41 @@
 const { gql } = require('apollo-server-express');
 
-    // Defines User fields and data type for each field
-    // Acceptable data types - String, Int, Float, Boolean, and ID
-    // Adding ! at the end of a datatype means the field is required
-    // Relationship between user and pet. ! in square bracket means returned
-    // pet list can't include items that are null
-    // Defines pet as a type
-    // Defines Pet fields and data type for each field
-    // Relationship between pet and user
   // 
+  // type <example> {
+  //  stuff: <dataType>
+  // }
+  // ^ This defines <example> fields and data type for each field
+  // Acceptable data types - String, Int, Float, Boolean, and ID
+  // Adding ! at the end of a datatype means the field is required
+  // 
+  // Future development //
+  // 
+  // Change animalType from string to enum AllowedType //
   // enum AllowedType {
   //   DOG
   //   CAT
   //   PENGUIN
   //   HORSE
   // }
-// Defines user as a type
-  // Defines entry points for read operations
-      // Field that will return an array of User instances
-      // Gets user info from userId
-    // Gets pets from userId
-     // Field that will return an array of Pet instances
-      // query for AllowedType
-    // animalType: AllowedType
-    // Defines entry points for write operations
-    // Accepts arguments defined by schema and returns newly created pet
-    // Accepts arguments defined by schema and returns deleted pet
+  // Query for AllowedType //
+  // 
+  // type Query {
+  // animalType: AllowedType
+  // }
+  // 
+  // Add "isMissing" boolean option //
+  // Query defines entry points for read operations
+  // Mutation defines entry points for write operations
 
-      const typeDefs = gql`
+  // savedPets is a virtual
 
+const typeDefs = gql`
   type User {
     _id: ID!
     username: String!
     email: String!
-    pets: [Pet!]
+    pets: [Pet]
+    savedPets: [Pet]
   }
 
   type Pet {
@@ -43,8 +45,6 @@ const { gql } = require('apollo-server-express');
     description: String!
     microchipRegistry: String
     microchipNumber: Int
-    isMissing: Boolean!
-    user: User!
   }
 
   type Auth {
@@ -55,14 +55,17 @@ const { gql } = require('apollo-server-express');
   type Query {
     users: [User]
     user(userId: ID!): User
-    pets: [Pet!] 
+    pets: [Pet] 
     pet(petId: ID!): Pet
+    me: User
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPet(petId: ID!, name: String!, type: String!, description: String!, microchipRegistry: String, microchipNumber: Int): Pet
+    updateUser(username: String!, email: String!, password: String!): User
+    addPet(petId: ID!, petName: String!, animalType: String!, description: String!, microchipRegistry: String, microchipNumber: Int): Pet
+    updatePet(petId: ID!, petname: String!, animalType: String!, description: String!, microchipRegistry: String, microchipNumber: Int): Pet
     removePet(petId: ID!): Pet
   }
 `;

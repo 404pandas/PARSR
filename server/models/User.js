@@ -1,17 +1,16 @@
-const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
+const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
 
-// // // Defines user as a type
-//   type User {
-//     // Defines User fields and data type for each field
-//     // Acceptable data types - String, Int, Float, Boolean, and ID
-//     // Adding ! at the end of a datatype means the field is required
-//     _id: ID!
-//     username: String!
-//     email: String!
-//     // Relationship between user and pet. ! in square bracket means returned
-//     // pet list can't include items that are null
-//     pets: [Pet!]
+// Typedefs for user
+// type User {
+//   _id: ID!
+//   username: String!
+//   email: String!
+//   pets: [Pet]
+// }
+
+// Import schema from Pet.js
+const savedPetSchema = require('./savedPet')
 
 const userSchema = new Schema(
   {
@@ -19,22 +18,29 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
+      match: [/.+@.+\..+/, "Must use a valid email address"],
     },
     password: {
       type: String,
       required: true,
+      minlength: 3,
     },
-    pets: {
-      type: String,
-      required: true,
-    },
+    pets: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Pet",
+      },
+    ],
+    // Sets savedPets as an array of data that adheres to the savedPetSchema
+    savedPets: [savedPetSchema],
   },
+  // Sets this to use virtual below
   {
     toJSON: {
       virtuals: true,
@@ -42,8 +48,9 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
+// Hashes user password
+userSchema.pre("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
     const saltRounds = 12;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -51,10 +58,16 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// Method to compare and validate password for logging in
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = model('User', userSchema);
+// When we query a user, we'll also get another field called `savedPetCount` with the number of saved pets they have
+userSchema.virtual('savedPetCount').get(function () {
+  return this.savedPets.length;
+});
+
+const User = model("User", userSchema);
 
 module.exports = User;

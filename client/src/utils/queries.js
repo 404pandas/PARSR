@@ -1,5 +1,13 @@
 import { gql } from "@apollo/client";
 
+//   type Query {
+//   users: [User]
+//   user(userId: ID!): User
+//   pets: [Pet] 
+//   pet(petId: ID!): Pet
+//   me: User
+// }
+
 export const QUERY_USER = gql`
 query user($userId: ID!) {
   user(userId: $userId) {

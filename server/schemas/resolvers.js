@@ -1,10 +1,10 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
+const { User, Pet } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    /// GETS MULTIPLE USERS' PETS ///
+    /// GETS MULTIPLE USERS ///
     //     users: [User]
     users: async () => {
       return User.find().populate('pets');
@@ -13,36 +13,42 @@ const resolvers = {
     //     user(userId: ID!): User
     user: async (parent, { userId }, context) => {
       if (context.user) {
-        const userData = await (await User.findOne({ _id: userId }).select('-__v -password'));
+        const user = await (await User.findOne({ _id: userId }).select('-__v -password'));
 
-        return userData;
+        return user;
       }
 
-      throw new AuthenticationError('Not logged in');
+      // throw new AuthenticationError('Not logged in');
     },
     // Field that will return an array of Pet instances
     // pets: [Pet]
-    pets: async () => {
-      return Pet.find({});
+    pets: async (parent, { userId }, context) => {
+      const params = userId ? { userId } : {};
+      return Pet.find(params).sort({ createdAt: -1 });
     },
     // GETS PETS FROM USER ID
-    // pets(userId: ID!): [Pet]
+    // pet(petId: ID!): Pet
     pet: async (parent, { petId }, context) => {
       if (context.user) {
-        const PetData = await (await Pet.findOne({ _id: PetId }).select('-__v -password'));
+        const PetData = await (await Pet.findOne({ _id: petId }));
 
         return PetData;
       }
 
       throw new AuthenticationError('Not logged in');
     },
- 
+    // GETS PERSONAL PETS
+    // me: User
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate('pets');
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+  }, 
     // query for AllowedType
     // animalType: AllowedType
-    animalType: async () => {
-
-    }
-  },
+    // animalType: async () => { }
 
   Mutation: {
 
@@ -52,7 +58,7 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect Credentials');
+        throw new AuthenticationError('No user found with this email address');
       }
 
       const correctPassword = await user.isCorrectPassword(password);
@@ -66,10 +72,9 @@ const resolvers = {
     },
     /// ADD USER ///
     //    addUser(username: String!, email: String!, password: String!): Auth
-    addUser: async (parent, args) => {
-      const user = await User.create(args);
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
       const token = signToken(user);
-
       return { token, user };
     },
     // addPet(petId: ID!, name: String!, type: String!, description: String!, microchipRegistry: String,

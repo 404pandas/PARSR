@@ -1,58 +1,50 @@
 const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
 
-// // // Defines pet as a type
-//   type Pet {
-//     // Defines Pet fields and data type for each field
-//     _id: ID!
-//     name: String!
-//     animalType: enum!
-//     description: String!
-//     microchipRegistry: String
-//     microchipNumber: Int
-//     isMissing: Boolean!
-//     // Relationship between pet and user
-//     user: User!
-//   }
+// Typedefs for pet
+// type Pet {
+//   _id: ID!
+//   petName: String!
+//   animalType: String!
+//   description: String!
+//   microchipRegistry: String
+//   microchipNumber: Int
+// }
 
-const petSchema = new Schema(
-  {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
-    },
-    password: {
-      type: String,
-      required: true,
-    },
+const thoughtSchema = new Schema({
+  thoughtText: {
+    type: String,
+    required: 'You need to leave a thought!',
+    minlength: 1,
+    maxlength: 280,
+    trim: true,
   },
-  {
-    toJSON: {
-      virtuals: true,
+  thoughtAuthor: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
+  },
+  comments: [
+    {
+      commentText: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 280,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
+      },
     },
-  }
-);
-
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
-    const saltRounds = 12;
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
-
-  next();
+  ],
 });
 
-userSchema.methods.isCorrectPassword = async function (password) {
-  return bcrypt.compare(password, this.password);
-};
+const Thought = model('Thought', thoughtSchema);
 
-const Pet = model('Pet', petSchema);
-
-module.exports = Pet;
+module.exports = Thought;
