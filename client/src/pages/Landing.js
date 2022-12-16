@@ -14,7 +14,7 @@ function Landing () {
         <h1>Login now</h1>
       </Link>
       <LoadScript
-      googleMapsApiKey="process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"
+      googleMapsApiKey="process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"
     >
       <GoogleMap
         mapContainerStyle={containerStyle}

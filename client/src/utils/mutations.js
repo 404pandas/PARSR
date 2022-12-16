@@ -41,12 +41,10 @@ export const ADD_PET = gql`
     microchipRegistry
     microchipNumber
     }
-  }
 `;
 
-export const REMOVE_PET = gql`
-  mutation removePet($petId: ID!) {
-    updatePet(petId: #petId)
-    }
-  }
-`;
+// export const REMOVE_PET = gql`
+//   mutation removePet($petId: ID!) {
+//     updatePet(petId: #petId)
+//     }
+//   }

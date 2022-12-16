@@ -2,6 +2,7 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Pet } = require('../models');
 const { signToken } = require('../utils/auth');
 
+// Creates the functions that fulfill the queries defined in typeDefs
 const resolvers = {
   Query: {
     /// GETS MULTIPLE USERS ///
@@ -41,6 +42,7 @@ const resolvers = {
     // me: User
     me: async (parent, args, context) => {
       if (context.user) {
+        // Populate the pets subdocument on every instance of User
         return User.findOne({ _id: context.user._id }).populate('pets');
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -50,6 +52,7 @@ const resolvers = {
     // animalType: AllowedType
     // animalType: async () => { }
 
+    // Defines the functions that will fulfill the mutations
   Mutation: {
 
     /// LOGIN ///
@@ -79,10 +82,12 @@ const resolvers = {
     },
     // addPet(petId: ID!, name: String!, type: String!, description: String!, microchipRegistry: String,
     //  microchipNumber: Int): Pet
-    // addPet: async (parent, args) => {
-    //   const 
-    // },
-    //     removePet(petId: ID!): Pet
+    addPet: async (parent, { petId }, context) => {
+      console.log('hit')
+      console.log(parent)
+      // Creates and returns new Pet object
+      return await Pet.create({ petId, name,  })
+    },
     removePet: async (parent, args) => {
 
     },
