@@ -13,8 +13,11 @@ function Landing () {
       <Link to='/login' style={{ textDecoration: 'none' }}>
         <h1>Login now</h1>
       </Link>
+      <Link to='/view-pets' style={{ textDecoration: 'none' }}>
+        <h1>View pets</h1>
+      </Link>
       <LoadScript
-      googleMapsApiKey="process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY"
+      googleMapsApiKey={{ githubsecret: "github.myrepo.secret.shhhhhhhhh" }}
     >
       <GoogleMap
         mapContainerStyle={containerStyle}

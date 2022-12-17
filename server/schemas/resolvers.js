@@ -29,7 +29,9 @@ const resolvers = {
     },
     // GETS PETS FROM USER ID
     // pet(petId: ID!): Pet
-    pet: async (parent, { petId }, context) => {
+    pet: async (parent, { petId, petName }, context) => {
+      console.log('hit');
+      console.log(petName)
       if (context.user) {
         const PetData = await (await Pet.findOne({ _id: petId }));
 

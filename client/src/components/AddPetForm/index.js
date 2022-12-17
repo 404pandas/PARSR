@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 import { ADD_PET } from "../../utils/mutations";
-import { QUERY_PETS, QUERY_ME } from "../../utils/queries";
+import { QUERY_PETS, QUERY_ME, QUERY_PET } from "../../utils/queries";
 // TODO- build out QUERY_PETS
 
 import Auth from "../../utils/auth";
@@ -16,6 +16,8 @@ const AddPetForm = () => {
     microchipRegistry: "",
     microchipNumber: "",
   });
+
+  const [petName, setPetName] = useState("");
 
   const [characterCount, setCharacterCount] = useState(0);
 
@@ -85,6 +87,37 @@ const AddPetForm = () => {
   return (
     <div>
       <h3>Add Pet:</h3>
+      <p>Pet Name</p>
+      <p>{petName}</p>
+      <label htmlFor="pet" className="blahhhhhhh">
+        Name (4 to 8 characters):
+      </label>
+
+      <input
+        value={petName}
+        onChange={(e) => {
+          e.preventDefault();
+          setPetName(e.target.value);
+        }}
+        type="text"
+        id="pet"
+        name="pet"
+        required
+        minLength="4"
+        maxLength="8"
+        size="10"
+      ></input>
+
+      {/* button */}
+      <button
+        onClick={async (e) => {
+          useQuery(QUERY_PET, {
+            variables: { petName },
+          });
+        }}
+      >
+        Yo this is a button
+      </button>
 
       {Auth.loggedIn() ? (
         <>
@@ -100,7 +133,7 @@ const AddPetForm = () => {
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
-  {/*
+            {/*
   //   _id
   //   petName
   //   animalType

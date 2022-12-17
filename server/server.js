@@ -1,4 +1,5 @@
 const express = require('express');
+
 // Imports the ApolloServer class
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');

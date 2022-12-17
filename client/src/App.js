@@ -15,11 +15,13 @@ import Landing from './pages/Landing';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import ViewPets from './pages/ViewPets';
 
 /// IMPORT COMPONENTS ///
 import ProtectRoute from './components/ProtectRoute';
 
 import './App.css';
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -50,6 +52,7 @@ function App() {
           <Route path='/' element={<Landing />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/view-pets' element={<ViewPets />} />
           <Route
             path='dashboard/:userId'
             element={Auth.loggedIn() ? <Dashboard /> : <ProtectRoute />}
