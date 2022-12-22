@@ -7,17 +7,13 @@
     "start": "node server/server.js",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "build": "cd client && npm run build",
-    "dev": "webpack --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.build.js"
+    "build": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "concurrently": "^5.1.0"
   },
   "dependencies": {
     "apollo-server-express": "^3.10.1",

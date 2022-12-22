@@ -42,15 +42,4 @@ function Landing () {
 }
 ;
 
-
-
-// class Landing extends Map {
-//   render() {
-//     return (
-    
-//   )
-// }
-// };
-
 export default Landing;
-;
