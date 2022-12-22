@@ -2,6 +2,7 @@ const express = require('express');
 
 // Imports the ApolloServer class
 const { ApolloServer } = require('apollo-server-express');
+
 const path = require('path');
 // const { authMiddleware } = require('./utils/auth');
 const dotenv = require('dotenv')
@@ -28,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
 };
 
 // Prints in the browser
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 

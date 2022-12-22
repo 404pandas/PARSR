@@ -1,8 +1,17 @@
 import React from 'react';
-// require('dotenv').config();
 import { Link } from 'react-router-dom';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import '../App.css';
+
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
+
+const center = {
+  lat: -3.745,
+  lng: -38.523
+};
 
 function Landing () {
   return (
@@ -33,15 +42,7 @@ function Landing () {
 }
 ;
 
-const containerStyle = {
-  width: '400px',
-  height: '400px'
-};
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
 
 // class Landing extends Map {
 //   render() {
