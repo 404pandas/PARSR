@@ -1,7 +1,10 @@
 const express = require('express');
 
 // Imports the ApolloServer class
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer } = require("apollo-server-express");
+const path = require("path");
+const { authMiddleware } = require("./utils/auth");
+const dotenv = require("dotenv");
 
 const path = require('path');
 // const { authMiddleware } = require('./utils/auth');
@@ -16,8 +19,10 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: authMiddleware,
-  cache: 'bounded',
+  mocks: true,
+  context,
+  context: authMiddleware,
+  cache: "bounded",
 });
 
 app.use(express.urlencoded({ extended: false }));
