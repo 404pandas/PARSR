@@ -19,7 +19,7 @@ import ViewPets from './pages/ViewPets';
 
 /// IMPORT COMPONENTS ///
 import ProtectRoute from './components/ProtectRoute';
-
+import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 
 
@@ -47,6 +47,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <CssBaseline />
       <Router>
         <Routes>
           <Route path='/' element={<Landing />} />
