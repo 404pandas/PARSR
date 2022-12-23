@@ -1,4 +1,6 @@
-  // export const ADD_PET = gql`
+import { Typography } from '@material-ui/core';
+
+// export const ADD_PET = gql`
   // mutation addPet($petId: String!) {
   //   addPet(petId: $petId)
   //   _id

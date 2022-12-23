@@ -1,9 +1,14 @@
 // Component for listing logged in user's pets
 import React from 'react';
+import { ListPage } from 'material-ui-shell/lib/containers/Page'
+import { ListItem, ListItemText, Typography, Divider } from '@mui/material'
+import { useIntl } from 'react-intl'
+import list from './data.json'
 
 const PetList = ({ pets, title }) => {
+  const intl = useIntl()
   if (!pets.length) {
-    return <h3>No Pets Yet</h3>;
+    return <h3>No Pets Have Been Added Yet!</h3>;
   }
 
   return (

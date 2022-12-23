@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import { Typography } from '@material-ui/core';
 
 import Auth from '../utils/auth';
 import { savePet, searchMissingPets } from '../utils/API';

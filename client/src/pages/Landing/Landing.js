@@ -1,4 +1,5 @@
 import React from 'react';
+import { components } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import '../App.css';
@@ -13,8 +14,9 @@ const center = {
   lng: -38.523
 };
 
-function Landing () {
+const Landing = (props) => {
   return (
+    <>
     <main>
       <Link to='/signup' style={{ textDecoration: 'none' }}>
         <h1>Sign Up now</h1>
@@ -38,6 +40,7 @@ function Landing () {
       </GoogleMap>
     </LoadScript>
     </main>
+    </>
   )
 }
 ;
