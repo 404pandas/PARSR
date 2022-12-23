@@ -155,3 +155,171 @@ Arguments allow clients to pass variable along with Queries that can be used in 
 Must be defined in schema
 Can be added to any field
 Either all scalars or types
+
+Client side:
+Uses proxy for queries and mutations
+
+Apollo Playground
+Left side- query or mutation that the client requests, right side is results from the server
+
+Operation names
+Unique names for client side Query and Mutation operations. Used for client side caching, indexing inside tools like graphQL Playground or Apollo Playground. You can name functions in Javascript instead of keeping them anonymous from the server side
+
+Operation name syntax-
+query AllPets {
+  pets {
+    name
+  }
+}
+
+Variables with arguments
+Dynamic variables are substitutions for arguments that can be passed dynamically at execution time from application.
+
+Turning example into dynamic variable argument:
+
+
+
+query AllPets {
+  pets {
+    results {
+      name
+    }
+  }
+}
+
+Add variable to pets
+
+query AllPets {
+  pets(page: 2) {
+    results {
+      name
+    }
+  }
+}
+
+Add dynamic variable to AllPets
+
+Add $
+$ represents that I'm creating a placeholder (just like an argument in a function in Javascript). Describe an argument that the AllPets operation can accept. Can name whatever, just use $ first
+
+query AllPets($) {
+  pets(page: 2) {
+    results {
+      name
+    }
+  }
+}
+
+Add the dynamic variable after the $
+
+query AllPets($page: ) {
+  pets(page: 2) {
+    results {
+      name
+    }
+  }
+}
+
+Add variable type
+
+query AllPets($page: Int) {
+  pets(page: 2) {
+    results {
+      name
+    }
+  }
+}
+
+Replace variable on pets with dynamic placeholder
+query AllPets($page: Int) {
+  pets(page: $page) {
+    results {
+      name
+    }
+  }
+}
+
+Where it goes-
+
+What it does-
+Declares a variable/argument for the operation AllPets. Sets the variable type as an Interger. 
+
+Add Query Variables in bottom of lefthand side of Apollo Playground
+
+{"page": 1}
+
+Run Query to test
+
+Change query variable
+
+{"page": 2}
+
+Run Query to teset
+
+Adding Filter to GraphQL
+
+Add dynamic filter variable
+
+query AllPets($page: Int, $filterPet: FilterPet) {
+  pets(page: $page) {
+    results {
+      name
+    }
+  }
+}
+
+Add variable to query
+
+{"page": 1, "filter": {"name": "Cossette"}}
+
+Add variable to pets argument
+
+query AllPets($page: Int, $filterPet: FilterPet) {
+  pets(page: $page, filter: $filter) {
+    results {
+      name
+    }
+  }
+}
+
+Adding arguments to field level (name)
+
+query AllPets($page: Int, $filterPet: FilterPet, $isMissing) {
+  pets(page: $page, filter: $filter) {
+    results {
+      name,
+      isMissing()
+    }
+  }
+}
+
+Adding directives
+Directives can be attatched to a field or fragment inclusion and can affect execution of the query in any way the server desires.
+
+query MissingPets($variable: Variable, $isMissing:
+pet(variable: @variable) {
+  pets @include(if: $isMissing) {
+    name
+  }
+}
+
+Query Variables:
+{
+"name": "Cossette",
+"isMissing": true
+}
+
+Multiple queries supported (be careful so it doesn't bog down the app)
+
+Mutations client side
+Mutations aren't cached but the operations are still indexed so client side tools can reference the operations
+
+mutation addPet() {
+  addPet() {
+
+  }
+}
+
+
+
+Client side mutations

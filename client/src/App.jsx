@@ -27,11 +27,14 @@ import useStyles from "./styles";
 // that returns an object that contains all the styles.
 // Theme allows additional styling
 
+// Network interface to access a graphQL server. Points to server
+// Can use public API uri
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
 
-/// SET CONTEXT ///
+// Sets auth link and returns headers
+// according to id_token
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
   return {
@@ -42,8 +45,10 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-/// SET UP CLIENT ///
+// Initializes client for Apollo Playground
+// Caches results in apollo's InMemoryCache
 const client = new ApolloClient({
+  // Adds authlink and httplink together
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
