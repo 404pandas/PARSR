@@ -1,20 +1,104 @@
-import React from 'react';
+// Future Development
+// List component to render pet cards for saved pets
 
-// This List component accepts props from App.js
-// We pluck off the "users" property of the props object using destructuring assignment
-// This prevents us from having to type `props.users` each time we want to refer to the users object
-export default function List({ savedPets }) {
+import React from 'react'
+import { ListPage } from 'material-ui-shell/lib/containers/Page'
+import { ListItem, ListItemText, Typography, Divider } from '@mui/material'
+import { useIntl } from 'react-intl'
+// Future development
+// add dummy data in SavedPetList folder and uncomment the next line
+// import list from './data.json'
+
+// Future Development
+// Specify fields for SavedPetlist using dummy data provided in data.json
+const fields = [
+  {
+    name: 'name',
+    label: 'Name',
+  },
+  {
+    name: 'email',
+    label: 'E-Mail',
+  },
+  {
+    name: 'amount',
+    label: 'Amount',
+    type: 'number',
+  },
+  {
+    name: 'isActive',
+    label: 'Active',
+    type: 'bool',
+  },
+  {
+    name: 'registered',
+    label: 'Registered',
+    type: 'date',
+  },
+  {
+    name: 'registrationTime',
+    label: 'Registration time',
+    type: 'time',
+  },
+]
+
+const Row = ({ index, style, data }) => {
+  const { name, amount = '', registered, email } = data
+
   return (
-    <div className="container">
-      <h1>Saved Pets:</h1>
-      <ul className="list-group">
-        {/* Here we use the map method to iterate through each pet and return a new array of list items for each user */}
-        {savedPets.map((pets) => (
-          <li className="list-group-item" key={user.login.uuid}>
-            {`${pet.name} ${pet.description} (${user.login.username})`}
-          </li>
-        ))}
-      </ul>
+    <div key={`${name}_${index}`} style={style}>
+      <ListItem alignItems="flex-start">
+        <ListItemText
+          primary={`${name} ${index}`}
+          secondary={
+            <React.Fragment>
+              <Typography
+                component="span"
+                variant="body2"
+                color="textSecondary"
+              >
+                {email}
+              </Typography>
+              <br />
+              <Typography
+                component="span"
+                variant="body2"
+                color="textSecondary"
+              >
+                {`${amount} ${registered}`}
+              </Typography>
+            </React.Fragment>
+          }
+        />
+      </ListItem>
+      <Divider />
     </div>
-  );
+  )
 }
+
+const SavedPetList = () => {
+  const intl = useIntl()
+
+  return (
+    // Renders the saved pet list
+    <ListPage
+      name="list_demo"
+      list={list}
+      fields={fields}
+      Row={Row}
+      listProps={{ itemSize: 91 }}
+      getPageProps={(list) => {
+        return {
+          pageTitle: intl.formatMessage(
+            {
+              id: 'list_page_demo',
+              defaultMessage: 'List Page demo with {count} rows',
+            },
+            { count: list.length }
+          ),
+        }
+      }}
+    />
+  )
+}
+export default SavedPetList

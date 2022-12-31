@@ -1,13 +1,13 @@
-import React from "react";
-import AddPetForm from "../components/AddPetForm";
+import { components } from '@material-ui/core';
 
-const ViewPets = () => {
-  return (
-    <>
-      <div>ViewPets</div>
-      <AddPetForm></AddPetForm>
-    </>
-  );
-};
+const ViewPets = (props) => { 
+    return (
+<>
+<main>
+    
+</main>
+</>
+    );
+}
 
 export default ViewPets;

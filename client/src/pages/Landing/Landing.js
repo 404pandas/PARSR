@@ -1,11 +1,22 @@
 import React from 'react';
-// require('dotenv').config();
+import { components } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import '../App.css';
 
-function Landing () {
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
+
+const center = {
+  lat: -3.745,
+  lng: -38.523
+};
+
+const Landing = (props) => {
   return (
+    <>
     <main>
       <Link to='/signup' style={{ textDecoration: 'none' }}>
         <h1>Sign Up now</h1>
@@ -29,27 +40,9 @@ function Landing () {
       </GoogleMap>
     </LoadScript>
     </main>
+    </>
   )
 }
 ;
 
-const containerStyle = {
-  width: '400px',
-  height: '400px'
-};
-
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
-
-// class Landing extends Map {
-//   render() {
-//     return (
-    
-//   )
-// }
-// };
-
 export default Landing;
-;

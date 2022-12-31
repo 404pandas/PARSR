@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import { components } from '@material-ui/core';
 
 import { getMe, deletePet } from '../utils/API';
 import Auth from '../utils/auth';
 import { removePetId } from '../utils/localStorage';
 
-const SavedPets = () => {
+const SavedPets = (props) => {
   const [petData, setPetData] = useState({});
 
   // use this to determine if `useEffect()` hook needs to run again

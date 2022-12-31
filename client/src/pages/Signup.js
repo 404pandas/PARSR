@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { components } from '@material-ui/core';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
-const Signup = () => {
+const Signup = (props) => {
 
   const [formState, setFormState] = useState({
     username: '',
@@ -41,6 +41,7 @@ const Signup = () => {
   };
 
   return (
+    <>
     <main>
       {data ? (
         <p variant='subtitle1'>Successfully created an account. You may now head{' '}<Link to='/'>back to the hompage.</Link></p>
@@ -79,6 +80,7 @@ const Signup = () => {
         </div>
       )}
     </main>
+    </>
   );
 };
 

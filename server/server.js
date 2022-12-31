@@ -1,7 +1,9 @@
 const express = require('express');
 
 // Imports the ApolloServer class
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer } = require("apollo-server-express");
+// const { authMiddleware } = require("./utils/auth");
+
 const path = require('path');
 // const { authMiddleware } = require('./utils/auth');
 const dotenv = require('dotenv')
@@ -15,8 +17,9 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  mocks: true,
   // context: authMiddleware,
-  cache: 'bounded',
+  cache: "bounded",
 });
 
 app.use(express.urlencoded({ extended: false }));
@@ -28,8 +31,8 @@ if (process.env.NODE_ENV === 'production') {
 };
 
 // Prints in the browser
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname));
 });
 
 // Creates a new instance of an Apollo server with the GraphQL schema

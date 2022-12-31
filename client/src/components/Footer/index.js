@@ -1,8 +1,8 @@
 import React from 'react';
-
+import { Footer } from '@material-ui/core';
 const Footer = () => {
   return (
-    <footer className="w-100 mt-auto bg-secondary p-4">
+    <TableFooter className="w-100 mt-auto bg-secondary p-4">
       <div className="container text-center mb-5">
         <h4>
           Made with{' '}
@@ -17,8 +17,8 @@ const Footer = () => {
           by Mary Elenius & Fur-iendly Felines
         </h4>
       </div>
-    </footer>
+    </TableFooter>
   );
 };
 
-export default Footer;
+export default TableFooter;
