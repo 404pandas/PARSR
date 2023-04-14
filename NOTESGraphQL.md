@@ -76,7 +76,7 @@ A Query is a type on a schema that defines operations clients can perform to acc
 
 Resolvers
 
-Resolvers create the functions that fulfill the queries that have been defined. Resolvers execution is dependent on the incoming client Query. These must always be a 1-to-1 ratio with Queries. Resolver names must match the exact field name on your schema's types
+Resolvers create the functions that fulfill the queries that have been defined. Resolvers execution is dependent on the incoming client Query. These must always be a 1-to-1 ratio with Queries. Resolver names must match the exact field name on your schema's types. Resolvers must return the value type declared for the matching field.
 
 const resolvers = {
     Query: {
@@ -104,6 +104,22 @@ The me() function is chained to return the data that satisfies the User type. Si
 
 Arguments
 
+Input Type- Used for arguments
+All field value types must be other Input Types or Scalars
+
+input PetInput {
+  name: String
+  type: String
+}
+
+Note- put Input after the name so that it's easily identified as an input
+
+module.exports = {
+  Query: {
+    pets(_, {input}, context) {
+      return context.models.Pet.findMany(context);
+    },
+Name for Query resolver (pets) matches the name of the Query in the schema (pets)
 
 Other notes-
 To keep my code squeeky clean I separated my resolvers and typeDefs into different files and exported them using the following code at the bottom:
@@ -320,6 +336,8 @@ mutation addPet() {
   }
 }
 
-
-
 Client side mutations
+
+Input Type
+Just like types, but used for Arguments
+All field value types mmust be other Input Types or Scalars
