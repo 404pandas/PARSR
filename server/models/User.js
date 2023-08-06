@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 // }
 
 // Import schema from Pet.js
-const savedPetSchema = require('./savedPet')
+const petSchema = require("./Pet");
 
 const userSchema = new Schema(
   {
@@ -37,8 +37,9 @@ const userSchema = new Schema(
         ref: "Pet",
       },
     ],
+    // FUTURE DEVELOPMENT
     // Sets savedPets as an array of data that adheres to the savedPetSchema
-    savedPets: [savedPetSchema],
+    // savedPets: [savedPetSchema],
   },
   // Sets this to use virtual below
   {
@@ -64,7 +65,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 // When we query a user, we'll also get another field called `savedPetCount` with the number of saved pets they have
-userSchema.virtual('savedPetCount').get(function () {
+userSchema.virtual("savedPetCount").get(function () {
   return this.savedPets.length;
 });
 

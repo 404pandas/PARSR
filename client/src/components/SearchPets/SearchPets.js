@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Typography } from '@material-ui/core';
+import React, { useState, useEffect } from "react";
+import { Typography } from "@material-ui/core";
 
-import Auth from '../utils/auth';
-import { savePet, searchMissingPets } from '../utils/API';
-import { savePetIds, getSavedPetIds } from '../utils/localStorage';
+import Auth from "../utils/auth";
+import { savePet, searchMissingPets } from "../utils/API";
+import { savePetIds, getSavedPetIds } from "../utils/localStorage";
+
+import "./style.css";
 
 const SearchPets = () => {
   // create state for holding returned google api data
   const [searchedPets, setSearchedPets] = useState([]);
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
 
   // create state to hold saved PetId values
   const [savedPetIds, setSavedPetIds] = useState(getSavedPetIds());
@@ -32,21 +34,21 @@ const SearchPets = () => {
       const response = await searchGooglePets(searchInput);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const { items } = await response.json();
 
       const PetData = items.map((Pet) => ({
         PetId: Pet.id,
-        users: Pet.volumeInfo.users || ['No owner to display'],
+        users: Pet.volumeInfo.users || ["No owner to display"],
         title: Pet.volumeInfo.title,
         description: Pet.volumeInfo.description,
-        image: Pet.volumeInfo.imageLinks?.thumbnail || '',
+        image: Pet.volumeInfo.imageLinks?.thumbnail || "",
       }));
 
       setSearchedPets(PetData);
-      setSearchInput('');
+      setSearchInput("");
     } catch (err) {
       console.error(err);
     }
@@ -68,7 +70,7 @@ const SearchPets = () => {
       const response = await savePet(PetToSave, token);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       // if Pet successfully saves to user's account, save Pet id to state
@@ -109,14 +111,18 @@ const SearchPets = () => {
         <h2>
           {searchedPets.length
             ? `Viewing ${searchedPets.length} results:`
-            : 'Search for a Pet to begin'}
+            : "Search for a Pet to begin"}
         </h2>
         <CardColumns>
           {searchedPets.map((Pet) => {
             return (
               <Card key={Pet.PetId} border='dark'>
                 {Pet.image ? (
-                  <Card.Img src={Pet.image} alt={`The cover for ${Pet.title}`} variant='top' />
+                  <Card.Img
+                    src={Pet.image}
+                    alt={`The cover for ${Pet.title}`}
+                    variant='top'
+                  />
                 ) : null}
                 <Card.Body>
                   <Card.Title>{Pet.title}</Card.Title>
@@ -124,12 +130,17 @@ const SearchPets = () => {
                   <Card.Text>{Pet.description}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={savedPetIds?.some((savedPetId) => savedPetId === Pet.PetId)}
+                      disabled={savedPetIds?.some(
+                        (savedPetId) => savedPetId === Pet.PetId
+                      )}
                       className='btn-block btn-info'
-                      onClick={() => handleSavePet(Pet.PetId)}>
-                      {savedPetIds?.some((savedPetId) => savedPetId === Pet.PetId)
-                        ? 'This Pet has already been saved!'
-                        : 'Save this Pet!'}
+                      onClick={() => handleSavePet(Pet.PetId)}
+                    >
+                      {savedPetIds?.some(
+                        (savedPetId) => savedPetId === Pet.PetId
+                      )
+                        ? "This Pet has already been saved!"
+                        : "Save this Pet!"}
                     </Button>
                   )}
                 </Card.Body>

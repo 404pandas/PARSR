@@ -1,7 +1,7 @@
 {
-  "name": "PARSR",
+  "name": "parsr",
   "version": "1.0.0",
-  "description": "",
+  "description": "Root for PARSR app",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -14,12 +14,5 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  },
-  "dependencies": {
-    "apollo-server-express": "^3.10.1",
-    "axios": "^1.2.1",
-    "dotenv": "^16.0.2",
-    "express": "^4.18.1",
-    "graphql": "^16.5.0"
   }
 }

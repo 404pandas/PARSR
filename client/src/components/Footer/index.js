@@ -1,24 +1,25 @@
-import React from 'react';
-import { Footer } from '@material-ui/core';
+import React from "react";
+import "./style.css";
+
 const Footer = () => {
   return (
-    <TableFooter className="w-100 mt-auto bg-secondary p-4">
-      <div className="container text-center mb-5">
+    <footer>
+      <div>
         <h4>
-          Made with{' '}
+          Made with{" "}
           <span
-            className="emoji"
-            role="img"
-            aria-label="heart"
-            aria-hidden="false"
+            className='emoji'
+            role='img'
+            aria-label='heart'
+            aria-hidden='false'
           >
             ❤️
-          </span>{' '}
-          by Mary Elenius & Fur-iendly Felines
+          </span>{" "}
+          by Mary Elenius & All Animal Rescue & Rehabilitation
         </h4>
       </div>
-    </TableFooter>
+    </footer>
   );
 };
 
-export default TableFooter;
+export default Footer;

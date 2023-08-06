@@ -1,65 +1,60 @@
 /* eslint-disable react/jsx-key */
-import React, { lazy } from 'react'
-import AuthorizedRoute from 'base-shell/lib/components/AuthorizedRoute'
-import UnauthorizedRoute from 'base-shell/lib/components/UnauthorizedRoute'
+import React, { lazy } from "react";
+import AuthorizedRoute from "base-shell/lib/components/AuthorizedRoute";
+import UnauthorizedRoute from "base-shell/lib/components/UnauthorizedRoute";
 
-const SignIn = lazy(() => import('../pages/SignIn/SignIn'))
-
-const SignUp = lazy(() => import('../pages/SignUp/SignUp'))
-const PasswordReset = lazy(() => import('../pages/PasswordReset/PasswordReset'))
-const About = lazy(() => import('../pages/About'))
-const Home = lazy(() => import('../pages/Home/Home'))
-const DialogDemo = lazy(() => import('../pages/DialogDemo/DialogDemo'))
-const ToastDemo = lazy(() => import('../pages/ToastDemo/ToastDemo'))
-const FilterDemo = lazy(() => import('../pages/FilterDemo'))
-const ListPageDemo = lazy(() => import('../pages/ListPageDemo'))
-const TabsDemo = lazy(() => import('../pages/TabsDemo'))
-const MyAccount = lazy(() => import('../pages/MyAccount/MyAccount'))
+const SignIn = lazy(() => import("../pages/Login"));
+const SignUp = lazy(() => import("../pages/Signup"));
+const PasswordReset = lazy(() => import("../pages/PasswordReset"));
+const About = lazy(() => import("../pages/About"));
+const Home = lazy(() => import("../pages/Landing"));
+const PageNotFound = lazy(() => import("../pages/PageNotFound"));
+const UserDashboard = lazy(() => import("../pages/UserDashboard"));
 
 const routes = [
   {
-    path: '/signin',
+    path: "/signin",
     exact: true,
     element: (
       <UnauthorizedRoute>
-        <SignIn redirectTo="/home" />
+        <SignIn redirectTo='/home' />
       </UnauthorizedRoute>
     ),
   },
   {
-    path: '/signup',
+    path: "/signup",
     exact: true,
     element: (
       <UnauthorizedRoute>
-        <SignUp redirectTo="/home" />
+        <SignUp redirectTo='/home' />
       </UnauthorizedRoute>
     ),
   },
   {
-    path: '/password_reset',
+    path: "/password_reset",
     exact: true,
     element: (
       <UnauthorizedRoute>
-        <PasswordReset redirectTo="/home" />
+        <PasswordReset redirectTo='/home' />
       </UnauthorizedRoute>
     ),
   },
   {
-    path: '/about',
+    path: "/about",
     exact: true,
     element: <About />,
   },
   {
-    path: '/my_account',
+    path: "/dashboard",
     exact: true,
     element: (
       <AuthorizedRoute>
-        <MyAccount />
+        <UserDashboard />
       </AuthorizedRoute>
     ),
   },
   {
-    path: '/home',
+    path: "/home",
     exact: true,
     element: (
       <AuthorizedRoute>
@@ -68,50 +63,10 @@ const routes = [
     ),
   },
   {
-    path: '/dialog_demo',
+    path: "/*",
     exact: true,
-    element: (
-      <AuthorizedRoute>
-        <DialogDemo />
-      </AuthorizedRoute>
-    ),
+    element: <PageNotFound />,
   },
-  {
-    path: '/toast_demo',
-    exact: true,
-    element: (
-      <AuthorizedRoute>
-        <ToastDemo />
-      </AuthorizedRoute>
-    ),
-  },
-  {
-    path: '/filter_demo',
-    exact: true,
-    element: (
-      <AuthorizedRoute>
-        <FilterDemo />
-      </AuthorizedRoute>
-    ),
-  },
-  {
-    path: '/list_page_demo',
-    exact: true,
-    element: (
-      <AuthorizedRoute>
-        <ListPageDemo />
-      </AuthorizedRoute>
-    ),
-  },
-  {
-    path: '/tabs_demo',
-    exact: true,
-    element: (
-      <AuthorizedRoute>
-        <TabsDemo />
-      </AuthorizedRoute>
-    ),
-  },
-]
+];
 
-export default routes
+export default routes;

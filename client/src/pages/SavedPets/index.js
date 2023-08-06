@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { components } from '@material-ui/core';
+import React, { useState, useEffect } from "react";
+import { getMe, deletePet } from "../utils/API";
+import Auth from "../utils/auth";
+import { removePetId } from "../utils/localStorage";
 
-import { getMe, deletePet } from '../utils/API';
-import Auth from '../utils/auth';
-import { removePetId } from '../utils/localStorage';
+import Jumbotron from "@mui/material/Jumbotron";
+import Container from "@mui/material/Container";
+import CardColumns from "@mui/material/CardColumns";
+import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
 
 const SavedPets = (props) => {
   const [petData, setPetData] = useState({});
@@ -23,7 +27,7 @@ const SavedPets = (props) => {
         const response = await getMe(token);
 
         if (!response.ok) {
-          throw new Error('something went wrong!');
+          throw new Error("something went wrong!");
         }
 
         const pet = await response.json();
@@ -45,16 +49,16 @@ const SavedPets = (props) => {
     }
 
     try {
-      const response = await deletePet(petId, token);
+      const response = await deletePet(PetId, token);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const updatedPet = await response.json();
       setPetData(updatedPet);
       // upon success, remove pet's id from localStorage
-      removePetId(petId);
+      removePetId(PetId);
     } catch (err) {
       console.error(err);
     }
@@ -75,20 +79,32 @@ const SavedPets = (props) => {
       <Container>
         <h2>
           {petData.savedPets.length
-            ? `Viewing ${petData.savedPets.length} saved ${petData.savedPets.length === 1 ? 'pet' : 'pets'}:`
-            : 'You have no saved pets! Please use the search bar to find missing pets in your area!'}
+            ? `Viewing ${petData.savedPets.length} saved ${
+                petData.savedPets.length === 1 ? "pet" : "pets"
+              }:`
+            : "You have no saved pets! Please use the search bar to find missing pets in your area!"}
         </h2>
         <CardColumns>
           {petData.savedPets.map((pet) => {
             return (
               <Card key={pet.petId} border='dark'>
-                {pet.image ? <Card.Img src={pet.image} alt={`The cover for ${pet.title}`} variant='top' /> : null}
+                {pet.image ? (
+                  <Card.Img
+                    src={pet.image}
+                    alt={`The cover for ${pet.title}`}
+                    variant='top'
+                  />
+                ) : null}
                 <Card.Body>
                   <Card.Title>{pet.title}</Card.Title>
                   <p className='small'>Owners: {pet.users}</p>
                   <Card.Text>{pet.description}</Card.Text>
-                  <Button className='btn-block btn-danger' onClick={() => handleDeletePet(pet.petId)}>
-                    Remove this pet. Please only consider this option if the pet has been located!
+                  <Button
+                    className='btn-block btn-danger'
+                    onClick={() => handleDeletePet(pet.petId)}
+                  >
+                    Remove this pet. Please only consider this option if the pet
+                    has been located!
                   </Button>
                 </Card.Body>
               </Card>

@@ -1,22 +1,22 @@
 // see SignupForm.js for comments
-import React, { useState } from 'react';
-import { Typography } from '@material-ui/core';
-import { loginUser } from '../../utils/API';
-import Auth from '../../utils/auth';
-
+import React, { useState } from "react";
+import { Typography } from "@material-ui/core";
+import { loginUser } from "../../utils/API";
+import Auth from "../../utils/auth";
+import "./style.css";
 
 // export const LOGIN_USER = gql`
-  // mutation login($email: String!, $password: String!) {
-  //   login(email: $email, password: $password) {
-  //     token
-  //     user {
-  //       _id
-  //       username
-  //     }
-  //   }
-  // }
+// mutation login($email: String!, $password: String!) {
+//   login(email: $email, password: $password) {
+//     token
+//     user {
+//       _id
+//       username
+//     }
+//   }
+// }
 const LoginForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -39,7 +39,7 @@ const LoginForm = () => {
       const response = await loginUser(userFormData);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error("something went wrong!");
       }
 
       const { token, user } = await response.json();
@@ -51,16 +51,21 @@ const LoginForm = () => {
     }
 
     setUserFormData({
-      username: '',
-      email: '',
-      password: '',
+      username: "",
+      email: "",
+      password: "",
     });
   };
 
   return (
     <>
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+        <Alert
+          dismissible
+          onClose={() => setShowAlert(false)}
+          show={showAlert}
+          variant='danger'
+        >
           Something went wrong with your login credentials!
         </Alert>
         <Form.Group>
@@ -73,7 +78,9 @@ const LoginForm = () => {
             value={userFormData.email}
             required
           />
-          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
+          <Form.Control.Feedback type='invalid'>
+            Email is required!
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group>
@@ -86,12 +93,15 @@ const LoginForm = () => {
             value={userFormData.password}
             required
           />
-          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
+          <Form.Control.Feedback type='invalid'>
+            Password is required!
+          </Form.Control.Feedback>
         </Form.Group>
         <Button
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
-          variant='success'>
+          variant='success'
+        >
           Submit
         </Button>
       </Form>
