@@ -14,25 +14,25 @@ const petSchema = new Schema(
   {
     petName: {
       type: String,
-      required: "You need to enter a pet name!",
       minlength: 1,
       maxlength: 280,
       trim: true,
     },
     animalType: {
       type: String,
-      required: "You need to select an animal type!",
       trim: true,
     },
     description: {
       type: String,
-      required: "You need to add a physical description!",
     },
     microchipRegistry: {
       type: String,
     },
     microchipNumber: {
       type: Number,
+    },
+    petOwner: {
+      type: String,
     },
   },
   {

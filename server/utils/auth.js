@@ -1,39 +1,38 @@
+const { GraphQLError } = require("graphql");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
-// sets token secret and expiration date
-const secret = process.env.JWT_SECRET || "thisissupersecret";
+const secret = "puppos";
 const expiration = "2h";
 
 module.exports = {
-  // Function for authenticated routes
-  authMiddleware: function (req, res, next) {
-    // allows token to be sent via req.body, req.query, or req.headers
+  authMiddleware: function ({ req }) {
+    // Token sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
 
-    // ["Bearer", "<tokenvalue>"]
+    // Splits token string into an array and returns actual token
     if (req.headers.authorization) {
       token = token.split(" ").pop().trim();
     }
 
+    console.log("token: ", token);
+
     if (!token) {
-      return res.status(400).json({ message: "You have no token!" });
+      return req;
     }
 
-    // verifies token and gets user data out of it
+    // If token verified, adds decoded user's data to req so it can be accessed in server/schemas/resolvers.js
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch {
-      console.log("Invalid token");
-      return res.status(400).json({ message: "invalid token!" });
+      console.log("Invalid token!");
     }
 
-    // send to next endpoint
-    next();
+    // Rreturns req object to be passed to server/schemas/resolvers.js as "context" *IMPORTANT CONCEPT TO LEARN!*
+    return req;
   },
-  signToken: function ({ username, email, _id }) {
-    const payload = { username, email, _id };
+  signToken: function ({ firstName, email, _id }) {
+    const payload = { firstName, email, _id };
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },

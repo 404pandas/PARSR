@@ -10,19 +10,17 @@ const bcrypt = require("bcrypt");
 // }
 
 // Import schema from Pet.js
-const petSchema = require("./Pet");
+const petSchema = require("./Pet").schema;
 
 const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
       unique: true,
       trim: true,
     },
     email: {
       type: String,
-      required: true,
       unique: true,
       match: [/.+@.+\..+/, "Must use a valid email address"],
     },
@@ -31,12 +29,7 @@ const userSchema = new Schema(
       required: true,
       minlength: 3,
     },
-    pets: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Pet",
-      },
-    ],
+    pets: [petSchema],
     // FUTURE DEVELOPMENT
     // Sets savedPets as an array of data that adheres to the savedPetSchema
     // savedPets: [savedPetSchema],
@@ -63,11 +56,6 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
-
-// When we query a user, we'll also get another field called `savedPetCount` with the number of saved pets they have
-userSchema.virtual("savedPetCount").get(function () {
-  return this.savedPets.length;
-});
 
 const User = model("User", userSchema);
 

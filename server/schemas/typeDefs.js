@@ -1,5 +1,3 @@
-const { gql } = require("apollo-server-express");
-
 // Future development //
 //
 // Change animalType from string to enum AllowedType //
@@ -21,22 +19,22 @@ const { gql } = require("apollo-server-express");
 
 // savedPets is a virtual
 
-const typeDefs = gql`
+const typeDefs = `
   type User {
-    _id: ID!
-    username: String!
-    email: String!
+    _id: ID
+    username: String
+    email: String
     pets: [Pet]
-    savedPets: [Pet]
   }
 
   type Pet {
-    _id: ID!
-    petName: String!
-    animalType: String!
-    description: String!
+    _id: ID
+    petName: String
+    animalType: String
+    description: String
     microchipRegistry: String
     microchipNumber: Int
+    petOwner: String
   }
 
   type Auth {
@@ -44,34 +42,37 @@ const typeDefs = gql`
     user: User
   }
 
+  input AddPetInput {
+    petName: String
+    animalType: String
+    description: String
+    microchipRegistry: String
+    microchipNumber: Int
+    petOwner: String
+  }
+
+  input UpdatePetInput {
+    petName: String
+    animalType: String
+    description: String
+    microchipRegistry: String
+    microchipNumber: Int
+    petOwner: String
+  }
+
   type Query {
     users: [User]
+    me: User
     user(userId: ID!): User
     pets: [Pet]
     pet(petId: ID!): Pet
-    me: User
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    updateUser(username: String!, email: String!, password: String!): User
-    addPet(
-      petId: ID!
-      petName: String!
-      animalType: String!
-      description: String!
-      microchipRegistry: String
-      microchipNumber: Int
-    ): Pet
-    updatePet(
-      petId: ID!
-      petname: String!
-      animalType: String!
-      description: String!
-      microchipRegistry: String
-      microchipNumber: Int
-    ): Pet
+    addPet(petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: Int, petOwner: String): Pet
+    updatePet(_id: ID, petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: Int, petOwner: String): Pet
     removePet(petId: ID!): Pet
   }
 `;

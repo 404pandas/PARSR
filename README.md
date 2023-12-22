@@ -16,13 +16,17 @@
 
 <div align="center">
   <a href="https://github.com/404pandas/PARSR">
-    <img src="/client/src/images/FFRlogo.png" alt="Logo" width="80" height="80">
+    <img src="./client/src/images/breed-hunter-logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">PARSR</h3>
+  <h3 align="center">PARSR</h3>
 
   <p align="center">
-Project Animal Reunification Search & Rescue    <br />
+    Project Animal Reunification Search & Rescue    <br />
+    <a href="https://github.com/404pandas/PARSR">
+      <img src="./client/src/images/aarr.png" alt="Logo" width="80" height="80">
+    </a><br />
+    Brought to you by All Animal Rehabilitation & Release<br />
     <a href="https://github.com/404pandas/PARSR"><strong>Explore the docs »</strong></a>
     <br />
     <br />
@@ -31,6 +35,7 @@ Project Animal Reunification Search & Rescue    <br />
     <a href="https://github.com/404pandas/PARSR/issues">Report Bug</a>
     ·
     <a href="https://github.com/404pandas/PARSR/issues">Request Feature</a>
+
   </p>
 </div>
 
@@ -106,9 +111,25 @@ Once the app is functional, screenshots will be added in this section.
 
 ## Roadmap
 
-- [ ] Map
+#### MVP
+
+- [ ] Front End
+  - [ ] Routing
+  - [ ] Map (Markers, Search area)
+  - [ ] Profile
+  - [ ] Landing
+  - [ ] User Auth
+  - [ ] Pets
+- [ ] Back End
+  - [ ] Typedefs
+  - [ ] Resolvers
+  - [ ] Seeds
+  - [ ] User Auth
+
+#### Future Development
+
 - [ ] Stripe
-- [ ] Twilio
+- [ ] Chat
 
 See the [open issues](https://github.com/404pandas/PARSR/issues) for a full list of proposed features (and known issues).
 
@@ -139,7 +160,7 @@ See LICENSE.txt for more information.
 
 ## Contact
 
-Mary Elenius - mary.panda.jackson@gmail.com
+[Mary Elenius](https://maryelenius.com/d20) - mary.panda.jackson@gmail.com
 
 Project Link: [https://github.com/404pandas/PARSR](https://github.com/404pandas/PARSR)
 

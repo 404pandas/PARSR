@@ -1,99 +1,142 @@
-const { AuthenticationError } = require('apollo-server-express');
-const { User, Pet } = require('../models');
-const { signToken } = require('../utils/auth');
+const { AuthenticationError } = require("apollo-server-express");
+const { User, Pet } = require("../models");
+const { signToken } = require("../utils/auth");
 
 // Creates the functions that fulfill the queries defined in typeDefs
 const resolvers = {
   Query: {
-    /// GETS MULTIPLE USERS ///
-    //     users: [User]
+    // Multiple users
     users: async () => {
-      return User.find().populate('pets');
+      return User.find().populate("pets");
     },
-    /// GETS ONE USER ///
-    //     user(userId: ID!): User
-    user: async (parent, { userId }, context) => {
+    // user profile
+    me: async (parent, args, context) => {
       if (context.user) {
-        const user = await (await User.findOne({ _id: userId }).select('-__v -password'));
+        // Populate the pets subdocument on every instance of User
+        const userData = await User.findOne({ _id: context.user._id })
+          .select("-__v -password")
+          .populate("pets");
+
+        return userData;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    //  Single user
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id)
+          .select("-__v -password")
+          .populate("pets");
+
+        user.pets.sort((a, b) => b.petName - a.petName);
 
         return user;
       }
 
-      // throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
-    // Field that will return an array of Pet instances
-    // pets: [Pet]
-    pets: async (parent, { userId }, context) => {
+    // all pets
+    pets: async (parent, { userId }) => {
       const params = userId ? { userId } : {};
-      return Pet.find(params).sort({ createdAt: -1 });
+      return Pet.find(params).sort({ petName: -1 });
     },
-    // GETS PETS FROM USER ID
-    // pet(petId: ID!): Pet
-    pet: async (parent, { petId, petName }, context) => {
-      console.log('hit');
-      console.log(petName)
-      if (context.user) {
-        const PetData = await (await Pet.findOne({ _id: petId }));
-
-        return PetData;
-      }
-
-      throw new AuthenticationError('Not logged in');
+    // single pet
+    pet: async (parent, { petId }) => {
+      return Pet.findOne({ _id: petId });
     },
-    // GETS PERSONAL PETS
-    // me: User
-    me: async (parent, args, context) => {
-      if (context.user) {
-        // Populate the pets subdocument on every instance of User
-        return User.findOne({ _id: context.user._id }).populate('pets');
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-  }, 
-    // query for AllowedType
-    // animalType: AllowedType
-    // animalType: async () => { }
+  },
 
-    // Defines the functions that will fulfill the mutations
+  // Defines the functions that will fulfill the mutations
   Mutation: {
-
-    /// LOGIN ///
-    //     login(email: String!, password: String!): Auth
+    // login
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('No user found with this email address');
+        throw new AuthenticationError("No user found with this email address");
       }
 
       const correctPassword = await user.isCorrectPassword(password);
 
       if (!correctPassword) {
-        throw new AuthenticationError('Incorrect Credentials');
+        throw new AuthenticationError("Incorrect Credentials");
       }
 
       const token = signToken(user);
       return { token, user };
     },
-    /// ADD USER ///
-    //    addUser(username: String!, email: String!, password: String!): Auth
+    // add user
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
-    // addPet(petId: ID!, name: String!, type: String!, description: String!, microchipRegistry: String,
-    //  microchipNumber: Int): Pet
-    addPet: async (parent, { petId }, context) => {
-      console.log('hit')
-      console.log(parent)
-      // Creates and returns new Pet object
-      return await Pet.create({ petId, name,  })
+    // add pet
+    addPet: async (
+      parent,
+      { petName, animalType, description, microchipRegistry, microchipNumber },
+      context
+    ) => {
+      if (context.user) {
+        const addedPet = await Pet.create({
+          petName,
+          animalType,
+          description,
+          microchipRegistry,
+          microchipNumber,
+          petOwner: context.user.username,
+        });
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { pets: addedPet._id } }
+        );
+        return addedPet;
+      }
+      throw new AuthenticationError("Not logged in");
     },
-    removePet: async (parent, args) => {
+    // update pet
+    updatePet: async (
+      parent,
+      { petName, animalType, description, microchipRegistry, microchipNumber },
+      context
+    ) => {
+      if (context.user) {
+        const updatedPet = await Pet.findOneAndUpdate({
+          petName,
+          animalType,
+          description,
+          microchipRegistry,
+          microchipNumber,
+          petOwner: context.user.username,
+        });
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { pets: updatedPet._id } },
+          { new: true }
+        );
 
+        return updatedPet;
+      }
+      throw new AuthenticationError("Not logged in");
     },
-  }
+    // remove pet
+    removePet: async (parent, { petId }, context) => {
+      if (context.user) {
+        const removedPet = await Pet.findOneAndUpdate({
+          _id: petId,
+          petOwner: context.user.username,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { pets: removedPet._id } }
+        );
+
+        return removedPet;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+  },
 };
 
 module.exports = resolvers;
