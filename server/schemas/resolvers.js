@@ -44,6 +44,7 @@ const resolvers = {
     pet: async (parent, { petId }) => {
       return Pet.findOne({ _id: petId });
     },
+    // animal type
   },
 
   // Defines the functions that will fulfill the mutations
@@ -74,7 +75,14 @@ const resolvers = {
     // add pet
     addPet: async (
       parent,
-      { petName, animalType, description, microchipRegistry, microchipNumber },
+      {
+        petName,
+        animalType,
+        description,
+        microchipRegistry,
+        microchipNumber,
+        isMissing,
+      },
       context
     ) => {
       if (context.user) {
@@ -84,6 +92,7 @@ const resolvers = {
           description,
           microchipRegistry,
           microchipNumber,
+          isMissing,
           petOwner: context.user.username,
         });
         await User.findOneAndUpdate(
@@ -97,7 +106,14 @@ const resolvers = {
     // update pet
     updatePet: async (
       parent,
-      { petName, animalType, description, microchipRegistry, microchipNumber },
+      {
+        petName,
+        animalType,
+        description,
+        microchipRegistry,
+        microchipNumber,
+        isMissing,
+      },
       context
     ) => {
       if (context.user) {
@@ -107,6 +123,7 @@ const resolvers = {
           description,
           microchipRegistry,
           microchipNumber,
+          isMissing,
           petOwner: context.user.username,
         });
         await User.findOneAndUpdate(

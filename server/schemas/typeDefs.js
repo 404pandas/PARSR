@@ -30,11 +30,11 @@ const typeDefs = `
   type Pet {
     _id: ID
     petName: String
-    animalType: String
     description: String
     microchipRegistry: String
     microchipNumber: Int
     petOwner: String
+    animalType: AnimalType
   }
 
   type Auth {
@@ -58,6 +58,12 @@ const typeDefs = `
     microchipRegistry: String
     microchipNumber: Int
     petOwner: String
+  }
+
+  enum AnimalType {
+    DOG
+    CAT
+    OTHER
   }
 
   type Query {

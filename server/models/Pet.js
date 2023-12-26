@@ -20,7 +20,7 @@ const petSchema = new Schema(
     },
     animalType: {
       type: String,
-      trim: true,
+      enum: ["DOG", "CAT", "OTHER"],
     },
     description: {
       type: String,
@@ -33,6 +33,11 @@ const petSchema = new Schema(
     },
     petOwner: {
       type: String,
+    },
+    isMissing: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   {
