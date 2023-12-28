@@ -4,16 +4,14 @@
     "animalType": "CAT",
     "description": "A cute and fluffy white cat with blue eyes.",
     "microchipRegistry": "PetRegistry",
-    "microchipNumber": 1234567890,
-    "petOwner": "John Doe"
+    "microchipNumber": 1234567890
   },
   {
     "petName": "Buddy",
     "animalType": "DOG",
     "description": "A friendly golden retriever with a wagging tail.",
     "microchipRegistry": "PetID",
-    "microchipNumber": 9876543210,
-    "petOwner": "John Doe"
+    "microchipNumber": 9876543210
   },
   {
     "petName": "Whiskers",
@@ -25,15 +23,13 @@
     "animalType": "DOG",
     "description": "A loyal and protective German Shepherd.",
     "microchipRegistry": "PetLink",
-    "microchipNumber": 5678901234,
-    "petOwner": "John Doe"
+    "microchipNumber": 5678901234
   },
   {
     "petName": "beardie",
     "animalType": "OTHER",
     "description": "A loyal and protective German bearded dragon (yes it's a thing).",
     "microchipRegistry": "PetLink",
-    "microchipNumber": 5678901224,
-    "petOwner": "John Doe"
+    "microchipNumber": 5678901224
   }
 ]

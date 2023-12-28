@@ -1,4 +1,4 @@
-import React from "react";
+import { Outlet } from "react-router-dom";
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,20 +6,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Auth from "./utils/auth";
 
-/// IMPORT PAGES ///
-import Landing from "./pages/Landing";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import Dashboard from "./pages/UserDashboard";
-import ViewPets from "./pages/ViewPets";
-import About from "./pages/About";
-
-/// IMPORT COMPONENTS ///
-import ProtectRoute from "./components/ProtectRoute";
-import { PasswordReset } from "./pages/PasswordReset";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -52,22 +39,9 @@ const App = () => {
   return (
     <>
       <ApolloProvider client={client}>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path='/' element={<Landing />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/view-pets' element={<ViewPets />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/reset-password' element={<PasswordReset />} />
-            <Route
-              path='dashboard/:userId'
-              element={Auth.loggedIn() ? <Dashboard /> : <ProtectRoute />}
-            />
-          </Routes>
-          <Footer />
-        </Router>
+        <Header />
+        <Outlet />
+        <Footer />
       </ApolloProvider>
     </>
   );

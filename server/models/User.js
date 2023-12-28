@@ -1,15 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
-// Typedefs for user
-// type User {
-//   _id: ID!
-//   username: String!
-//   email: String!
-//   pets: [Pet]
-// }
-
-// Import schema from Pet.js
 const petSchema = require("./Pet").schema;
 
 const userSchema = new Schema(
@@ -30,9 +21,6 @@ const userSchema = new Schema(
       minlength: 3,
     },
     pets: [petSchema],
-    // FUTURE DEVELOPMENT
-    // Sets savedPets as an array of data that adheres to the savedPetSchema
-    // savedPets: [savedPetSchema],
   },
   // Sets this to use virtual below
   {

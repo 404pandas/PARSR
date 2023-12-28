@@ -1,15 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-// Typedefs for pet
-// type Pet {
-//   _id: ID!
-//   petName: String!
-//   animalType: String!
-//   description: String!
-//   microchipRegistry: String
-//   microchipNumber: Int
-// }
-
 const petSchema = new Schema(
   {
     petName: {

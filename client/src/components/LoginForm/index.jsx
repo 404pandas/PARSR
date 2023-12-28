@@ -1,20 +1,12 @@
 // see SignupForm.js for comments
-import React, { useState } from "react";
-import { Typography } from "@material-ui/core";
+import { useState } from "react";
 import { loginUser } from "../../utils/API";
 import Auth from "../../utils/auth";
 import "./style.css";
+import Form from "@mui/material/Form";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
 
-// export const LOGIN_USER = gql`
-// mutation login($email: String!, $password: String!) {
-//   login(email: $email, password: $password) {
-//     token
-//     user {
-//       _id
-//       username
-//     }
-//   }
-// }
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
