@@ -7,19 +7,24 @@ const petSchema = new Schema(
       minlength: 1,
       maxlength: 280,
       trim: true,
+      required: true,
     },
     animalType: {
       type: String,
       enum: ["DOG", "CAT", "OTHER"],
+      required: true,
     },
     description: {
       type: String,
+      required: true,
     },
     microchipRegistry: {
       type: String,
+      required: true,
     },
     microchipNumber: {
       type: Number,
+      required: true,
     },
     petOwner: {
       type: Schema.Types.ObjectId,

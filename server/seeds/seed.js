@@ -1,9 +1,5 @@
 const db = require("../config/connection");
-
-// models
 const { User, Pet } = require("../models");
-
-// seeds
 const petSeeds = require("./petSeeds.json");
 const userSeeds = require("./userSeeds.json");
 
@@ -14,20 +10,37 @@ db.once("open", async () => {
 
     // Create Users
     await User.create(userSeeds);
-    // Create pets and adds to users
-    for (let i = 0; i < petSeeds.length; i++) {
-      const { _id, petOwner } = await Pet.create(petSeeds[i]);
-      const user = await User.findOneAndUpdate(
-        { username: petOwner },
-        {
-          $addToSet: {
-            pets: _id,
-          },
-        }
-      );
+
+    // Create pets and add them to users
+    for (const petData of petSeeds) {
+      // Find the user by username or another unique identifier
+      const user = await User.findOne({ username: petData.petOwnerUsername });
+
+      if (!user) {
+        console.log(
+          `User with username ${petData.petOwnerUsername} not found.`
+        );
+        continue; // Skip creating this pet
+      }
+
+      const pet = new Pet({
+        petName: petData.petName,
+        animalType: petData.animalType,
+        description: petData.description,
+        microchipRegistry: petData.microchipRegistry,
+        microchipNumber: petData.microchipNumber,
+        petOwner: user._id, // Use the user's _id
+        isMissing: petData.isMissing || false,
+      });
+
+      await pet.save();
+
+      // Add the pet to the user's pets array
+      user.pets.push(pet);
+      await user.save();
     }
   } catch (err) {
-    console.log("An error occured:");
+    console.log("An error occurred:");
     console.error(err);
     process.exit(1);
   }
