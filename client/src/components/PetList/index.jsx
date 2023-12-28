@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useEffect, useState } from "react"; // Import useState and useEffect
 
-const PetList = ({ pets, refresh }) => {
+const PetList = ({ pets }) => {
   const [petData, setPetData] = useState([]);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const PetList = ({ pets, refresh }) => {
   }, [pets]);
 
   if (!petData || !petData.length) {
-    return <h3>You haven't added any pets yet!</h3>;
+    return <h3>You haven&apos;t added any pets yet!</h3>;
   }
   console.log("Pets:" + JSON.stringify(petData));
 

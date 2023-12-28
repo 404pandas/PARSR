@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Error from "./pages/Error";
 import Profile from "./pages/Profile";
 import Pet from "./pages/Pet";
+import MapPage from "./pages/Map/";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/map",
+        element: <MapPage />,
       },
     ],
   },
