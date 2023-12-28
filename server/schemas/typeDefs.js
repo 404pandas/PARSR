@@ -32,7 +32,7 @@ const typeDefs = `
     petName: String
     description: String
     microchipRegistry: String
-    microchipNumber: Int
+    microchipNumber: String
     petOwner: User
     petOwnerUsername: String
     animalType: AnimalType
@@ -46,10 +46,10 @@ const typeDefs = `
 
   input AddPetInput {
     petName: String
-    animalType: String
+    animalType: AnimalType
     description: String
     microchipRegistry: String
-    microchipNumber: Int
+    microchipNumber: String
     petOwner: String
     petOwnerUsername: String
     isMissing: Boolean
@@ -60,7 +60,7 @@ const typeDefs = `
     animalType: AnimalType
     description: String
     microchipRegistry: String
-    microchipNumber: Int
+    microchipNumber: String
     isMissing: Boolean
   }
 
@@ -81,8 +81,8 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPet(petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: Int, isMissing: Boolean): Pet
-    updatePet(_id: ID, petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: Int, isMissing: Boolean): Pet
+    addPet(petName: String, animalType: AnimalType, description: String, microchipRegistry: String, microchipNumber: String, isMissing: Boolean): Pet
+    updatePet(_id: ID, petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: String, isMissing: Boolean): Pet
     removePet(petId: ID!): Pet
   }
 `;

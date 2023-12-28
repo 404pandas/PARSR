@@ -7,9 +7,12 @@ import App from "./App.jsx";
 import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Dashboard from "./pages/UserDashboard";
+import UserDashboard from "./pages/UserDashboard";
 import About from "./pages/About";
 import Error from "./pages/Error";
+import Profile from "./pages/Profile";
+import Pet from "./pages/Pet";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,7 +33,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Dashboard />,
+        element: <UserDashboard />,
+      },
+      {
+        path: "/profile/:userId",
+        element: <Profile />,
+      },
+      {
+        path: "/pet/:petId",
+        element: <Pet />,
       },
       {
         path: "/about",

@@ -32,7 +32,7 @@ export const ADD_USER = gql`
 export const ADD_PET = gql`
   mutation addPet(
     $petName: String
-    $animalType: String
+    $animalType: AnimalType
     $description: String
     $microchipRegistry: String
     $microchipNumber: Int

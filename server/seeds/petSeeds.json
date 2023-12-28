@@ -4,7 +4,7 @@
     "animalType": "CAT",
     "description": "A cute and fluffy white cat with blue eyes.",
     "microchipRegistry": "PetRegistry",
-    "microchipNumber": 1234567890,
+    "microchipNumber": "1234567890",
     "petOwnerUsername": "404Pandas"
   },
   {
@@ -12,7 +12,7 @@
     "animalType": "DOG",
     "description": "A friendly golden retriever with a wagging tail.",
     "microchipRegistry": "PetID",
-    "microchipNumber": 9876543210,
+    "microchipNumber": "9876543210",
     "petOwnerUsername": "TestUserName"
   },
   {
@@ -20,7 +20,7 @@
     "animalType": "CAT",
     "description": "A mischievous tabby cat with a playful personality.",
     "microchipRegistry": "PetID",
-    "microchipNumber": 9876543610,
+    "microchipNumber": "9876543610",
     "petOwnerUsername": "TestUserName"
   },
   {
@@ -28,7 +28,7 @@
     "animalType": "DOG",
     "description": "A loyal and protective German Shepherd.",
     "microchipRegistry": "PetLink",
-    "microchipNumber": 5678901234,
+    "microchipNumber": "5678901234",
     "petOwnerUsername": "Crusty"
   },
   {
@@ -36,7 +36,7 @@
     "animalType": "OTHER",
     "description": "A loyal and protective German bearded dragon (yes it's a thing).",
     "microchipRegistry": "PetLink",
-    "microchipNumber": 5678901224,
+    "microchipNumber": "5678901224",
     "petOwnerUsername": "Crusty"
   }
 ]

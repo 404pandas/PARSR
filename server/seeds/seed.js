@@ -30,6 +30,7 @@ db.once("open", async () => {
         microchipRegistry: petData.microchipRegistry,
         microchipNumber: petData.microchipNumber,
         petOwner: user._id, // Use the user's _id
+        petOwnerUsername: user.username, // Use the user's username
         isMissing: petData.isMissing || false,
       });
 

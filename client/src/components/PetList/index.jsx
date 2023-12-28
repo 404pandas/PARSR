@@ -1,20 +1,42 @@
 import "./style.css";
 import { Link } from "react-router-dom";
-const PetList = ({ pets }) => {
-  if (!pets.length) {
-    return <h3>No Pets Have Been Added Yet!</h3>;
+
+import { useEffect, useState } from "react"; // Import useState and useEffect
+
+const PetList = ({ pets, refresh }) => {
+  const [petData, setPetData] = useState([]);
+
+  useEffect(() => {
+    if (pets) {
+      setPetData(pets);
+    }
+  }, [pets]);
+
+  if (!petData || !petData.length) {
+    return <h3>You haven't added any pets yet!</h3>;
   }
-  console.log("Pets:" + JSON.stringify(pets));
+  console.log("Pets:" + JSON.stringify(petData));
+
   return (
     <div>
       <h3>Pets</h3>
-      {pets.map((pet) => (
+      {petData.map((pet) => (
         <>
           <div key={pet._id}>
-            {" "}
-            <h3>Name: {pet.petName}</h3>
-            <Link to={`/profiles/${pet.petOwner}`}>
-              <h4>Owner: {pet.petOwnerUsername}</h4>
+            <Link to={`/pet/${pet._id}`}>
+              <h3>Name: {pet.petName}</h3>
+            </Link>
+            {/* {console.log("pet.petOwner: " + pet.petOwner)} */}
+            {/* Access the petOwner properties */}
+            <h4>
+              Owner:{" "}
+              {pet.petOwner && pet.petOwner.username
+                ? pet.petOwner.username
+                : "Unknown"}
+            </h4>
+            <Link to={`/profile/${pet.petOwner ? pet.petOwner._id : ""}`}>
+              {/* Access the petOwner properties */}
+              <h4>Owner Profile</h4>
             </Link>
             <div>
               <p>{pet.description}</p>

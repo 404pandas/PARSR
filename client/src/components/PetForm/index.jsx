@@ -15,6 +15,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 const PetForm = () => {
   const [petName, setPetName] = useState("");
@@ -31,6 +32,14 @@ const PetForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
+      const authenticatedPerson = Auth.getProfile()?.authenticatedPerson;
+      if (!authenticatedPerson) {
+        // Handle the case where authenticatedPerson is undefined
+        // You can show an error message or take appropriate action
+
+        return;
+      }
+
       const { data } = await addPet({
         variables: {
           petName,
@@ -40,16 +49,17 @@ const PetForm = () => {
           microchipNumber,
           isMissing,
           // Run the getProfile() method to get access to the unencrypted token value in order to retrieve the user's username
-          petOwner: Auth.getProfile().authenticatedPerson.username,
+          petOwner: data.username,
         },
       });
 
       setPetName("");
-      setAnimalType("");
+      setAnimalType("DOG");
       setDescription("");
       setMicrochipRegistry("");
       setMicrochipNumber("");
       setIsMissing(false);
+      console.log("data" + { data });
     } catch (err) {
       console.error(err);
     }
@@ -84,7 +94,15 @@ const PetForm = () => {
 
       {Auth.loggedIn() ? (
         <>
-          <form onSubmit={handleFormSubmit}>
+          <Box
+            component='form'
+            sx={{
+              "& > :not(style)": { m: 1, width: "25ch" },
+            }}
+            noValidate
+            autoComplete='off'
+            onSubmit={handleFormSubmit}
+          >
             <div>
               <TextField
                 name='petName'
@@ -115,20 +133,21 @@ const PetForm = () => {
               />
               {/* animalType */}
               <FormControl fullWidth>
-                <InputLabel id='demo-simple-select-label'>
-                  Animal Type
-                </InputLabel>
+                <InputLabel id='animalType'>Animal Type</InputLabel>
                 <Select
-                  labelId='demo-simple-select-label'
+                  labelId='animalType'
                   id='demo-simple-select'
                   value={animalType}
+                  name='animalType'
+                  defaultValue={"DOG"}
                   label='Type'
                   onChange={handleChange}
                 >
-                  <MenuItem value={"DOG"}>Dog</MenuItem>
-                  <MenuItem value={"CAT"}>Cat</MenuItem>
-                  <MenuItem value={"OTHER"}>Other</MenuItem>
+                  <MenuItem value={"DOG"}>DOG</MenuItem>
+                  <MenuItem value={"CAT"}>CAT</MenuItem>
+                  <MenuItem value={"OTHER"}>OTHER</MenuItem>
                 </Select>
+                <p>{animalType}</p>
               </FormControl>
               {/* isMissing */}
               <FormControlLabel
@@ -163,7 +182,7 @@ const PetForm = () => {
                 {error.message}
               </div>
             )}
-          </form>
+          </Box>
         </>
       ) : (
         <p>

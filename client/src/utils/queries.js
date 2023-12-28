@@ -33,6 +33,11 @@ export const QUERY_ME = gql`
         description
         microchipRegistry
         microchipNumber
+        petOwner {
+          _id
+          username
+        }
+        petOwnerUsername
         animalType
         isMissing
       }
@@ -43,7 +48,7 @@ export const QUERY_ME = gql`
 // Query for single user
 export const QUERY_USER = gql`
   query user($userId: ID!) {
-    user(userID: $userId) {
+    user(userId: $userId) {
       _id
       username
       email

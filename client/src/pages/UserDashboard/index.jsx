@@ -1,23 +1,40 @@
 import { useQuery } from "@apollo/client";
 import { Navigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react"; // Import useState
 
 import PetForm from "../../components/PetForm";
 import PetList from "../../components/PetList";
-
 import { QUERY_ME, QUERY_USER } from "../../utils/queries";
-
 import Auth from "../../utils/auth";
 
-const Profile = () => {
+const UserDashboard = () => {
   const { profileId } = useParams();
   const { loading, error, data } = useQuery(profileId ? QUERY_USER : QUERY_ME, {
-    variables: { profileId: profileId },
+    variables: { userId: profileId },
   });
 
-  const user = data?.me || data?.user || {};
-  if (Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
-    return <Navigate to='/me' />;
+  const [refreshPets, setRefreshPets] = useState(false); // State to trigger pet list refresh
+
+  useEffect(() => {
+    if (refreshPets) {
+      // Do something when refreshPets changes (e.g., refetch data)
+      // You can add your logic here to refetch the pet list
+      // Example: refetchDataFunction();
+      // Once data is refetched, you can setRefreshPets(false);
+    }
+  }, [refreshPets]);
+
+  const user = data?.user || data?.me || {};
+  console.log(user, user.username);
+  if (!Auth.loggedIn()) {
+    // Redirect unauthenticated users to the login page
+    return <Navigate to='/login' />;
   }
+
+  const handlePetAdded = () => {
+    // Callback function to trigger pet list refresh
+    setRefreshPets(true);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -34,23 +51,22 @@ const Profile = () => {
 
   if (error) return `Error! ${error.message}`;
 
-  console.log(user);
   return (
     <div>
-      <div className='flex-row justify-center mb-3'>
-        <h2 className='col-12 col-md-10 bg-dark text-light p-3 mb-5'>
-          Viewing {profileId ? `${user.username}'s` : "your"} profile.
-        </h2>
+      <div>
+        <h2>Viewing {profileId ? `${user.username}'s` : "your"} profile.</h2>
 
-        <div className='col-12 col-md-10 mb-5'>
-          <PetList pets={user.pets} title={`${user.username}'s pets...`} />
+        <div>
+          <PetList
+            pets={user.pets}
+            title={`${user.username}'s pets...`}
+            refresh={() => setRefreshPets(true)} // Trigger refresh on function call
+          />
         </div>
         {!profileId && (
-          <div
-            className='col-12 col-md-10 mb-3 p-3'
-            style={{ border: "1px dotted #1a1a1a" }}
-          >
-            <PetForm />
+          <div>
+            <PetForm onPetAdded={handlePetAdded} />
+            {/* Pass the callback function */}
           </div>
         )}
       </div>
@@ -58,4 +74,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserDashboard;

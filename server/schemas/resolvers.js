@@ -16,8 +16,10 @@ const resolvers = {
         // Populate the pets subdocument on every instance of User
         const userData = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
-          .populate("pets");
-
+          .populate({
+            path: "pets",
+            populate: { path: "petOwner" }, // Populate petOwner
+          });
         return userData;
       }
       throw new AuthenticationError("You need to be logged in!");

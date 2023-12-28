@@ -23,7 +23,7 @@ const petSchema = new Schema(
       required: true,
     },
     microchipNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     petOwner: {
@@ -31,7 +31,7 @@ const petSchema = new Schema(
       ref: "User",
     },
     petOwnerUsername: {
-      type: Schema.Types.String,
+      type: String,
       ref: "User",
     },
     isMissing: {
