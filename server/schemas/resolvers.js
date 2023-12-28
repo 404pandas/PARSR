@@ -2,6 +2,29 @@ const { AuthenticationError } = require("apollo-server-express");
 const Pet = require("../models/Pet");
 const User = require("../models/User");
 const { signToken } = require("../utils/auth");
+const { GraphQLScalarType, Kind } = require("graphql");
+const { makeExecutableSchema } = require("@graphql-tools/schema");
+
+const GeoJSONType = new GraphQLScalarType({
+  name: "GeoJSON",
+  description: "A GeoJSON object",
+  parseValue(value) {
+    return JSON.parse(value);
+  },
+  serialize(value) {
+    return JSON.stringify(value);
+  },
+  parseLiteral(ast) {
+    if (ast.kind === Kind.OBJECT) {
+      const value = {};
+      ast.fields.forEach((field) => {
+        value[field.name.value] = parseLiteral(field.value);
+      });
+      return value;
+    }
+    return null;
+  },
+});
 
 // Creates the functions that fulfill the queries defined in typeDefs
 const resolvers = {
@@ -41,7 +64,6 @@ const resolvers = {
     pet: async (parent, { petId }) => {
       return Pet.findOne({ _id: petId });
     },
-    // animal type
   },
 
   // Defines the functions that will fulfill the mutations
@@ -79,6 +101,8 @@ const resolvers = {
         microchipRegistry,
         microchipNumber,
         isMissing,
+        geometry,
+        geometryCollection,
       },
       { user }
     ) => {
@@ -93,6 +117,8 @@ const resolvers = {
           isMissing,
           petOwner: user._id,
           petOwnerUsername: user.username,
+          geometry,
+          geometryCollection,
         });
         await addedPet.save();
         await User.findOneAndUpdate(
@@ -171,6 +197,7 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
   },
+  GeoJSON: GeoJSONType,
 };
 
 module.exports = resolvers;

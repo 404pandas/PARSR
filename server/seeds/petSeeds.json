@@ -5,7 +5,11 @@
     "description": "A cute and fluffy white cat with blue eyes.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567890",
-    "petOwnerUsername": "404Pandas"
+    "petOwnerUsername": "404Pandas",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-9353309.349269807, 4305225.983004154]
+    }
   },
   {
     "petName": "Buddy",
@@ -13,7 +17,14 @@
     "description": "A friendly golden retriever with a wagging tail.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543210",
-    "petOwnerUsername": "TestUserName"
+    "petOwnerUsername": "TestUserName",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [-8618824.598682864, 1739606.279137922],
+        [-8618824.598682864, 1739606.279137922]
+      ]
+    }
   },
   {
     "petName": "Whiskers",
@@ -21,7 +32,28 @@
     "description": "A mischievous tabby cat with a playful personality.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543610",
-    "petOwnerUsername": "TestUserName"
+    "petOwnerUsername": "TestUserName",
+    "geometry": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [-7108866.070862131, -334948.77563167084],
+              [-7108866.070862131, -334948.77563167084]
+            ]
+          ]
+        },
+        {
+          "type": "LineString",
+          "coordinates": [
+            [-7108866.070862131, -334948.77563167084],
+            [-7108866.070862131, -334948.77563167084]
+          ]
+        }
+      ]
+    }
   },
   {
     "petName": "Rex",

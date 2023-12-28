@@ -1,24 +1,3 @@
-// Future development //
-//
-// Change animalType from string to enum AllowedType //
-// enum AllowedType {
-//   DOG
-//   CAT
-//   PENGUIN
-//   HORSE
-// }
-// Query for AllowedType //
-//
-// type Query {
-// animalType: AllowedType
-// }
-//
-// Add "isMissing" boolean option //
-// Query defines entry points for read operations
-// Mutation defines entry points for write operations
-
-// savedPets is a virtual
-
 const typeDefs = `
   type User {
     _id: ID
@@ -37,12 +16,18 @@ const typeDefs = `
     petOwnerUsername: String
     animalType: AnimalType
     isMissing: Boolean
+    geometry: GeoJSON
+    
   }
 
   type Auth {
     token: ID!
     user: User
   }
+
+  scalar GeoJSON
+  scalar GeometryCollection
+
 
   input AddPetInput {
     petName: String
@@ -64,6 +49,21 @@ const typeDefs = `
     isMissing: Boolean
   }
 
+  input GeoJSONInput {
+    type: String!
+    coordinates: [Float]!
+  }
+
+  type GeometryCollectionFeature {
+    type: String!
+    geometries: [GeoJSON]
+  }
+
+  input GeometryCollectionInput {
+    type: String!
+    geometries: [GeoJSONInput]
+  }
+
   enum AnimalType {
     DOG
     CAT
@@ -81,7 +81,8 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPet(petName: String, animalType: AnimalType, description: String, microchipRegistry: String, microchipNumber: String, isMissing: Boolean): Pet
+    addPet(petName: String, animalType: AnimalType, description: String, microchipRegistry: String, microchipNumber: String, isMissing: Boolean, geometry: GeoJSONInput, geometryCollection: GeometryCollectionInput
+  ): Pet
     updatePet(_id: ID, petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: String, isMissing: Boolean): Pet
     removePet(petId: ID!): Pet
   }
