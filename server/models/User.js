@@ -1,28 +1,17 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
-// Typedefs for user
-// type User {
-//   _id: ID!
-//   username: String!
-//   email: String!
-//   pets: [Pet]
-// }
-
-// Import schema from Pet.js
-const savedPetSchema = require('./savedPet')
+const petSchema = require("./Pet").schema;
 
 const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
       unique: true,
       trim: true,
     },
     email: {
       type: String,
-      required: true,
       unique: true,
       match: [/.+@.+\..+/, "Must use a valid email address"],
     },
@@ -31,14 +20,7 @@ const userSchema = new Schema(
       required: true,
       minlength: 3,
     },
-    pets: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Pet",
-      },
-    ],
-    // Sets savedPets as an array of data that adheres to the savedPetSchema
-    savedPets: [savedPetSchema],
+    pets: [petSchema],
   },
   // Sets this to use virtual below
   {
@@ -62,11 +44,6 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
-
-// When we query a user, we'll also get another field called `savedPetCount` with the number of saved pets they have
-userSchema.virtual('savedPetCount').get(function () {
-  return this.savedPets.length;
-});
 
 const User = model("User", userSchema);
 
