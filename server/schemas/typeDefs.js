@@ -34,6 +34,7 @@ const typeDefs = `
     microchipRegistry: String
     microchipNumber: Int
     petOwner: User
+    petOwnerUsername: String
     animalType: AnimalType
     isMissing: Boolean
   }
@@ -50,6 +51,7 @@ const typeDefs = `
     microchipRegistry: String
     microchipNumber: Int
     petOwner: String
+    petOwnerUsername: String
     isMissing: Boolean
   }
 

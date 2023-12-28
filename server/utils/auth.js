@@ -31,8 +31,8 @@ module.exports = {
     // Rreturns req object to be passed to server/schemas/resolvers.js as "context" *IMPORTANT CONCEPT TO LEARN!*
     return req;
   },
-  signToken: function ({ firstName, email, _id }) {
-    const payload = { firstName, email, _id };
+  signToken: function ({ username, email, _id }) {
+    const payload = { username, email, _id };
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },

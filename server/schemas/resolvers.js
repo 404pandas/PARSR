@@ -80,6 +80,7 @@ const resolvers = {
       },
       { user }
     ) => {
+      console.log("user object" + JSON.stringify(user));
       if (user) {
         const addedPet = new Pet({
           petName,
@@ -89,6 +90,7 @@ const resolvers = {
           microchipNumber,
           isMissing,
           petOwner: user._id,
+          petOwnerUsername: user.username,
         });
         await addedPet.save();
         await User.findOneAndUpdate(
