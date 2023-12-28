@@ -32,7 +32,8 @@ const petSchema = new Schema(
       type: Number,
     },
     petOwner: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     isMissing: {
       type: Boolean,

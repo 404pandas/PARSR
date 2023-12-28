@@ -1,5 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Pet } = require("../models");
+const Pet = require("../models/Pet");
+const User = require("../models/User");
 const { signToken } = require("../utils/auth");
 
 // Creates the functions that fulfill the queries defined in typeDefs
@@ -22,18 +23,12 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     //  Single user
-    user: async (parent, args, context) => {
-      if (context.user) {
-        const user = await User.findById(context.user._id)
-          .select("-__v -password")
-          .populate("pets");
+    user: async (parent, { userId }) => {
+      const user = await User.findOne({ _id: userId }).populate("pets");
 
-        user.pets.sort((a, b) => b.petName - a.petName);
+      user.pets.sort((a, b) => b.petName - a.petName);
 
-        return user;
-      }
-
-      throw new AuthenticationError("Not logged in");
+      return user;
     },
     // all pets
     pets: async (parent, { userId }) => {
@@ -83,21 +78,22 @@ const resolvers = {
         microchipNumber,
         isMissing,
       },
-      context
+      { user }
     ) => {
-      if (context.user) {
-        const addedPet = await Pet.create({
+      if (user) {
+        const addedPet = new Pet({
           petName,
           animalType,
           description,
           microchipRegistry,
           microchipNumber,
           isMissing,
-          petOwner: context.user.username,
+          petOwner: user._id,
         });
+        await addedPet.save();
         await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { pets: addedPet._id } }
+          { _id: user._id },
+          { $push: { pets: addedPet._id } }
         );
         return addedPet;
       }
@@ -107,6 +103,7 @@ const resolvers = {
     updatePet: async (
       parent,
       {
+        _id,
         petName,
         animalType,
         description,
@@ -117,20 +114,29 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
-        const updatedPet = await Pet.findOneAndUpdate({
+        const updateFields = {
           petName,
           animalType,
           description,
           microchipRegistry,
           microchipNumber,
           isMissing,
-          petOwner: context.user.username,
-        });
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $push: { pets: updatedPet._id } },
+        };
+
+        const updatedPet = await Pet.findOneAndUpdate(
+          {
+            _id,
+            petOwner: context.user._id,
+          },
+          updateFields,
           { new: true }
         );
+
+        if (!updatedPet) {
+          throw new AuthenticationError(
+            "You can't update this pet as you are not its owner!"
+          );
+        }
 
         return updatedPet;
       }
@@ -139,15 +145,22 @@ const resolvers = {
     // remove pet
     removePet: async (parent, { petId }, context) => {
       if (context.user) {
-        const removedPet = await Pet.findOneAndUpdate({
+        const removedPet = await Pet.findOne({
           _id: petId,
-          petOwner: context.user.username,
+          petOwner: context.user._id,
         });
+
+        if (!removedPet) {
+          throw new AuthenticationError(
+            "You can't remove this pet as you are not its owner!"
+          );
+        }
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { pets: removedPet._id } }
         );
+        await Pet.deleteOne({ _id: removedPet._id });
 
         return removedPet;
       }

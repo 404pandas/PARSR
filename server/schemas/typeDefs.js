@@ -33,8 +33,9 @@ const typeDefs = `
     description: String
     microchipRegistry: String
     microchipNumber: Int
-    petOwner: String
+    petOwner: User
     animalType: AnimalType
+    isMissing: Boolean
   }
 
   type Auth {
@@ -49,15 +50,16 @@ const typeDefs = `
     microchipRegistry: String
     microchipNumber: Int
     petOwner: String
+    isMissing: Boolean
   }
 
   input UpdatePetInput {
     petName: String
-    animalType: String
+    animalType: AnimalType
     description: String
     microchipRegistry: String
     microchipNumber: Int
-    petOwner: String
+    isMissing: Boolean
   }
 
   enum AnimalType {
@@ -77,8 +79,8 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPet(petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: Int, petOwner: String): Pet
-    updatePet(_id: ID, petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: Int, petOwner: String): Pet
+    addPet(petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: Int, isMissing: Boolean): Pet
+    updatePet(_id: ID, petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: Int, isMissing: Boolean): Pet
     removePet(petId: ID!): Pet
   }
 `;
