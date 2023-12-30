@@ -49,14 +49,14 @@ const Profile = () => {
     <React.Fragment>
       <div>
         {userData && userData.username ? (
-          <h2>Viewing {userUsername}'s profile.</h2>
+          <h2>Viewing {userUsername}&rsquo;s profile.</h2>
         ) : (
-          <h2>User not found. Known bug- Refresh for user's Username.</h2>
+          <h2>User not found. Known bug- Refresh for user&rsquo;s Username.</h2>
         )}
 
         {pets && pets.length > 0 ? (
           <div>
-            <PetList petData={pets} title={`${userUsername}'s pets...`} />
+            <PetList petData={pets} title={`${userUsername}&rsquo;s pets...`} />
           </div>
         ) : (
           <div>No pets found.</div>
