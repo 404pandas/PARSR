@@ -7,7 +7,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 // Can use public API uri
@@ -39,7 +39,7 @@ const App = () => {
   return (
     <>
       <ApolloProvider client={client}>
-        <Header />
+        <Navbar />
         <Outlet />
         <Footer />
       </ApolloProvider>

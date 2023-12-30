@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import Pet from "./pages/Pet";
 import MapPage from "./pages/Map/";
 import Test from "./pages/Test";
+import Donate from "./pages/Donate";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <Test />,
+      },
+      {
+        path: "/donate",
+        element: <Donate />,
       },
     ],
   },

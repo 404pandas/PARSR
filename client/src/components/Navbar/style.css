@@ -1,0 +1,15 @@
+.flexbox-turn-on {
+  display: flex;
+}
+#right-header > * {
+  margin-left: 15px;
+}
+
+#furthest-right-header {
+  flex-direction: column;
+  align-items: center;
+}
+
+#avatar > * {
+  object-fit: contain !important;
+}
