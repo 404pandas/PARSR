@@ -17,6 +17,7 @@ const typeDefs = `
     animalType: AnimalType
     isMissing: Boolean
     geometry: GeoJSON
+    image: String
     
   }
 
@@ -38,6 +39,7 @@ const typeDefs = `
     petOwner: String
     petOwnerUsername: String
     isMissing: Boolean
+    image: String
   }
 
   input UpdatePetInput {
@@ -47,6 +49,7 @@ const typeDefs = `
     microchipRegistry: String
     microchipNumber: String
     isMissing: Boolean
+    image: String
   }
 
   input GeoJSONInput {
@@ -67,9 +70,18 @@ const typeDefs = `
   enum AnimalType {
     DOG
     CAT
+    BIRD
+    FERRET
+    FISH
+    FROG
+    GP
+    HAMSTER
+    HEDGEHOG
+    RABBIT
+    SNAKE
     OTHER
   }
-
+  
   type Query {
     users: [User]
     me: User

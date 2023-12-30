@@ -113,6 +113,7 @@ const resolvers = {
         isMissing,
         geometry,
         geometryCollection,
+        image,
       },
       { user }
     ) => {
@@ -129,6 +130,7 @@ const resolvers = {
           petOwnerUsername: user.username,
           geometry,
           geometryCollection,
+          image,
         });
         await addedPet.save();
         await User.findOneAndUpdate(
@@ -150,6 +152,7 @@ const resolvers = {
         microchipRegistry,
         microchipNumber,
         isMissing,
+        image,
       },
       context
     ) => {
@@ -161,6 +164,7 @@ const resolvers = {
           microchipRegistry,
           microchipNumber,
           isMissing,
+          image,
         };
 
         const updatedPet = await Pet.findOneAndUpdate(

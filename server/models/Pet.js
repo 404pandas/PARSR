@@ -11,7 +11,20 @@ const petSchema = new Schema(
     },
     animalType: {
       type: String,
-      enum: ["DOG", "CAT", "OTHER"],
+      enum: [
+        "DOG",
+        "CAT",
+        "BIRD",
+        "FERRET",
+        "FISH",
+        "FROG",
+        "GP",
+        "HAMSTER",
+        "HEDGEHOG",
+        "RABBIT",
+        "SNAKE",
+        "OTHER",
+      ],
       required: true,
     },
     description: {
@@ -64,6 +77,9 @@ const petSchema = new Schema(
           },
         },
       ],
+    },
+    image: {
+      type: String,
     },
   },
   {

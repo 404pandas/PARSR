@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import PetList from "../../components/PetList";
 import { QUERY_USER } from "../../utils/queries";
@@ -28,6 +28,7 @@ const Profile = () => {
   }, [data]);
 
   const pets = userData?.pets;
+  const owners = userData;
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,7 +47,7 @@ const Profile = () => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <div>
         {userData && userData.username ? (
           <h2>Viewing {userUsername}&rsquo;s profile.</h2>
@@ -56,13 +57,17 @@ const Profile = () => {
 
         {pets && pets.length > 0 ? (
           <div>
-            <PetList petData={pets} title={`${userUsername}&rsquo;s pets...`} />
+            <PetList
+              petData={pets}
+              ownerData={owners}
+              title={`${userUsername}&rsquo;s pets...`}
+            />
           </div>
         ) : (
           <div>No pets found.</div>
         )}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

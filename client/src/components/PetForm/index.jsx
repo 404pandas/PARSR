@@ -88,6 +88,28 @@ const PetForm = () => {
     }
   };
 
+  // setup menu items for animalType enum values
+  const animalTypes = [
+    "DOG",
+    "CAT",
+    "BIRD",
+    "FERRET",
+    "FISH",
+    "FROG",
+    "GP",
+    "HAMSTER",
+    "HEDGEHOG",
+    "RABBIT",
+    "SNAKE",
+    "OTHER",
+  ];
+
+  const menuItems = animalTypes.map((animalType) => (
+    <MenuItem key={animalType} value={animalType}>
+      {animalType}
+    </MenuItem>
+  ));
+
   return (
     <div>
       <h3>Add a Pet</h3>
@@ -133,20 +155,8 @@ const PetForm = () => {
               />
               {/* animalType */}
               <FormControl fullWidth>
-                <InputLabel id='animalType'>Animal Type</InputLabel>
-                <Select
-                  labelId='animalType'
-                  id='demo-simple-select'
-                  value={animalType}
-                  name='animalType'
-                  defaultValue={"DOG"}
-                  label='Type'
-                  onChange={handleChange}
-                >
-                  <MenuItem value={"DOG"}>DOG</MenuItem>
-                  <MenuItem value={"CAT"}>CAT</MenuItem>
-                  <MenuItem value={"OTHER"}>OTHER</MenuItem>
-                </Select>
+                <InputLabel>Select Animal Type</InputLabel>
+                <Select>{menuItems}</Select>
                 <p>{animalType}</p>
               </FormControl>
               {/* isMissing */}

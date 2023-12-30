@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_PET } from "../../utils/queries";
 import { Link } from "react-router-dom";
+import "./style.css";
+
 const Pet = () => {
   const { petId } = useParams();
   const { loading, error, data } = useQuery(QUERY_SINGLE_PET, {
@@ -27,6 +29,15 @@ const Pet = () => {
   return (
     <div>
       <h2>{pet.petName}</h2>
+      {pet.image ? (
+        <img
+          src={`../../src/assets/images/SVG/${pet.image}`}
+          className='petImage'
+          alt='Missing Pet'
+        ></img>
+      ) : (
+        <p>Missing Pet Image</p>
+      )}
       <p>Description: {pet.description}</p>
       <p>Microchip Registry: {pet.microchipRegistry}</p>
       <p>Microchip Number: {pet.microchipNumber}</p>
@@ -34,7 +45,7 @@ const Pet = () => {
       <p>Is Missing: {pet.isMissing ? "Yes" : "No"}</p>
       <p>
         Owner:{" "}
-        <Link to={`/profile/${pet.petOwner._id}`}>{pet.petOwner._id}</Link>
+        <Link to={`/profile/${pet.petOwner._id}`}>{pet.petOwnerUsername}</Link>
       </p>
     </div>
   );

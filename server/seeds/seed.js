@@ -32,6 +32,8 @@ db.once("open", async () => {
         petOwner: user._id, // Use the user's _id
         petOwnerUsername: user.username, // Use the user's username
         isMissing: petData.isMissing || false,
+        geometry: petData.geometry || null,
+        image: petData.image,
       });
 
       await pet.save();

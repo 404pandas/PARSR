@@ -15,6 +15,8 @@ export const QUERY_USERS = gql`
         microchipNumber
         animalType
         isMissing
+        geometry
+        image
       }
     }
   }
@@ -33,13 +35,10 @@ export const QUERY_ME = gql`
         description
         microchipRegistry
         microchipNumber
-        petOwner {
-          _id
-          username
-        }
-        petOwnerUsername
         animalType
         isMissing
+        geometry
+        image
       }
     }
   }
@@ -58,10 +57,10 @@ export const QUERY_USER = gql`
         description
         microchipRegistry
         microchipNumber
-        petOwnerUsername
         animalType
         isMissing
         geometry
+        image
       }
     }
   }
@@ -82,6 +81,8 @@ export const QUERY_PETS = gql`
       }
       animalType
       isMissing
+      geometry
+      image
     }
   }
 `;
@@ -100,7 +101,10 @@ export const QUERY_SINGLE_PET = gql`
         email
       }
       animalType
+      petOwnerUsername
       isMissing
+      geometry
+      image
     }
   }
 `;
@@ -121,6 +125,8 @@ export const QUERY_MISSING_PETS = gql`
       }
       animalType
       isMissing
+      geometry
+      image
     }
   }
 `;

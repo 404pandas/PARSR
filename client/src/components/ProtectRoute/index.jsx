@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Container, Typography, Button } from "@mui/material";
-
+import { Typography } from "@mui/material/Typography";
+import { Button } from "@mui/material/Button";
+import { Container } from "@mui/material/Container";
 import padlock from "./assets/images/padlock.png";
 
 import "./style.css";

@@ -28,5 +28,50 @@
     "username": "CatLover",
     "email": "CatLover@gmail.com",
     "password": "testtest"
+  },
+  {
+    "username": "BirdLover",
+    "email": "BirdLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "FerretLover",
+    "email": "FerretLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "FishLover",
+    "email": "FishLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "FrogLover",
+    "email": "FrogLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "GPLover",
+    "email": "GPLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "HamsterLover",
+    "email": "HamsterLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "HedgehogLover",
+    "email": "HedgehogLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "RabbitLover",
+    "email": "RabbitLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "SnakeLover",
+    "email": "SnakeLover@gmail.com",
+    "password": "testtest"
   }
 ]
