@@ -60,6 +60,16 @@ const resolvers = {
       const params = userId ? { userId } : {};
       return Pet.find(params).sort({ petName: -1 });
     },
+    // pets by missing === true
+    petsByMissing: async (_, { isMissing }) => {
+      try {
+        // Query the database to find pets based on the isMissing parameter
+        const pets = await Pet.find({ isMissing: true });
+        return pets;
+      } catch (error) {
+        throw new Error("Failed to fetch pets by missing status");
+      }
+    },
     // single pet
     pet: async (parent, { petId }) => {
       return Pet.findOne({ _id: petId });
@@ -106,7 +116,7 @@ const resolvers = {
       },
       { user }
     ) => {
-      console.log("user object" + JSON.stringify(user));
+      // console.log("user object" + JSON.stringify(user));
       if (user) {
         const addedPet = new Pet({
           petName,

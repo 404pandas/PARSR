@@ -1,34 +1,68 @@
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 import PetList from "../../components/PetList";
 import { QUERY_USER } from "../../utils/queries";
 
 const Profile = () => {
-  const { userId } = useParams();
-  const { loading, error, data } = useQuery(QUERY_USER, {
-    variables: { userId: userId }, // Pass userId as userId variable
+  const { profileId } = useParams();
+
+  const [userUsername, setUserUsername] = useState("");
+  const [userData, setUserData] = useState(null); // State to track user data
+
+  // Conditionally define the query based on the presence of profileId
+  const query = profileId ? QUERY_USER : QUERY_USER;
+
+  const variables = profileId ? { userId: profileId } : {};
+
+  const { loading, error, data } = useQuery(query, {
+    variables,
   });
 
-  const user = data?.user;
-  console.log("userdata: " + JSON.stringify(user));
+  useEffect(() => {
+    if (data && data.user) {
+      setUserUsername(data.user.username);
+      setUserData(data.user); // Set user data in state
+    }
+  }, [data]);
+
+  const pets = userData?.pets;
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (error) return `Error! ${error.message}`;
+  if (error) {
+    return <div>Error! {error.message}</div>;
+  }
+
+  if (!userData) {
+    return <div>User not found!</div>;
+  }
+
+  if (!pets) {
+    return <div>No pets found!</div>;
+  }
 
   return (
-    <div>
+    <React.Fragment>
       <div>
-        <h2>Viewing {userId ? `${user.username}'s` : "your"} profile.</h2>
+        {userData && userData.username ? (
+          <h2>Viewing {userUsername}'s profile.</h2>
+        ) : (
+          <h2>User not found. Known bug- Refresh for user's Username.</h2>
+        )}
 
-        <div>
-          <PetList pets={user.pets} title={`${user.username}'s pets...`} />
-        </div>
+        {pets && pets.length > 0 ? (
+          <div>
+            <PetList petData={pets} title={`${userUsername}'s pets...`} />
+          </div>
+        ) : (
+          <div>No pets found.</div>
+        )}
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

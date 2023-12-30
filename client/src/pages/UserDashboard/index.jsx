@@ -25,7 +25,7 @@ const UserDashboard = () => {
   }, [refreshPets]);
 
   const user = data?.user || data?.me || {};
-  console.log(user, user.username);
+  // console.log(user, user.username);
   if (!Auth.loggedIn()) {
     // Redirect unauthenticated users to the login page
     return <Navigate to='/login' />;

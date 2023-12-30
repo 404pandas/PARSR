@@ -42,7 +42,7 @@ const MapComponent = () => {
   // Handles the submission of the text input value
   const handleSubmit = () => {
     // Tests textValue call
-    console.log("Submitted Text Value: ", textValue);
+    // console.log("Submitted Text Value: ", textValue);
 
     // Updates the style of map features with the submitted textValue
     if (map) {
@@ -165,7 +165,7 @@ const MapComponent = () => {
         const geometry = event.feature.getGeometry();
         addUserFeature(geometry);
         // Test geometry call
-        console.log("User added feature: ", geometry);
+        // console.log("User added feature: ", geometry);
       });
 
       map.addInteraction(newDrawInteraction);

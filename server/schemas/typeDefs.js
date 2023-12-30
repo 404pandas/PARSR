@@ -75,6 +75,7 @@ const typeDefs = `
     me: User
     user(userId: ID!): User
     pets: [Pet]
+    petsByMissing(isMissing: Boolean!): [Pet]
     pet(petId: ID!): Pet
   }
 

@@ -6,6 +6,7 @@
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567890",
     "petOwnerUsername": "404Pandas",
+    "isMissing": true,
     "geometry": {
       "type": "Point",
       "coordinates": [-9353309.349269807, 4305225.983004154]
@@ -18,6 +19,7 @@
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543210",
     "petOwnerUsername": "TestUserName",
+    "isMissing": false,
     "geometry": {
       "type": "Polygon",
       "coordinates": [
@@ -33,6 +35,7 @@
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543610",
     "petOwnerUsername": "TestUserName",
+    "isMissing": false,
     "geometry": {
       "type": "GeometryCollection",
       "geometries": [
@@ -55,20 +58,96 @@
       ]
     }
   },
+
+  {
+    "petName": "Snowball",
+    "animalType": "OTHER",
+    "description": "A fluffy white rabbit with floppy ears.",
+    "microchipRegistry": "PetID",
+    "microchipNumber": "5432109876",
+    "petOwnerUsername": "BunnyLover",
+    "isMissing": false,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-8000000, 4000000]
+    }
+  },
+  {
+    "petName": "Whiskers Jr.",
+    "animalType": "CAT",
+    "description": "The offspring of mischievous Whiskers.",
+    "microchipRegistry": "PetID",
+    "microchipNumber": "1234567891",
+    "petOwnerUsername": "TestUserName",
+    "isMissing": false,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-7500000, 4500000]
+    }
+  },
   {
     "petName": "Rex",
     "animalType": "DOG",
-    "description": "A loyal and protective German Shepherd.",
-    "microchipRegistry": "PetLink",
-    "microchipNumber": "5678901234",
-    "petOwnerUsername": "Crusty"
+    "description": "A playful and energetic border collie.",
+    "microchipRegistry": "PetRegistry",
+    "microchipNumber": "1234567892",
+    "petOwnerUsername": "DogLover",
+    "isMissing": true,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-9000000, 4200000]
+    }
   },
   {
-    "petName": "beardie",
-    "animalType": "OTHER",
-    "description": "A loyal and protective German bearded dragon (yes it's a thing).",
-    "microchipRegistry": "PetLink",
-    "microchipNumber": "5678901224",
-    "petOwnerUsername": "Crusty"
+    "petName": "Smokey",
+    "animalType": "CAT",
+    "description": "A gray cat with a mysterious aura.",
+    "microchipRegistry": "PetID",
+    "microchipNumber": "9876543611",
+    "petOwnerUsername": "CatEnthusiast",
+    "isMissing": false,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-9300000, 4400000]
+    }
+  },
+  {
+    "petName": "Lucky",
+    "animalType": "DOG",
+    "description": "A fortunate Labrador retriever.",
+    "microchipRegistry": "PetID",
+    "microchipNumber": "9876543612",
+    "petOwnerUsername": "DogLover",
+    "isMissing": false,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-9500000, 4600000]
+    }
+  },
+  {
+    "petName": "Mittens",
+    "animalType": "CAT",
+    "description": "A playful cat with white paws.",
+    "microchipRegistry": "PetRegistry",
+    "microchipNumber": "1234567893",
+    "petOwnerUsername": "CatLover",
+    "isMissing": true,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-9700000, 4800000]
+    }
+  },
+  {
+    "petName": "Max",
+    "animalType": "DOG",
+    "description": "A loyal German Shepherd.",
+    "microchipRegistry": "PetID",
+    "microchipNumber": "9876543613",
+    "petOwnerUsername": "DogLover",
+    "isMissing": false,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-9900000, 5000000]
+    }
   }
 ]

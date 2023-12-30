@@ -17,9 +17,9 @@ const Pet = () => {
   }
 
   const pet = data?.pet;
-  console.log("pet: " + JSON.stringify(pet._id));
-  const petOwner = pet;
-  console.log(petOwner);
+  // console.log("pet: " + JSON.stringify(pet._id));
+  // const petOwner = pet;
+  // console.log(petOwner);
   if (!pet) {
     return <div>Pet not found.</div>;
   }

@@ -58,8 +58,10 @@ export const QUERY_USER = gql`
         description
         microchipRegistry
         microchipNumber
+        petOwnerUsername
         animalType
         isMissing
+        geometry
       }
     }
   }
@@ -87,6 +89,26 @@ export const QUERY_PETS = gql`
 export const QUERY_SINGLE_PET = gql`
   query getSinglePet($petId: ID!) {
     pet(petId: $petId) {
+      _id
+      petName
+      description
+      microchipRegistry
+      microchipNumber
+      petOwner {
+        _id
+        username
+        email
+      }
+      animalType
+      isMissing
+    }
+  }
+`;
+
+// Query for all missing pets
+export const QUERY_MISSING_PETS = gql`
+  query getMissingPets {
+    petsByMissing(isMissing: true) {
       _id
       petName
       description

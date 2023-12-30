@@ -13,12 +13,13 @@ import Error from "./pages/Error";
 import Profile from "./pages/Profile";
 import Pet from "./pages/Pet";
 import MapPage from "./pages/Map/";
+import Test from "./pages/Test";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    error: <Error />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
         element: <UserDashboard />,
       },
       {
-        path: "/profile/:userId",
+        path: "/profile/:profileId",
         element: <Profile />,
       },
       {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/map",
         element: <MapPage />,
+      },
+      {
+        path: "/test",
+        element: <Test />,
       },
     ],
   },

@@ -6,12 +6,27 @@
   },
   {
     "username": "TestUserName",
-    "email": "test@test.com",
+    "email": "test@gmail.com",
     "password": "testtest"
   },
   {
-    "username": "Crusty",
-    "email": "crusty@gmail.com",
+    "username": "BunnyLover",
+    "email": "BunnyLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "DogLover",
+    "email": "DogLover@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "CatEnthusiast",
+    "email": "CatEnthusiast@gmail.com",
+    "password": "testtest"
+  },
+  {
+    "username": "CatLover",
+    "email": "CatLover@gmail.com",
     "password": "testtest"
   }
 ]
