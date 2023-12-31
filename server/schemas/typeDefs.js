@@ -1,4 +1,8 @@
 const typeDefs = `
+
+  scalar GeoJSON
+  scalar Date
+
   type User {
     _id: ID
     username: String
@@ -18,7 +22,18 @@ const typeDefs = `
     isMissing: Boolean
     geometry: GeoJSON
     image: String
-    
+    markers: [Marker]
+  }
+
+  type Marker {
+    _id: ID
+    markerName: String
+    markerDescription: String
+    createdAt: Date
+    createdBy: User
+    coordinates: [Float]
+    image: String
+    geometry: GeoJSON
   }
 
   type Auth {
@@ -26,45 +41,31 @@ const typeDefs = `
     user: User
   }
 
-  scalar GeoJSON
-  scalar GeometryCollection
 
-
-  input AddPetInput {
-    petName: String
-    animalType: AnimalType
-    description: String
-    microchipRegistry: String
-    microchipNumber: String
-    petOwner: String
-    petOwnerUsername: String
-    isMissing: Boolean
+  input MarkerData {
+    markerName: String!
+    markerDescription: String
+    createdAt: Date
+    coordinates: [Float]
     image: String
+    geometry: GeoJSON
+    petId: ID!
   }
 
-  input UpdatePetInput {
+  input PetData {
+    id: Int!
     petName: String
-    animalType: AnimalType
-    description: String
-    microchipRegistry: String
-    microchipNumber: String
-    isMissing: Boolean
-    image: String
+    markers: [MarkerData]
   }
 
-  input GeoJSONInput {
-    type: String!
-    coordinates: [Float]!
+  type markerResponse {
+    success: Boolean
+    marker: Marker
   }
 
-  type GeometryCollectionFeature {
-    type: String!
-    geometries: [GeoJSON]
-  }
-
-  input GeometryCollectionInput {
-    type: String!
-    geometries: [GeoJSONInput]
+  type petResponse {
+    success: Boolean
+    pet: Pet
   }
 
   enum AnimalType {
@@ -81,7 +82,7 @@ const typeDefs = `
     SNAKE
     OTHER
   }
-  
+
   type Query {
     users: [User]
     me: User
@@ -89,15 +90,15 @@ const typeDefs = `
     pets: [Pet]
     petsByMissing(isMissing: Boolean!): [Pet]
     pet(petId: ID!): Pet
+    markers: [Marker]
+    marker(markerId: ID!): Marker
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPet(petName: String, animalType: AnimalType, description: String, microchipRegistry: String, microchipNumber: String, isMissing: Boolean, geometry: GeoJSONInput, geometryCollection: GeometryCollectionInput
-  ): Pet
-    updatePet(_id: ID, petName: String, animalType: String, description: String, microchipRegistry: String, microchipNumber: String, isMissing: Boolean): Pet
-    removePet(petId: ID!): Pet
+    createMarker(marker: MarkerData): markerResponse
+    createPet(pet: PetData): petResponse
   }
 `;
 

@@ -1,5 +1,7 @@
 const { Schema, model } = require("mongoose");
 
+const markerSchema = require("./Marker").schema;
+
 const petSchema = new Schema(
   {
     petName: {
@@ -53,33 +55,14 @@ const petSchema = new Schema(
       default: false,
     },
     geometry: {
-      type: {
-        type: String,
-        enum: ["Point", "Polygon", "LineString", "GeometryCollection"], // Define supported geometry types
-      },
-      coordinates: {
-        type: [[Number]], // Array of coordinates for the geometry
-      },
-    },
-    geometryCollection: {
-      type: {
-        type: String,
-        enum: ["GeometryCollection"], // Define supported geometry types (only GeometryCollection in this case)
-      },
-      geometries: [
-        {
-          type: {
-            type: String,
-            enum: ["Point", "Polygon", "LineString"], // Define supported geometry types within the collection
-          },
-          coordinates: {
-            type: [[Number]], // Array of coordinates for the geometry
-          },
-        },
-      ],
+      type: String,
     },
     image: {
       type: String,
+    },
+    markers: {
+      type: Schema.Types.ObjectId,
+      ref: "Marker",
     },
   },
   {

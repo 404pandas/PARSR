@@ -1,10 +1,11 @@
 const { AuthenticationError } = require("apollo-server-express");
 const Pet = require("../models/Pet");
 const User = require("../models/User");
+const Marker = require("../models/Marker");
 const { signToken } = require("../utils/auth");
 const { GraphQLScalarType, Kind } = require("graphql");
-const { makeExecutableSchema } = require("@graphql-tools/schema");
 
+// custom scalar for GeoJSON
 const GeoJSONType = new GraphQLScalarType({
   name: "GeoJSON",
   description: "A GeoJSON object",
@@ -21,6 +22,27 @@ const GeoJSONType = new GraphQLScalarType({
         value[field.name.value] = parseLiteral(field.value);
       });
       return value;
+    }
+    return null;
+  },
+});
+
+// Cusotm Scalar for date
+const DateScalar = new GraphQLScalarType({
+  name: "Date",
+  description: "Date custom scalar type",
+  parseValue(value) {
+    // Convert the input value (e.g., from a JSON payload) to a Date object
+    return new Date(value);
+  },
+  serialize(value) {
+    // Convert the Date object to a string for JSON serialization
+    return value.toISOString();
+  },
+  parseLiteral(ast) {
+    // Parse the date string from the GraphQL query into a Date object
+    if (ast.kind === Kind.STRING) {
+      return new Date(ast.value);
     }
     return null;
   },
@@ -74,8 +96,15 @@ const resolvers = {
     pet: async (parent, { petId }) => {
       return Pet.findOne({ _id: petId });
     },
+    // all markers
+    markers: async () => {
+      return Marker.find().sort({ createdAt: -1 });
+    },
+    // single marker
+    marker: async (parent, { markerId }) => {
+      return Marker.findOne({ _id: markerId });
+    },
   },
-
   // Defines the functions that will fulfill the mutations
   Mutation: {
     // login
@@ -101,117 +130,59 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    // add pet
-    addPet: async (
+    // create marker
+    createMarker: async (
       parent,
       {
-        petName,
-        animalType,
-        description,
-        microchipRegistry,
-        microchipNumber,
-        isMissing,
+        markerName,
+        markerDescription,
+        createdAt,
+        coordinates,
+        image,
         geometry,
-        geometryCollection,
-        image,
-      },
-      { user }
-    ) => {
-      // console.log("user object" + JSON.stringify(user));
-      if (user) {
-        const addedPet = new Pet({
-          petName,
-          animalType,
-          description,
-          microchipRegistry,
-          microchipNumber,
-          isMissing,
-          petOwner: user._id,
-          petOwnerUsername: user.username,
-          geometry,
-          geometryCollection,
-          image,
-        });
-        await addedPet.save();
-        await User.findOneAndUpdate(
-          { _id: user._id },
-          { $push: { pets: addedPet._id } }
-        );
-        return addedPet;
-      }
-      throw new AuthenticationError("Not logged in");
-    },
-    // update pet
-    updatePet: async (
-      parent,
-      {
-        _id,
-        petName,
-        animalType,
-        description,
-        microchipRegistry,
-        microchipNumber,
-        isMissing,
-        image,
+        petId,
       },
       context
     ) => {
       if (context.user) {
-        const updateFields = {
-          petName,
-          animalType,
-          description,
-          microchipRegistry,
-          microchipNumber,
-          isMissing,
+        const marker = await Marker.create({
+          markerName,
+          markerDescription,
+          createdAt,
+          coordinates,
           image,
-        };
-
-        const updatedPet = await Pet.findOneAndUpdate(
-          {
-            _id,
-            petOwner: context.user._id,
-          },
-          updateFields,
-          { new: true }
-        );
-
-        if (!updatedPet) {
-          throw new AuthenticationError(
-            "You can't update this pet as you are not its owner!"
-          );
-        }
-
-        return updatedPet;
-      }
-      throw new AuthenticationError("Not logged in");
-    },
-    // remove pet
-    removePet: async (parent, { petId }, context) => {
-      if (context.user) {
-        const removedPet = await Pet.findOne({
-          _id: petId,
-          petOwner: context.user._id,
+          geometry,
+          petId,
+          createdBy: context.user._id,
         });
 
-        if (!removedPet) {
-          throw new AuthenticationError(
-            "You can't remove this pet as you are not its owner!"
-          );
-        }
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { pets: removedPet._id } }
+        // Add the marker to the pet's markers array
+        const updatedPet = await Pet.findOneAndUpdate(
+          { _id: petId },
+          {
+            $addToSet: { markers: marker._id },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
         );
-        await Pet.deleteOne({ _id: removedPet._id });
 
-        return removedPet;
+        // Populate the createdBy field with the user data
+        const populatedMarker = await Marker.findById(marker._id).populate(
+          "createdBy"
+        );
+        console.log("after-" + marker);
+        // Return the created marker
+        return {
+          success: true,
+          marker: populatedMarker,
+        };
+      } else {
+        throw new AuthenticationError("Not logged in");
       }
-      throw new AuthenticationError("Not logged in");
     },
   },
-  GeoJSON: GeoJSONType,
 };
 
 module.exports = resolvers;
