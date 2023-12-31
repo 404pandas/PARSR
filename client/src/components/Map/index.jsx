@@ -1,44 +1,51 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import GeoJSON from "ol/format/GeoJSON.js";
 import Draw from "ol/interaction/Draw.js";
 import { Modify } from "ol/interaction.js";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
 import Point from "ol/geom/Point.js";
 import Feature from "ol/Feature.js";
-import { Style, Text } from "ol/style.js";
+import Select from "ol/interaction/Select.js";
+
+import XYZ from "ol/source/XYZ.js";
+import { Fill, Style, Text, Icon } from "ol/style.js";
 import { OSM, Vector as VectorSource } from "ol/source.js";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer.js";
+import { getCenter } from "ol/extent.js";
 import "./style.css";
 
 const MapComponent = () => {
-  // State variables
   const [map, setMap] = useState(null);
-  const [type, setType] = useState("Point");
+  const [type, setType] = useState("LineString"); // Default type
   const [drawInteraction, setDrawInteraction] = useState(null);
-  const [userFeatures, setUserFeatures] = useState([]);
-  const [textValue, setTextValue] = useState("Insert Name");
-  const mapContainerRef = useRef(null);
+  const [userFeatures, setUserFeatures] = useState([]); // User-added features
+  const mapContainerRef = useRef(null); // Ref for the map container element
 
-  // Handles changes in Type (Point, LineString, Polygon, Circle)
   const handleTypeChange = (event) => {
     setType(event.target.value);
   };
 
-  // Adds a user feature to the map
   const addUserFeature = (geometry) => {
     setUserFeatures((prevUserFeatures) => [
       ...prevUserFeatures,
       new Feature({
         geometry: geometry,
+        geometryName: "DefaultName", // Default name for the geometry
       }),
     ]);
   };
 
-  // Handles changes in TextValue
-  const handleTextChange = (event) => {
-    setTextValue(event.target.value);
+  const handleNameChange = (event, index) => {
+    const newName = event.target.value;
+    setUserFeatures((prevUserFeatures) => {
+      const updatedFeatures = [...prevUserFeatures];
+      updatedFeatures[index].set("geometryName", newName);
+      return updatedFeatures;
+    });
   };
 
+<<<<<<< Updated upstream
   // Handles the submission of the text input value
   const handleSubmit = () => {
     // Tests textValue call
@@ -68,13 +75,14 @@ const MapComponent = () => {
   };
 
   // Inits map
+=======
+>>>>>>> Stashed changes
   useEffect(() => {
-    // Checks if the map is already there - debugged multiple maps being created
+    // Check if the map is already initialized to prevent double initialization
     if (map !== null) {
       return;
     }
 
-    // Creates an icon feature for the map, no idea if this is actually working
     const iconFeature = new Feature({
       geometry: new Point([0, 0]),
       name: "Null Island",
@@ -82,13 +90,12 @@ const MapComponent = () => {
       rainfall: 500,
     });
 
-    // Create a style for the icon
     const style = new Style({
       text: new Text({
         anchor: [0.5, 46],
         anchorXUnits: "fraction",
         anchorYUnits: "pixels",
-        text: textValue, // Use the state value
+        text: "Test",
       }),
     });
 
@@ -98,19 +105,17 @@ const MapComponent = () => {
 
     const source = new VectorSource({ wrapX: false, features: [iconFeature] });
 
-    const vectorLayer = new VectorLayer({
+    const vector = new VectorLayer({
       source: source,
-      style: function () {
-        // apply a style config object to each feature
-        style.getText().setText(textValue);
+      style: function (feature) {
+        style.getText().setText(() => "Test");
         return style;
       },
     });
 
     const newMap = new Map({
-      layers: [raster, vectorLayer],
-      // uses the target ref to create the map
-      target: mapContainerRef.current,
+      layers: [raster, vector],
+      target: mapContainerRef.current, // Use the target element
       view: new View({
         center: [-11000000, 4600000],
         zoom: 4,
@@ -118,19 +123,14 @@ const MapComponent = () => {
     });
 
     const modify = new Modify({
-      hitDetection: vectorLayer,
+      hitDetection: vector,
       source: source,
     });
-
-    // Handle cursor styles during modification interactions
     modify.on(["modifystart", "modifyend"], function (evt) {
       mapContainerRef.current.style.cursor =
         evt.type === "modifystart" ? "grabbing" : "pointer";
     });
-
     const overlaySource = modify.getOverlay().getSource();
-
-    // Handle cursor styles during overlay source events
     overlaySource.on(["addfeature", "removefeature"], function (evt) {
       mapContainerRef.current.style.cursor =
         evt.type === "addfeature" ? "pointer" : "";
@@ -140,16 +140,16 @@ const MapComponent = () => {
 
     setMap(newMap);
 
-    // Remove the draw interaction when the component unmounts
+    // Cleanup: remove the draw interaction when the component unmounts
     return () => {
       if (drawInteraction) {
         newMap.removeInteraction(drawInteraction);
       }
     };
-  }, [textValue]);
+  }, []);
 
-  // Creates or updates the draw based on the selected geometry type
   useEffect(() => {
+    // Create or update the draw interaction based on the selected geometry type
     if (map && type !== "None") {
       if (drawInteraction) {
         map.removeInteraction(drawInteraction);
@@ -159,13 +159,18 @@ const MapComponent = () => {
         source: map.getLayers().item(1).getSource(), // Assuming vector layer is at index 1
         type: type,
         freehand: true,
+        geometryName: "Test",
       });
 
       newDrawInteraction.on("drawend", (event) => {
         const geometry = event.feature.getGeometry();
         addUserFeature(geometry);
+<<<<<<< Updated upstream
         // Test geometry call
         // console.log("User added feature: ", geometry);
+=======
+        console.log("User added feature: ", geometry);
+>>>>>>> Stashed changes
       });
 
       map.addInteraction(newDrawInteraction);
@@ -183,6 +188,8 @@ const MapComponent = () => {
     }
   }, [map]);
 
+  console.log(userFeatures);
+
   return (
     <div>
       <div ref={mapContainerRef} className='map'></div>
@@ -196,25 +203,19 @@ const MapComponent = () => {
         </select>
       </form>
       <div>
-        <h2>Points of Interest:</h2>
+        <h2>User-Added Features:</h2>
         <ul>
           {userFeatures.map((feature, index) => (
             <li key={index}>
-              Feature {index + 1}: {textValue}
+              Feature {index + 1}:{" "}
+              <input
+                type='text'
+                value={feature.get("geometryName")}
+                onChange={(event) => handleNameChange(event, index)}
+              />
             </li>
           ))}
         </ul>
-      </div>
-      {/* Display the text input */}
-      <div>
-        <label htmlFor='textValue'>Text Value: &nbsp;</label>
-        <input
-          type='text'
-          id='textValue'
-          value={textValue}
-          onChange={handleTextChange}
-        />
-        <button onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );
