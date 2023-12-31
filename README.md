@@ -24,7 +24,7 @@
   <p align="center">
     Project Animal Reunification Search & Rescue    <br />
     <a href="https://github.com/404pandas/PARSR">
-      <img src="./client/src/images/aarr.png" alt="Logo" width="80" height="80">
+      <img src="./client/src/images/assets/aarr.png" alt="Logo" width="80" height="80">
     </a><br />
     Brought to you by All Animal Rehabilitation & Release<br />
     <a href="https://github.com/404pandas/PARSR"><strong>Explore the docs »</strong></a>
