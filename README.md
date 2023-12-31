@@ -8,7 +8,7 @@
 [![Forks](https://img.shields.io/github/forks/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/network/members)
 [![Stargazers](https://img.shields.io/github/stars/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/stargazers)
 [![Issues](https://img.shields.io/github/issues/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/issues)
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=appveyor&logo=linkedin&colorB=555)](https://linkedin.com/in/LinkedInUsername)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=appveyor&logo=linkedin&colorB=555)](https://linkedin.com/in/404pandas)
 
 </div>
 
@@ -72,7 +72,7 @@
 <!-- ![Screenshot alt description](directPathOfScreenshots) -->
 
 This project was built with the MERN stack and Apollo + GraphQL.
-It's currently not operational as the styling is switched to utilizing MUI.
+It's currently not deployed until the prototype MVP is completed.
 
 ### Built With
 
@@ -96,10 +96,35 @@ It's currently not operational as the styling is switched to utilizing MUI.
 
 Once completely built, this application will function as a deployed app on Heroku
 
-### Installation
+### Local Installation / Testing 
 
-1. Clone the repo
-   git clone https://github.com/404pandas/PARSR.git
+1. Clone the rep
+
+```
+git clone https://github.com/404pandas/PARSR.git
+```
+
+2. Install dependencies
+
+```
+npm run install
+```
+
+
+3. Seed the database
+
+```
+npm run seed
+```
+
+4. Launch the app in development environments
+
+```
+npm run develop
+```
+
+5. Visit:
+
 
 <!-- USAGE EXAMPLES -->
 
@@ -114,22 +139,30 @@ Once the app is functional, screenshots will be added in this section.
 #### MVP
 
 - [ ] Front End
-  - [ ] Routing
+  - [x] Routing
   - [ ] Map (Markers, Search area)
-  - [ ] Profile
-  - [ ] Landing
-  - [ ] User Auth
-  - [ ] Pets
+  - [x] User Auth
+  - [ ] User Profile Page
+  - [x] Landing Page
+  - [ ] Pet Page
+  - [ ] Owner Page
+  - [ ] Map Page
+  - [ ] Error Page
+  - [ ] 404 Page
+  - [ ] Login Form
+  - [ ] Sign Up Form
+
 - [ ] Back End
-  - [ ] Typedefs
-  - [ ] Resolvers
-  - [ ] Seeds
-  - [ ] User Auth
+  - [x] Typedefs
+  - [x] Resolvers
+  - [x] Seeds
+  - [x] User Auth
 
 #### Future Development
 
-- [ ] Stripe
+- [ ] Stripe (Donate Page)
 - [ ] Chat
+- [ ] Search
 
 See the [open issues](https://github.com/404pandas/PARSR/issues) for a full list of proposed features (and known issues).
 
@@ -161,8 +194,13 @@ See LICENSE.txt for more information.
 ## Contact
 
 [Mary Elenius](https://maryelenius.com/d20) - mary.panda.jackson@gmail.com
+in association with:
+[All Animal Rehabilitation and Release](https://www.allanimalrr.org)
 
-Project Link: [https://github.com/404pandas/PARSR](https://github.com/404pandas/PARSR)
+Project Links:
+[Figma Board- link later]()
+[Github Repository](https://github.com/404pandas/PARSR)
+[Deployment- link later]()
 
 <!-- ACKNOWLEDGMENTS -->
 
