@@ -49,6 +49,8 @@ const petSchema = new Schema(
       type: String,
       ref: "User",
     },
+    //  Create markers and add them to pets
+    //  pets = markers and users = pets
     isMissing: {
       type: Boolean,
       required: true,
@@ -60,10 +62,12 @@ const petSchema = new Schema(
     image: {
       type: String,
     },
-    markers: {
-      type: Schema.Types.ObjectId,
-      ref: "Marker",
-    },
+    markers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Marker",
+      },
+    ],
   },
   {
     toJSON: {

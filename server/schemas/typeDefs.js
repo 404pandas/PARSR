@@ -27,6 +27,7 @@ const typeDefs = `
 
   type Marker {
     _id: ID
+    petId: Pet
     markerName: String
     markerDescription: String
     createdAt: Date
@@ -92,6 +93,7 @@ const typeDefs = `
     pet(petId: ID!): Pet
     markers: [Marker]
     marker(markerId: ID!): Marker
+    markersByPet(petId: ID!): [Marker]
   }
 
   type Mutation {

@@ -104,6 +104,18 @@ const resolvers = {
     marker: async (parent, { markerId }) => {
       return Marker.findOne({ _id: markerId });
     },
+    // markers by pet
+    markersByPet: async (parent, args) => {
+      try {
+        const markers = await Marker.find({ petId: args.petId })
+          .populate("petId")
+          .populate("createdBy");
+
+        return markers;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
   },
   // Defines the functions that will fulfill the mutations
   Mutation: {
@@ -145,6 +157,8 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
+        console.log("markerDescription before create:", markerDescription);
+
         const marker = await Marker.create({
           markerName,
           markerDescription,
@@ -155,6 +169,10 @@ const resolvers = {
           petId,
           createdBy: context.user._id,
         });
+        console.log(
+          "markerDescription after create:",
+          marker.markerDescription
+        );
 
         // Add the marker to the pet's markers array
         const updatedPet = await Pet.findOneAndUpdate(

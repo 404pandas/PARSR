@@ -7,10 +7,6 @@
     "microchipNumber": "1234567890",
     "petOwnerUsername": "404Pandas",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9353309.349269807, 4305225.983004154]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -21,13 +17,6 @@
     "microchipNumber": "9876543210",
     "petOwnerUsername": "TestUserName",
     "isMissing": false,
-    "geometry": {
-      "type": "Polygon",
-      "coordinates": [
-        [-8618824.598682864, 1739606.279137922],
-        [-8618824.598682864, 1739606.279137922]
-      ]
-    },
     "image": "dog-09-front.svg"
   },
   {
@@ -38,25 +27,6 @@
     "microchipNumber": "9876543610",
     "petOwnerUsername": "TestUserName",
     "isMissing": false,
-    "geometry": {
-      "type": "GeometryCollection",
-      "geometries": [
-        {
-          "type": "Polygon",
-          "coordinates": [
-            [-7108866.070862131, -334948.77563167084],
-            [-7108866.070862131, -334948.77563167084]
-          ]
-        },
-        {
-          "type": "LineString",
-          "coordinates": [
-            [-7108866.070862131, -334948.77563167084],
-            [-7108866.070862131, -334948.77563167084]
-          ]
-        }
-      ]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -67,10 +37,6 @@
     "microchipNumber": "5432109876",
     "petOwnerUsername": "BunnyLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-8000000, 4000000]
-    },
     "image": "other-01-front.svg"
   },
   {
@@ -81,10 +47,6 @@
     "microchipNumber": "1234567891",
     "petOwnerUsername": "TestUserName",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-7500000, 4500000]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -95,10 +57,6 @@
     "microchipNumber": "1234567892",
     "petOwnerUsername": "DogLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9000000, 4200000]
-    },
     "image": "dog-12-front.svg"
   },
   {
@@ -109,10 +67,6 @@
     "microchipNumber": "9876543611",
     "petOwnerUsername": "CatEnthusiast",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9300000, 4400000]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -123,10 +77,6 @@
     "microchipNumber": "9876543612",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4600000]
-    },
     "image": "dog-05-front.svg"
   },
   {
@@ -137,10 +87,6 @@
     "microchipNumber": "1234567893",
     "petOwnerUsername": "CatLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9700000, 4800000]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -151,10 +97,6 @@
     "microchipNumber": "9876543613",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9900000, 5000000]
-    },
     "image": "dog-03-front.svg"
   },
   {
@@ -165,10 +107,6 @@
     "microchipNumber": "1234567894",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9100000, 4300000]
-    },
     "image": "dog-07-front.svg"
   },
   {
@@ -179,10 +117,6 @@
     "microchipNumber": "1234567895",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9300000, 4500000]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -193,10 +127,6 @@
     "microchipNumber": "9876543614",
     "petOwnerUsername": "DogLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4800000]
-    },
     "image": "dog-01-front.svg"
   },
   {
@@ -207,10 +137,6 @@
     "microchipNumber": "1234567896",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9700000, 5000000]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -221,10 +147,6 @@
     "microchipNumber": "9876543615",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9900000, 5200000]
-    },
     "image": "dog-14-front.svg"
   },
   {
@@ -235,10 +157,6 @@
     "microchipNumber": "9876543616",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-8900000, 4400000]
-    },
     "image": "dog-06-front.svg"
   },
   {
@@ -249,10 +167,6 @@
     "microchipNumber": "9876543617",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9200000, 4600000]
-    },
     "image": "dog-10-front.svg"
   },
   {
@@ -263,10 +177,6 @@
     "microchipNumber": "1234567897",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9400000, 4800000]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -277,10 +187,6 @@
     "microchipNumber": "9876543618",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9600000, 5000000]
-    },
     "image": "dog-06-front.svg"
   },
   {
@@ -291,10 +197,6 @@
     "microchipNumber": "9876543619",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9800000, 5200000]
-    },
     "image": "dog-13-front.svg"
   },
   {
@@ -305,10 +207,6 @@
     "microchipNumber": "1234567898",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9100000, 4300000]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -319,10 +217,6 @@
     "microchipNumber": "9876543620",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9300000, 4500000]
-    },
     "image": "dog-02-front.svg"
   },
   {
@@ -333,10 +227,6 @@
     "microchipNumber": "1234567899",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "cat-01-front.svg"
   },
   {
@@ -347,10 +237,6 @@
     "microchipNumber": "12345557899",
     "petOwnerUsername": "BirdLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "bird-01-front.svg"
   },
   {
@@ -361,10 +247,6 @@
     "microchipNumber": "12345653899",
     "petOwnerUsername": "FerretLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "ferret-01-front.svg"
   },
   {
@@ -375,10 +257,6 @@
     "microchipNumber": "5253524",
     "petOwnerUsername": "FishLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "fish-01-front.svg"
   },
   {
@@ -389,10 +267,6 @@
     "microchipNumber": "5254353524",
     "petOwnerUsername": "HamsterLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "hamster-01-front.svg"
   },
   {
@@ -403,10 +277,6 @@
     "microchipNumber": "52543453524",
     "petOwnerUsername": "HamsterLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "hamster-03-front.svg"
   },
   {
@@ -417,10 +287,6 @@
     "microchipNumber": "52535ff24",
     "petOwnerUsername": "FrogLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "frog-01-front.svg"
   },
   {
@@ -431,10 +297,6 @@
     "microchipNumber": "5253543424",
     "petOwnerUsername": "GPLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "gp-01-front.svg"
   },
   {
@@ -445,10 +307,6 @@
     "microchipNumber": "525353343424",
     "petOwnerUsername": "HedgehogLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "hedgehog-01-front.svg"
   },
   {
@@ -459,10 +317,6 @@
     "microchipNumber": "525353343424",
     "petOwnerUsername": "CatLover",
     "isMissing": true,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "rabbit-01-front.svg"
   },
   {
@@ -473,10 +327,6 @@
     "microchipNumber": "52535453424",
     "petOwnerUsername": "404Pandas",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "dog-16-front.svg"
   },
   {
@@ -487,10 +337,6 @@
     "microchipNumber": "5253543424",
     "petOwnerUsername": "GPLover",
     "isMissing": false,
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-9500000, 4700000]
-    },
     "image": "fish-01-front.svg"
   }
 ]

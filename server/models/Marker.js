@@ -2,6 +2,10 @@ const { Schema, model } = require("mongoose");
 
 const markerSchema = new Schema(
   {
+    petId: {
+      type: Schema.Types.ObjectId,
+      ref: "Pet",
+    },
     markerName: {
       type: String,
     },
