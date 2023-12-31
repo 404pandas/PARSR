@@ -16,7 +16,7 @@
 
 <div align="center">
   <a href="https://github.com/404pandas/PARSR">
-    <img src="./client/src/images/parsr-logo.png" alt="Logo" width="80" height="80">
+    <img src="./client/src/assets/images/parsr-logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">PARSR</h3>
