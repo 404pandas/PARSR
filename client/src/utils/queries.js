@@ -124,6 +124,7 @@ export const QUERY_MISSING_PETS = gql`
         email
       }
       animalType
+      petOwnerUsername
       isMissing
       geometry
       image

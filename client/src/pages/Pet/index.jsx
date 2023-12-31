@@ -3,6 +3,8 @@ import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_PET } from "../../utils/queries";
 import { Link } from "react-router-dom";
 import "./style.css";
+import Typography from "@mui/material/Typography";
+import Map from "../../components/Map";
 
 const Pet = () => {
   const { petId } = useParams();
@@ -28,6 +30,9 @@ const Pet = () => {
 
   return (
     <div>
+      <Typography variant='h2'>In Development</Typography>
+      <Map />
+      {/* TODO- import formatting from MissingPetList */}
       <h2>{pet.petName}</h2>
       {pet.image ? (
         <img

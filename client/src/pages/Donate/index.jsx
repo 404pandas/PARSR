@@ -1,5 +1,11 @@
+import { Typography } from "@mui/material";
+
 const Donate = () => {
-  return <div>Donate</div>;
+  return (
+    <div>
+      <Typography variant='h2'>In Development</Typography>
+    </div>
+  );
 };
 
 export default Donate;

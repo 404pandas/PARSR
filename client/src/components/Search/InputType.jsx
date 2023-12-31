@@ -11,6 +11,7 @@ const InputType = ({ onSelectChange }) => {
         sx={{ ml: 1, flex: 1 }}
         placeholder={"Please type " + onSelectChange}
         inputProps={{ "aria-label": "Dynamic Search" }}
+        className='hidden-xs'
       />
       <IconButton type='button' sx={{ p: "10px" }} aria-label='search'>
         <SearchIcon />

@@ -1,9 +1,11 @@
 import MapComponent from "../../components/Map";
+import Typography from "@mui/material/Typography";
 
 const Map = () => {
   return (
     <div>
-      <h2>Map</h2>
+      <Typography variant='h2'>In Development</Typography>
+
       <MapComponent />
     </div>
   );

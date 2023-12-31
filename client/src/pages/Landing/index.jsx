@@ -1,10 +1,12 @@
 import MissingPetsList from "../../components/MissingPetsList";
-
+import "./style.css";
 const Landing = () => {
   return (
     <>
       <h1>Now Missing:</h1>
-      <MissingPetsList />
+      <div id='missing-list'>
+        <MissingPetsList />
+      </div>
     </>
   );
 };

@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <AppBar position='static'>
-      <Toolbar>
+      <Toolbar id='padding-xs'>
         <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>
           <img src={logo} alt='PARSR Logo' style={{ height: "100px" }} />
         </Link>
@@ -33,37 +33,42 @@ const Navbar = () => {
               Donate
             </Button>
           </>
-          <>
-            <Search />
-          </>
-          <>
-            {Auth.loggedIn() ? (
-              <div className='flexbox-turn-on' id='furthest-right-header'>
-                <Avatar
-                  component={Link}
-                  to='/profile'
-                  src={CatImage} // Empty src
-                  alt='Profile'
-                  sx={{ height: "40px" }}
-                  id='avatar'
+          <div className='flexbox-turn-on' id='and-another-one'>
+            <>
+              <Search id='hidden-break' />
+            </>
+            <>
+              {Auth.loggedIn() ? (
+                <div
+                  className='flexbox-turn-on'
+                  id='furthest-right-header-avatar'
                 >
-                  {/* You can add an icon or initials inside the Avatar if needed */}
-                </Avatar>
-                <Button color='inherit' onClick={logout}>
-                  Logout
-                </Button>
-              </div>
-            ) : (
-              <div className='flexbox-turn-on' id='furthest-right-header'>
-                <Button color='inherit' component={Link} to='/login'>
-                  Login
-                </Button>
-                <Button color='inherit' component={Link} to='/signup'>
-                  Signup
-                </Button>
-              </div>
-            )}
-          </>
+                  <Avatar
+                    component={Link}
+                    to='/profile'
+                    src={CatImage} // Empty src
+                    alt='Profile'
+                    sx={{ height: "40px" }}
+                    id='avatar'
+                  >
+                    {/* You can add an icon or initials inside the Avatar if needed */}
+                  </Avatar>
+                  <Button color='inherit' onClick={logout}>
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <div className='flexbox-turn-on' id='furthest-right-header'>
+                  <Button color='inherit' component={Link} to='/login'>
+                    Login
+                  </Button>
+                  <Button color='inherit' component={Link} to='/signup'>
+                    Signup
+                  </Button>
+                </div>
+              )}
+            </>
+          </div>
         </div>
       </Toolbar>
     </AppBar>
