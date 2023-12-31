@@ -125,6 +125,18 @@ npm run develop
 
 5. Visit:
 
+[localhost]()
+
+```
+
+```
+
+[graphQL]()
+
+```
+
+```
+
 
 <!-- USAGE EXAMPLES -->
 
@@ -194,12 +206,17 @@ See LICENSE.txt for more information.
 ## Contact
 
 [Mary Elenius](https://maryelenius.com/d20) - mary.panda.jackson@gmail.com
+
 in association with:
+
 [All Animal Rehabilitation and Release](https://www.allanimalrr.org)
 
 Project Links:
+
 [Figma Board- link later]()
+
 [Github Repository](https://github.com/404pandas/PARSR)
+
 [Deployment- link later]()
 
 <!-- ACKNOWLEDGMENTS -->
