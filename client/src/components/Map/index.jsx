@@ -1,153 +1,109 @@
-import { useEffect, useRef } from "react";
-import Feature from "ol/Feature.js";
+import React, { useEffect, useRef } from "react";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
-import { LineString, Point, Polygon } from "ol/geom.js";
+import { Draw, Modify, Snap } from "ol/interaction.js";
 import { OSM, Vector as VectorSource } from "ol/source.js";
-import {
-  Pointer as PointerInteraction,
-  defaults as defaultInteractions,
-} from "ol/interaction.js";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer.js";
-import marker from "../../assets/images/map-marker.png";
+import { get } from "ol/proj.js";
 
-console.log(marker);
-
-const Drag = new PointerInteraction({
-  handleDownEvent: handleDownEvent,
-  handleDragEvent: handleDragEvent,
-  handleMoveEvent: handleMoveEvent,
-  handleUpEvent: handleUpEvent,
-});
-
-let map;
-
-const MapWithDragInteraction = () => {
+const MapComponent = () => {
   const mapContainer = useRef(null);
+  const typeSelect = useRef(null);
+  const map = useRef(null);
+  const modify = useRef(null);
+  const draw = useRef(null);
+  const snap = useRef(null);
 
   useEffect(() => {
-    const pointFeature = new Feature(new Point([0, 0]));
-    pointFeature.set("draggable", true); // Make the icon draggable
+    const raster = new TileLayer({
+      source: new OSM(),
+    });
 
-    const lineFeature = new Feature(
-      new LineString([
-        [-1e7, 1e6],
-        [-1e6, 3e6],
-      ])
-    );
+    const source = new VectorSource();
+    const vector = new VectorLayer({
+      source: source,
+      style: {
+        "fill-color": "rgba(255, 255, 255, 0.2)",
+        "stroke-color": "#ffcc33",
+        "stroke-width": 2,
+        "circle-radius": 7,
+        "circle-fill-color": "#ffcc33",
+      },
+    });
 
-    const polygonFeature = new Feature(
-      new Polygon([
-        [
-          [-3e6, -1e6],
-          [-3e6, 1e6],
-          [-1e6, 1e6],
-          [-1e6, -1e6],
-          [-3e6, -1e6],
-        ],
-      ])
-    );
+    const extent = get("EPSG:3857").getExtent().slice();
+    extent[0] += extent[0];
+    extent[2] += extent[2];
 
-    map = new Map({
-      interactions: defaultInteractions().extend([Drag]),
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-        new VectorLayer({
-          source: new VectorSource({
-            features: [pointFeature, lineFeature, polygonFeature],
-          }),
-          style: {
-            "icon-src": marker,
-            "icon-width": 35,
-            "icon-height": 50,
-            "icon-opacity": 0.95,
-            "icon-anchor": [0.5, 46],
-            "icon-anchor-x-units": "fraction",
-            "icon-anchor-y-units": "pixels",
-            "stroke-width": 3,
-            "stroke-color": [255, 0, 0, 1],
-            "fill-color": [0, 0, 255, 0.6],
-          },
-        }),
-      ],
+    map.current = new Map({
+      layers: [raster, vector],
       target: mapContainer.current,
       view: new View({
-        // Knoxille - 35.9606° N, 83.9207° W
-        center: [35, 83],
-        zoom: 2,
+        center: [-11000000, 4600000],
+        zoom: 4,
+        extent,
       }),
     });
 
+    modify.current = new Modify({ source: source });
+    map.current.addInteraction(modify.current);
+
+    // Initial setup of draw and snap interactions
+    addInteractions();
+
+    // Cleanup when unmounting
     return () => {
-      if (map) {
-        map.dispose();
+      if (map.current) {
+        map.current.dispose();
       }
     };
   }, []);
 
-  return <div ref={mapContainer} style={{ width: "100%", height: "400px" }} />;
+  const addInteractions = () => {
+    draw.current = new Draw({
+      source: map.current ? map.current.getLayers().item(1).getSource() : null,
+      type: typeSelect.current.value,
+    });
+
+    if (map.current && draw.current) {
+      map.current.addInteraction(draw.current);
+    }
+
+    snap.current = new Snap({
+      source: map.current ? map.current.getLayers().item(1).getSource() : null,
+    });
+
+    if (map.current && snap.current) {
+      map.current.addInteraction(snap.current);
+    }
+  };
+
+  const handleTypeChange = () => {
+    if (map.current && draw.current && snap.current) {
+      map.current.removeInteraction(draw.current);
+      map.current.removeInteraction(snap.current);
+      addInteractions();
+    }
+  };
+
+  return (
+    <div>
+      <div
+        ref={mapContainer}
+        className='map'
+        style={{ width: "100%", height: "400px" }}
+      ></div>
+      <form>
+        <label htmlFor='type'>Geometry type &nbsp;</label>
+        <select id='type' ref={typeSelect} onChange={handleTypeChange}>
+          <option value='Point'>Point</option>
+          <option value='LineString'>LineString</option>
+          <option value='Polygon'>Polygon</option>
+          <option value='Circle'>Circle</option>
+        </select>
+      </form>
+    </div>
+  );
 };
 
-function handleDownEvent(evt) {
-  const map = evt.map;
-
-  const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
-    return feature;
-  });
-
-  if (feature) {
-    this.coordinate_ = evt.coordinate;
-    this.feature_ = feature;
-  }
-
-  return !!feature;
-}
-
-/**
- * @param {import("../src/ol/MapBrowserEvent.js").default} evt Map browser event.
- */
-function handleDragEvent(evt) {
-  const deltaX = evt.coordinate[0] - this.coordinate_[0];
-  const deltaY = evt.coordinate[1] - this.coordinate_[1];
-
-  const geometry = this.feature_.getGeometry();
-  geometry.translate(deltaX, deltaY);
-
-  this.coordinate_[0] = evt.coordinate[0];
-  this.coordinate_[1] = evt.coordinate[1];
-}
-
-/**
- * @param {import("../src/ol/MapBrowserEvent.js").default} evt Event.
- */
-function handleMoveEvent(evt) {
-  if (this.cursor_) {
-    const map = evt.map;
-    const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
-      return feature;
-    });
-    const element = evt.map.getTargetElement();
-    if (feature) {
-      if (element.style.cursor != this.cursor_) {
-        this.previousCursor_ = element.style.cursor;
-        element.style.cursor = this.cursor_;
-      }
-    } else if (this.previousCursor_ !== undefined) {
-      element.style.cursor = this.previousCursor_;
-      this.previousCursor_ = undefined;
-    }
-  }
-}
-
-/**
- * @return {boolean} `false` to stop the drag sequence.
- */
-function handleUpEvent() {
-  this.coordinate_ = null;
-  this.feature_ = null;
-  return false;
-}
-
-export default MapWithDragInteraction;
+export default MapComponent;
