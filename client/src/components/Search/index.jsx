@@ -31,17 +31,17 @@ export default function Search() {
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 900);
-      console.log("Window width:", window.innerWidth); // Add this line
+      // console.log("Window width:", window.innerWidth); // Add this line
     };
 
     // Add the event listener
     window.addEventListener("resize", handleResize);
-    console.log("listener added");
+    // console.log("listener added");
 
     // Remove the event listener when the component unmounts
     return () => {
       window.removeEventListener("resize", handleResize);
-      console.log("listener removed");
+      // console.log("listener removed");
     };
   }, []);
   const test = open && options.length === 0;
@@ -58,12 +58,12 @@ export default function Search() {
 
       if (active) {
         if (data && data.pets) {
-          console.log("Pet Description" + JSON.stringify(data.pets));
+          // console.log("Pet Description" + JSON.stringify(data.pets));
           const searchOptions = data.pets.map((pet) => ({
             title: pet.description, // Replace with the actual property containing option text
           }));
           setOptions(searchOptions);
-          console.log("search options:" + JSON.stringify(searchOptions));
+          // console.log("search options:" + JSON.stringify(searchOptions));
         }
       }
     })();
@@ -82,8 +82,8 @@ export default function Search() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const petsSearchList = data.pets;
-  console.log("pets:" + petsSearchList);
+  // const petsSearchList = data.pets;
+  // console.log("pets:" + petsSearchList);
 
   return (
     <div id='description-search'>

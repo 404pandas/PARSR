@@ -115,3 +115,26 @@ export const REMOVE_PET = gql`
     }
   }
 `;
+
+// Mutation for adding a marker
+export const ADD_MARKER = gql`
+  mutation addMarker($marker: MarkerData) {
+    createMarker(marker: $marker) {
+      _id
+      petId {
+        _id
+        petName
+      }
+      markerName
+      markerDescription
+      createdAt
+      createdBy {
+        _id
+        username
+      }
+      coordinates
+      image
+      geometry
+    }
+  }
+`;

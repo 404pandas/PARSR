@@ -1,224 +1,153 @@
-import React, { useEffect, useState, useRef } from "react";
-import GeoJSON from "ol/format/GeoJSON.js";
-import Draw from "ol/interaction/Draw.js";
-import { Modify } from "ol/interaction.js";
+import { useEffect, useRef } from "react";
+import Feature from "ol/Feature.js";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
-import Point from "ol/geom/Point.js";
-import Feature from "ol/Feature.js";
-import Select from "ol/interaction/Select.js";
-
-import XYZ from "ol/source/XYZ.js";
-import { Fill, Style, Text, Icon } from "ol/style.js";
+import { LineString, Point, Polygon } from "ol/geom.js";
 import { OSM, Vector as VectorSource } from "ol/source.js";
+import {
+  Pointer as PointerInteraction,
+  defaults as defaultInteractions,
+} from "ol/interaction.js";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer.js";
-import { getCenter } from "ol/extent.js";
-import "./style.css";
+import marker from "../../assets/images/map-marker.png";
 
-const MapComponent = () => {
-  const [map, setMap] = useState(null);
-  const [type, setType] = useState("LineString"); // Default type
-  const [drawInteraction, setDrawInteraction] = useState(null);
-  const [userFeatures, setUserFeatures] = useState([]); // User-added features
-  const mapContainerRef = useRef(null); // Ref for the map container element
+console.log(marker);
 
-  const handleTypeChange = (event) => {
-    setType(event.target.value);
-  };
+const Drag = new PointerInteraction({
+  handleDownEvent: handleDownEvent,
+  handleDragEvent: handleDragEvent,
+  handleMoveEvent: handleMoveEvent,
+  handleUpEvent: handleUpEvent,
+});
 
-  const addUserFeature = (geometry) => {
-    setUserFeatures((prevUserFeatures) => [
-      ...prevUserFeatures,
-      new Feature({
-        geometry: geometry,
-        geometryName: "DefaultName", // Default name for the geometry
-      }),
-    ]);
-  };
+let map;
 
-  const handleNameChange = (event, index) => {
-    const newName = event.target.value;
-    setUserFeatures((prevUserFeatures) => {
-      const updatedFeatures = [...prevUserFeatures];
-      updatedFeatures[index].set("geometryName", newName);
-      return updatedFeatures;
-    });
-  };
+const MapWithDragInteraction = () => {
+  const mapContainer = useRef(null);
 
-<<<<<<< Updated upstream
-  // Handles the submission of the text input value
-  const handleSubmit = () => {
-    // Tests textValue call
-    // console.log("Submitted Text Value: ", textValue);
-
-    // Updates the style of map features with the submitted textValue
-    if (map) {
-      const vectorLayer = map.getLayers().item(1);
-      if (vectorLayer) {
-        const style = new Style({
-          text: new Text({
-            anchor: [0.5, 46],
-            anchorXUnits: "fraction",
-            anchorYUnits: "pixels",
-            // sets text to state textValue
-            text: textValue,
-          }),
-        });
-
-        // Updates the style of the map features, this might be why all of them are being updated?
-        vectorLayer.setStyle(function () {
-          style.getText().setText(textValue);
-          return style;
-        });
-      }
-    }
-  };
-
-  // Inits map
-=======
->>>>>>> Stashed changes
   useEffect(() => {
-    // Check if the map is already initialized to prevent double initialization
-    if (map !== null) {
-      return;
-    }
+    const pointFeature = new Feature(new Point([0, 0]));
+    pointFeature.set("draggable", true); // Make the icon draggable
 
-    const iconFeature = new Feature({
-      geometry: new Point([0, 0]),
-      name: "Null Island",
-      population: 4000,
-      rainfall: 500,
-    });
+    const lineFeature = new Feature(
+      new LineString([
+        [-1e7, 1e6],
+        [-1e6, 3e6],
+      ])
+    );
 
-    const style = new Style({
-      text: new Text({
-        anchor: [0.5, 46],
-        anchorXUnits: "fraction",
-        anchorYUnits: "pixels",
-        text: "Test",
-      }),
-    });
+    const polygonFeature = new Feature(
+      new Polygon([
+        [
+          [-3e6, -1e6],
+          [-3e6, 1e6],
+          [-1e6, 1e6],
+          [-1e6, -1e6],
+          [-3e6, -1e6],
+        ],
+      ])
+    );
 
-    const raster = new TileLayer({
-      source: new OSM(),
-    });
-
-    const source = new VectorSource({ wrapX: false, features: [iconFeature] });
-
-    const vector = new VectorLayer({
-      source: source,
-      style: function (feature) {
-        style.getText().setText(() => "Test");
-        return style;
-      },
-    });
-
-    const newMap = new Map({
-      layers: [raster, vector],
-      target: mapContainerRef.current, // Use the target element
+    map = new Map({
+      interactions: defaultInteractions().extend([Drag]),
+      layers: [
+        new TileLayer({
+          source: new OSM(),
+        }),
+        new VectorLayer({
+          source: new VectorSource({
+            features: [pointFeature, lineFeature, polygonFeature],
+          }),
+          style: {
+            "icon-src": marker,
+            "icon-width": 35,
+            "icon-height": 50,
+            "icon-opacity": 0.95,
+            "icon-anchor": [0.5, 46],
+            "icon-anchor-x-units": "fraction",
+            "icon-anchor-y-units": "pixels",
+            "stroke-width": 3,
+            "stroke-color": [255, 0, 0, 1],
+            "fill-color": [0, 0, 255, 0.6],
+          },
+        }),
+      ],
+      target: mapContainer.current,
       view: new View({
-        center: [-11000000, 4600000],
-        zoom: 4,
+        // Knoxille - 35.9606° N, 83.9207° W
+        center: [35, 83],
+        zoom: 2,
       }),
     });
 
-    const modify = new Modify({
-      hitDetection: vector,
-      source: source,
-    });
-    modify.on(["modifystart", "modifyend"], function (evt) {
-      mapContainerRef.current.style.cursor =
-        evt.type === "modifystart" ? "grabbing" : "pointer";
-    });
-    const overlaySource = modify.getOverlay().getSource();
-    overlaySource.on(["addfeature", "removefeature"], function (evt) {
-      mapContainerRef.current.style.cursor =
-        evt.type === "addfeature" ? "pointer" : "";
-    });
-
-    newMap.addInteraction(modify);
-
-    setMap(newMap);
-
-    // Cleanup: remove the draw interaction when the component unmounts
     return () => {
-      if (drawInteraction) {
-        newMap.removeInteraction(drawInteraction);
+      if (map) {
+        map.dispose();
       }
     };
   }, []);
 
-  useEffect(() => {
-    // Create or update the draw interaction based on the selected geometry type
-    if (map && type !== "None") {
-      if (drawInteraction) {
-        map.removeInteraction(drawInteraction);
-      }
-
-      const newDrawInteraction = new Draw({
-        source: map.getLayers().item(1).getSource(), // Assuming vector layer is at index 1
-        type: type,
-        freehand: true,
-        geometryName: "Test",
-      });
-
-      newDrawInteraction.on("drawend", (event) => {
-        const geometry = event.feature.getGeometry();
-        addUserFeature(geometry);
-<<<<<<< Updated upstream
-        // Test geometry call
-        // console.log("User added feature: ", geometry);
-=======
-        console.log("User added feature: ", geometry);
->>>>>>> Stashed changes
-      });
-
-      map.addInteraction(newDrawInteraction);
-      setDrawInteraction(newDrawInteraction);
-    }
-  }, [map, type]);
-
-  // Toggle the icon feature visibility
-  useEffect(() => {
-    if (map) {
-      const vectorLayer = map.getLayers().item(1); // Assuming vector layer is at index 1
-      if (vectorLayer) {
-        vectorLayer.setVisible(true); // Always show icon feature
-      }
-    }
-  }, [map]);
-
-  console.log(userFeatures);
-
-  return (
-    <div>
-      <div ref={mapContainerRef} className='map'></div>
-      <form>
-        <label htmlFor='type'>Geometry type &nbsp;</label>
-        <select id='type' value={type} onChange={handleTypeChange}>
-          <option value='LineString'>LineString</option>
-          <option value='Polygon'>Polygon</option>
-          <option value='Circle'>Circle</option>
-          <option value='Point'>Point</option>
-        </select>
-      </form>
-      <div>
-        <h2>User-Added Features:</h2>
-        <ul>
-          {userFeatures.map((feature, index) => (
-            <li key={index}>
-              Feature {index + 1}:{" "}
-              <input
-                type='text'
-                value={feature.get("geometryName")}
-                onChange={(event) => handleNameChange(event, index)}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
+  return <div ref={mapContainer} style={{ width: "100%", height: "400px" }} />;
 };
 
-export default MapComponent;
+function handleDownEvent(evt) {
+  const map = evt.map;
+
+  const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+    return feature;
+  });
+
+  if (feature) {
+    this.coordinate_ = evt.coordinate;
+    this.feature_ = feature;
+  }
+
+  return !!feature;
+}
+
+/**
+ * @param {import("../src/ol/MapBrowserEvent.js").default} evt Map browser event.
+ */
+function handleDragEvent(evt) {
+  const deltaX = evt.coordinate[0] - this.coordinate_[0];
+  const deltaY = evt.coordinate[1] - this.coordinate_[1];
+
+  const geometry = this.feature_.getGeometry();
+  geometry.translate(deltaX, deltaY);
+
+  this.coordinate_[0] = evt.coordinate[0];
+  this.coordinate_[1] = evt.coordinate[1];
+}
+
+/**
+ * @param {import("../src/ol/MapBrowserEvent.js").default} evt Event.
+ */
+function handleMoveEvent(evt) {
+  if (this.cursor_) {
+    const map = evt.map;
+    const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+      return feature;
+    });
+    const element = evt.map.getTargetElement();
+    if (feature) {
+      if (element.style.cursor != this.cursor_) {
+        this.previousCursor_ = element.style.cursor;
+        element.style.cursor = this.cursor_;
+      }
+    } else if (this.previousCursor_ !== undefined) {
+      element.style.cursor = this.previousCursor_;
+      this.previousCursor_ = undefined;
+    }
+  }
+}
+
+/**
+ * @return {boolean} `false` to stop the drag sequence.
+ */
+function handleUpEvent() {
+  this.coordinate_ = null;
+  this.feature_ = null;
+  return false;
+}
+
+export default MapWithDragInteraction;

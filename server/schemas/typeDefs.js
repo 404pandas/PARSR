@@ -59,15 +59,6 @@ const typeDefs = `
     markers: [MarkerData]
   }
 
-  type markerResponse {
-    success: Boolean
-    marker: Marker
-  }
-
-  type petResponse {
-    success: Boolean
-    pet: Pet
-  }
 
   enum AnimalType {
     DOG
@@ -99,8 +90,8 @@ const typeDefs = `
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    createMarker(marker: MarkerData): markerResponse
-    createPet(pet: PetData): petResponse
+    createMarker(marker: MarkerData): Marker
+    createPet(pet: PetData): Pet
   }
 `;
 

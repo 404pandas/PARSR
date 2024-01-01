@@ -146,18 +146,25 @@ const resolvers = {
     createMarker: async (
       parent,
       {
+        petId,
         markerName,
         markerDescription,
         createdAt,
         coordinates,
         image,
         geometry,
-        petId,
       },
       context
     ) => {
       if (context.user) {
-        console.log("markerDescription before create:", markerDescription);
+        console.log("-----------------");
+        console.log("Input data:");
+        console.log("-----------------");
+        console.log("markerName:", markerName);
+        console.log("markerDescription:");
+        console.log("petId:", context);
+        console.log("-----------------");
+        // undefined
 
         const marker = await Marker.create({
           markerName,
@@ -169,33 +176,27 @@ const resolvers = {
           petId,
           createdBy: context.user._id,
         });
-        console.log(
-          "markerDescription after create:",
-          marker.markerDescription
-        );
-
-        // Add the marker to the pet's markers array
-        const updatedPet = await Pet.findOneAndUpdate(
-          { _id: petId },
-          {
-            $addToSet: { markers: marker._id },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
+        console.log("-----------------");
+        console.log("Created data:");
+        console.log("-----------------");
+        console.log("markerName:", marker.markerName);
+        console.log("-----------------");
+        console.log("petId:", marker.petId);
+        console.log("-----------------");
+        // undefined
 
         // Populate the createdBy field with the user data
         const populatedMarker = await Marker.findById(marker._id).populate(
           "createdBy"
         );
-        console.log("after-" + marker);
+        console.log("-----------------");
+        console.log("Created data:");
+        console.log(populatedMarker.markerName);
+        console.log("-----------------");
+        // JSON format
+
         // Return the created marker
-        return {
-          success: true,
-          marker: populatedMarker,
-        };
+        return populatedMarker;
       } else {
         throw new AuthenticationError("Not logged in");
       }
