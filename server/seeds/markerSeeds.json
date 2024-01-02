@@ -4,7 +4,6 @@
     "markerDescription": "Description for Marker 1",
     "coordinates": [12.34, 56.78],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -13,7 +12,6 @@
     "markerDescription": "Description for Marker 2",
     "coordinates": [23.45, 67.89],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -22,7 +20,6 @@
     "markerDescription": "Description for Marker 3",
     "coordinates": [34.56, 78.9],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -31,7 +28,6 @@
     "markerDescription": "Description for Marker 4",
     "coordinates": [45.67, 89.01],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -40,7 +36,6 @@
     "markerDescription": "Description for Marker 5",
     "coordinates": [56.78, 90.12],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -49,7 +44,6 @@
     "markerDescription": "Description for Marker 6",
     "coordinates": [67.89, 12.34],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -58,7 +52,6 @@
     "markerDescription": "Description for Marker 7",
     "coordinates": [78.9, 23.45],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -67,7 +60,6 @@
     "markerDescription": "Description for Marker 8",
     "coordinates": [89.01, 34.56],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -76,7 +68,6 @@
     "markerDescription": "Description for Marker 9",
     "coordinates": [90.12, 45.67],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -85,7 +76,6 @@
     "markerDescription": "Description for Marker 10",
     "coordinates": [12.34, 56.78],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -94,7 +84,6 @@
     "markerDescription": "Description for Marker 11",
     "coordinates": [23.45, 67.89],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -103,7 +92,6 @@
     "markerDescription": "Description for Marker 12",
     "coordinates": [34.56, 78.9],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -112,7 +100,6 @@
     "markerDescription": "Description for Marker 13",
     "coordinates": [45.67, 89.01],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -121,7 +108,6 @@
     "markerDescription": "Description for Marker 14",
     "coordinates": [56.78, 90.12],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -130,7 +116,6 @@
     "markerDescription": "Description for Marker 15",
     "coordinates": [67.89, 12.34],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -139,7 +124,6 @@
     "markerDescription": "Description for Marker 16",
     "coordinates": [78.9, 23.45],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -148,7 +132,6 @@
     "markerDescription": "Description for Marker 17",
     "coordinates": [89.01, 34.56],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -157,7 +140,6 @@
     "markerDescription": "Description for Marker 18",
     "coordinates": [90.12, 45.67],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -166,7 +148,6 @@
     "markerDescription": "Description for Marker 19",
     "coordinates": [12.34, 56.78],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -175,7 +156,6 @@
     "markerDescription": "Description for Marker 20",
     "coordinates": [23.45, 67.89],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -184,7 +164,6 @@
     "markerDescription": "Description for Marker 21",
     "coordinates": [34.56, 78.9],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -193,7 +172,6 @@
     "markerDescription": "Description for Marker 22",
     "coordinates": [45.67, 89.01],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -202,7 +180,6 @@
     "markerDescription": "Description for Marker 23",
     "coordinates": [56.78, 90.12],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -211,7 +188,6 @@
     "markerDescription": "Description for Marker 24",
     "coordinates": [67.89, 12.34],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -220,7 +196,6 @@
     "markerDescription": "Description for Marker 25",
     "coordinates": [78.9, 23.45],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -229,7 +204,6 @@
     "markerDescription": "Description for Marker 26",
     "coordinates": [89.01, 34.56],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -238,7 +212,6 @@
     "markerDescription": "Description for Marker 27",
     "coordinates": [90.12, 45.67],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -247,7 +220,6 @@
     "markerDescription": "Description for Marker 28",
     "coordinates": [12.34, 56.78],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -256,7 +228,6 @@
     "markerDescription": "Description for Marker 29",
     "coordinates": [23.45, 67.89],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -265,7 +236,6 @@
     "markerDescription": "Description for Marker 30",
     "coordinates": [34.56, 78.9],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -274,7 +244,6 @@
     "markerDescription": "Description for Marker 31",
     "coordinates": [45.67, 89.01],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -283,7 +252,6 @@
     "markerDescription": "Description for Marker 32",
     "coordinates": [56.78, 90.12],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -292,7 +260,6 @@
     "markerDescription": "Description for Marker 33",
     "coordinates": [67.89, 12.34],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -301,7 +268,6 @@
     "markerDescription": "Description for Marker 34",
     "coordinates": [78.9, 23.45],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -310,7 +276,6 @@
     "markerDescription": "Description for Marker 35",
     "coordinates": [89.01, 34.56],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -319,7 +284,6 @@
     "markerDescription": "Description for Marker 36",
     "coordinates": [90.12, 45.67],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -328,7 +292,6 @@
     "markerDescription": "Description for Marker 37",
     "coordinates": [12.34, 56.78],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -337,7 +300,6 @@
     "markerDescription": "Description for Marker 38",
     "coordinates": [23.45, 67.89],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -346,7 +308,6 @@
     "markerDescription": "Description for Marker 39",
     "coordinates": [34.56, 78.9],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -355,7 +316,6 @@
     "markerDescription": "Description for Marker 40",
     "coordinates": [45.67, 89.01],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -364,7 +324,6 @@
     "markerDescription": "Description for Marker 41",
     "coordinates": [56.78, 90.12],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -373,7 +332,6 @@
     "markerDescription": "Description for Marker 42",
     "coordinates": [67.89, 12.34],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -382,7 +340,6 @@
     "markerDescription": "Description for Marker 43",
     "coordinates": [78.9, 23.45],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -391,7 +348,6 @@
     "markerDescription": "Description for Marker 44",
     "coordinates": [89.01, 34.56],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -400,7 +356,6 @@
     "markerDescription": "Description for Marker 45",
     "coordinates": [90.12, 45.67],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -409,7 +364,6 @@
     "markerDescription": "Description for Marker 46",
     "coordinates": [12.34, 56.78],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -418,7 +372,6 @@
     "markerDescription": "Description for Marker 47",
     "coordinates": [23.45, 67.89],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -427,7 +380,6 @@
     "markerDescription": "Description for Marker 48",
     "coordinates": [34.56, 78.9],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -436,7 +388,6 @@
     "markerDescription": "Description for Marker 49",
     "coordinates": [45.67, 89.01],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -445,7 +396,6 @@
     "markerDescription": "Description for Marker 50",
     "coordinates": [56.78, 90.12],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -454,7 +404,6 @@
     "markerDescription": "Description for Marker 51",
     "coordinates": [67.89, 12.34],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -463,7 +412,6 @@
     "markerDescription": "Description for Marker 52",
     "coordinates": [78.9, 23.45],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -472,7 +420,6 @@
     "markerDescription": "Description for Marker 53",
     "coordinates": [89.01, 34.56],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -481,7 +428,6 @@
     "markerDescription": "Description for Marker 54",
     "coordinates": [90.12, 45.67],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -490,7 +436,6 @@
     "markerDescription": "Description for Marker 55",
     "coordinates": [12.34, 56.78],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -499,7 +444,6 @@
     "markerDescription": "Description for Marker 56",
     "coordinates": [23.45, 67.89],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -508,7 +452,6 @@
     "markerDescription": "Description for Marker 57",
     "coordinates": [34.56, 78.9],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -517,7 +460,6 @@
     "markerDescription": "Description for Marker 58",
     "coordinates": [45.67, 89.01],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -526,7 +468,6 @@
     "markerDescription": "Description for Marker 59",
     "coordinates": [56.78, 90.12],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -535,7 +476,6 @@
     "markerDescription": "Description for Marker 60",
     "coordinates": [67.89, 12.34],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -544,7 +484,6 @@
     "markerDescription": "Description for Marker 61",
     "coordinates": [78.9, 23.45],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   },
@@ -553,7 +492,6 @@
     "markerDescription": "Description for Marker 62",
     "coordinates": [89.01, 34.56],
     "image": "map-marker.svg",
-    "createdBy": null,
     "createdAt": null,
     "geometry": null
   }

@@ -1,8 +1,6 @@
-const { Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
-// This is a subdocument schema; it won't become its own model but it
-// will be used as the schema for the User's 'inbox' and 'outbox' arrays in User.js
 const postSchema = new Schema({
   postContent: {
     type: String,
@@ -18,4 +16,6 @@ const postSchema = new Schema({
   },
 });
 
-module.exports = postSchema;
+const Post = model("Post", postSchema);
+
+module.exports = Post;
