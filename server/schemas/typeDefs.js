@@ -23,6 +23,13 @@ const typeDefs = `
     geometry: GeoJSON
     image: String
     markers: [Marker]
+    posts: [Post]
+  }
+
+  type Post {
+    postContent: String
+    createdBy: User
+    createdAt: Date
   }
 
   type Marker {
@@ -85,6 +92,9 @@ const typeDefs = `
     markers: [Marker]
     marker(markerId: ID!): Marker
     markersByPet(petId: ID!): [Marker]
+    posts(petId: ID!): [Post]
+    post(postId: ID!): Post
+
   }
 
   type Mutation {
@@ -92,6 +102,8 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     createMarker(marker: MarkerData): Marker
     createPet(pet: PetData): Pet
+    addPost(postContent: String!): Post
+    deletePost(postId: ID!): Post
   }
 `;
 

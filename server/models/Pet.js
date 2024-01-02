@@ -1,7 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-const markerSchema = require("./Marker").schema;
-
 const petSchema = new Schema(
   {
     petName: {
@@ -66,6 +64,12 @@ const petSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Marker",
+      },
+    ],
+    posts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
       },
     ],
   },

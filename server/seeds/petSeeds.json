@@ -7,7 +7,8 @@
     "microchipNumber": "1234567890",
     "petOwnerUsername": "404Pandas",
     "isMissing": true,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Buddy",
@@ -17,7 +18,8 @@
     "microchipNumber": "9876543210",
     "petOwnerUsername": "TestUserName",
     "isMissing": false,
-    "image": "dog-09-front.svg"
+    "image": "dog-09-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Whiskers",
@@ -27,7 +29,8 @@
     "microchipNumber": "9876543610",
     "petOwnerUsername": "TestUserName",
     "isMissing": false,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Snowball",
@@ -37,7 +40,8 @@
     "microchipNumber": "5432109876",
     "petOwnerUsername": "BunnyLover",
     "isMissing": false,
-    "image": "other-01-front.svg"
+    "image": "other-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Whiskers Jr.",
@@ -47,7 +51,8 @@
     "microchipNumber": "1234567891",
     "petOwnerUsername": "TestUserName",
     "isMissing": false,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Rex",
@@ -57,7 +62,8 @@
     "microchipNumber": "1234567892",
     "petOwnerUsername": "DogLover",
     "isMissing": true,
-    "image": "dog-12-front.svg"
+    "image": "dog-12-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Smokey",
@@ -67,7 +73,8 @@
     "microchipNumber": "9876543611",
     "petOwnerUsername": "CatEnthusiast",
     "isMissing": false,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Lucky",
@@ -77,7 +84,8 @@
     "microchipNumber": "9876543612",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-05-front.svg"
+    "image": "dog-05-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Mittens",
@@ -87,7 +95,8 @@
     "microchipNumber": "1234567893",
     "petOwnerUsername": "CatLover",
     "isMissing": true,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Max",
@@ -97,7 +106,8 @@
     "microchipNumber": "9876543613",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-03-front.svg"
+    "image": "dog-03-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Fluffy2",
@@ -107,7 +117,8 @@
     "microchipNumber": "1234567894",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-07-front.svg"
+    "image": "dog-07-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Tiger",
@@ -117,7 +128,8 @@
     "microchipNumber": "1234567895",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Rocky",
@@ -127,7 +139,8 @@
     "microchipNumber": "9876543614",
     "petOwnerUsername": "DogLover",
     "isMissing": true,
-    "image": "dog-01-front.svg"
+    "image": "dog-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Bella",
@@ -137,7 +150,8 @@
     "microchipNumber": "1234567896",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Lola",
@@ -147,7 +161,8 @@
     "microchipNumber": "9876543615",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-14-front.svg"
+    "image": "dog-14-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Spike",
@@ -157,7 +172,8 @@
     "microchipNumber": "9876543616",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-06-front.svg"
+    "image": "dog-06-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Angel",
@@ -167,7 +183,8 @@
     "microchipNumber": "9876543617",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-10-front.svg"
+    "image": "dog-10-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Lily",
@@ -177,7 +194,8 @@
     "microchipNumber": "1234567897",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Oreo",
@@ -187,7 +205,8 @@
     "microchipNumber": "9876543618",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-06-front.svg"
+    "image": "dog-06-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Shadow",
@@ -197,7 +216,8 @@
     "microchipNumber": "9876543619",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-13-front.svg"
+    "image": "dog-13-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Simba",
@@ -207,7 +227,8 @@
     "microchipNumber": "1234567898",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Teddy",
@@ -217,7 +238,8 @@
     "microchipNumber": "9876543620",
     "petOwnerUsername": "DogLover",
     "isMissing": false,
-    "image": "dog-02-front.svg"
+    "image": "dog-02-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Misty",
@@ -227,7 +249,8 @@
     "microchipNumber": "1234567899",
     "petOwnerUsername": "CatLover",
     "isMissing": false,
-    "image": "cat-01-front.svg"
+    "image": "cat-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Marty",
@@ -237,7 +260,8 @@
     "microchipNumber": "12345557899",
     "petOwnerUsername": "BirdLover",
     "isMissing": true,
-    "image": "bird-01-front.svg"
+    "image": "bird-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Fer",
@@ -247,7 +271,8 @@
     "microchipNumber": "12345653899",
     "petOwnerUsername": "FerretLover",
     "isMissing": false,
-    "image": "ferret-01-front.svg"
+    "image": "ferret-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Fish",
@@ -257,7 +282,8 @@
     "microchipNumber": "5253524",
     "petOwnerUsername": "FishLover",
     "isMissing": true,
-    "image": "fish-01-front.svg"
+    "image": "fish-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Hamtaro",
@@ -267,7 +293,8 @@
     "microchipNumber": "5254353524",
     "petOwnerUsername": "HamsterLover",
     "isMissing": true,
-    "image": "hamster-01-front.svg"
+    "image": "hamster-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Herry",
@@ -277,7 +304,8 @@
     "microchipNumber": "52543453524",
     "petOwnerUsername": "HamsterLover",
     "isMissing": true,
-    "image": "hamster-03-front.svg"
+    "image": "hamster-03-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Fernando",
@@ -287,7 +315,8 @@
     "microchipNumber": "52535ff24",
     "petOwnerUsername": "FrogLover",
     "isMissing": true,
-    "image": "frog-01-front.svg"
+    "image": "frog-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Gizmo",
@@ -297,7 +326,8 @@
     "microchipNumber": "5253543424",
     "petOwnerUsername": "GPLover",
     "isMissing": false,
-    "image": "gp-01-front.svg"
+    "image": "gp-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Aimee",
@@ -307,7 +337,8 @@
     "microchipNumber": "525353343424",
     "petOwnerUsername": "HedgehogLover",
     "isMissing": false,
-    "image": "hedgehog-01-front.svg"
+    "image": "hedgehog-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Alpha",
@@ -317,7 +348,8 @@
     "microchipNumber": "525353343424",
     "petOwnerUsername": "CatLover",
     "isMissing": true,
-    "image": "rabbit-01-front.svg"
+    "image": "rabbit-01-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Vader",
@@ -327,7 +359,8 @@
     "microchipNumber": "52535453424",
     "petOwnerUsername": "404Pandas",
     "isMissing": false,
-    "image": "dog-16-front.svg"
+    "image": "dog-16-front.svg",
+    "posts": [null]
   },
   {
     "petName": "Gizmo",
@@ -337,6 +370,7 @@
     "microchipNumber": "5253543424",
     "petOwnerUsername": "GPLover",
     "isMissing": false,
-    "image": "fish-01-front.svg"
+    "image": "fish-01-front.svg",
+    "posts": [null]
   }
 ]

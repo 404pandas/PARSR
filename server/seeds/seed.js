@@ -1,14 +1,16 @@
 const db = require("../config/connection");
-const { User, Pet, Marker } = require("../models");
+const { User, Pet, Marker, Post } = require("../models");
 const petSeeds = require("./petSeeds.json");
 const userSeeds = require("./userSeeds.json");
 const markerSeeds = require("./markerSeeds.json");
+const postSeeds = require("./postSeeds.json");
 
 db.once("open", async () => {
   try {
     await User.deleteMany({});
     await Pet.deleteMany({});
     await Marker.deleteMany({});
+    await Post.deleteMany({});
 
     // Create Users
     await User.create(userSeeds);
@@ -42,6 +44,7 @@ db.once("open", async () => {
         geometry: petData.geometry || null,
         image: petData.image,
         markers: [],
+        posts: [],
       });
 
       await pet.save();
@@ -55,35 +58,22 @@ db.once("open", async () => {
       userIds.push(user._id); // Store the user _id in the array
     }
 
+    // example for new seeder
+    // for (let i = 0; i < thoughtSeeds.length; i++) {
+    //   const { _id, thoughtAuthor } = await Thought.create(thoughtSeeds[i]);
+    //   const user = await User.findOneAndUpdate(
+    //     { username: thoughtAuthor },
+    //     {
+    //       $addToSet: {
+    //         thoughts: _id,
+    //       },
+    //     }
+    //   );
     // Create markers and assign random pet _id
     for (const markersData of markerSeeds) {
-      // Check if markersData.id is defined and valid
-      // if (!markersData.petId) {
-      //   console.log(`Invalid petId in markersData: ${markersData.petId}`);
-      //   continue;
-      // }
-
-      // Select a random pet _id from the petIds array
       const randomPetId = petIds[Math.floor(Math.random() * petIds.length)];
-      console.log("randomPetId:", randomPetId);
-
-      // Select a random user _id from the userIds array
-      const randomUserId = userIds[Math.floor(Math.random() * userIds.length)];
-      console.log("randomUserId:", randomUserId);
 
       const pet = await Pet.findOne({ _id: randomPetId });
-
-      const user = await User.findOne({ _id: randomUserId });
-
-      if (!pet) {
-        console.log(`Pet with petId ${randomPetId} not found.`);
-        continue;
-      }
-
-      if (!user) {
-        console.log(`User with userId ${randomUserId} not found.`);
-        continue;
-      }
 
       const marker = new Marker({
         petId: randomPetId,
@@ -96,10 +86,26 @@ db.once("open", async () => {
         image: markersData.image,
       });
 
-      await marker.save();
+      pet.markers.push(marker);
+
+      await pet.save();
+    }
+
+    for (const postData of postSeeds) {
+      const randomPetId = petIds[Math.floor(Math.random() * petIds.length)];
+
+      const pet = await Pet.findOne({ _id: randomPetId });
+
+      const post = new Post({
+        petId: randomPetId,
+        postContent: postData.postContent,
+        createdAt: postData.createdAt || null,
+        createdBy: randomUserId,
+      });
+      await post.save();
 
       // Add the marker to the pet's marker array
-      pet.markers.push(marker);
+      pet.posts.push(post);
 
       await pet.save();
     }

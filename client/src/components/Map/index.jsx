@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
 import { Draw, Modify, Snap } from "ol/interaction.js";
@@ -91,7 +91,7 @@ const MapComponent = () => {
       <div
         ref={mapContainer}
         className='map'
-        style={{ width: "100%", height: "400px" }}
+        style={{ width: "80%", height: "400px" }}
       ></div>
       <form>
         <label htmlFor='type'>Geometry type &nbsp;</label>

@@ -2,6 +2,7 @@ const { AuthenticationError } = require("apollo-server-express");
 const Pet = require("../models/Pet");
 const User = require("../models/User");
 const Marker = require("../models/Marker");
+const Post = require("../models/Post");
 const { signToken } = require("../utils/auth");
 const { GraphQLScalarType, Kind } = require("graphql");
 
@@ -157,15 +158,6 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
-        console.log("-----------------");
-        console.log("Input data:");
-        console.log("-----------------");
-        console.log("markerName:", markerName);
-        console.log("markerDescription:");
-        console.log("petId:", context);
-        console.log("-----------------");
-        // undefined
-
         const marker = await Marker.create({
           markerName,
           markerDescription,
@@ -176,30 +168,80 @@ const resolvers = {
           petId,
           createdBy: context.user._id,
         });
-        console.log("-----------------");
-        console.log("Created data:");
-        console.log("-----------------");
-        console.log("markerName:", marker.markerName);
-        console.log("-----------------");
-        console.log("petId:", marker.petId);
-        console.log("-----------------");
-        // undefined
 
         // Populate the createdBy field with the user data
         const populatedMarker = await Marker.findById(marker._id).populate(
           "createdBy"
         );
-        console.log("-----------------");
-        console.log("Created data:");
-        console.log(populatedMarker.markerName);
-        console.log("-----------------");
-        // JSON format
 
         // Return the created marker
         return populatedMarker;
       } else {
         throw new AuthenticationError("Not logged in");
       }
+    },
+    // Add a post to a pet
+    addPost: async (_, { postContent }, context) => {
+      if (context.user) {
+        // Find the pet by ID
+        const post = await Post.create({
+          postContent,
+          petId: context.pet._id,
+        });
+        await Pet.findOneAndUpdate(
+          { _id: context.pet._id },
+          { $addToSet: { posts: post._id } }
+        );
+        return post;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+
+    // Update a post on a pet
+    updatePost: async (_, { postId, postContent }, context) => {
+      if (context.user) {
+        // Find the pet by ID
+        const pet = await Pet.findById(postId);
+
+        if (!pet) {
+          throw new Error("Pet not found");
+        }
+
+        // Find the post within the pet's posts array
+        const postToUpdate = pet.posts.find(
+          (post) => post._id.toString() === postId
+        );
+
+        if (!postToUpdate) {
+          throw new Error("Post not found");
+        }
+
+        // Update the post's content
+        postToUpdate.content = postContent;
+
+        await pet.save();
+
+        return pet;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+
+    // Delete a post from a pet
+    deletePost: async (_, { postId }, context) => {
+      if (context.user) {
+        // Find the pet by ID
+        const post = await Post.findOneAndDelete({
+          _id: postId,
+          petId: context.pet._id,
+        });
+
+        await Pet.findOneAndUpdate(
+          { _id: context.pet._id },
+          { $pull: { posts: post._id } }
+        );
+        return post;
+      }
+      throw new AuthenticationError("Not logged in");
     },
   },
 };
