@@ -117,6 +117,26 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
+    // all posts
+    posts: async () => {
+      return Post.find().sort({ createdAt: -1 });
+    },
+    // single marker
+    post: async (parent, { postId }) => {
+      return Post.findOne({ _id: postId });
+    },
+    // posts by pet
+    postsByPet: async (parent, args) => {
+      try {
+        const posts = await Post.find({ petId: args.petId })
+          .populate("petId")
+          .populate("createdBy");
+
+        return posts;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
   },
   // Defines the functions that will fulfill the mutations
   Mutation: {
@@ -176,6 +196,48 @@ const resolvers = {
 
         // Return the created marker
         return populatedMarker;
+      } else {
+        throw new AuthenticationError("Not logged in");
+      }
+    },
+    // create Pet
+    createPet: async (
+      parent,
+      {
+        petId,
+        petName,
+        description,
+        microchipRegistry,
+        microchipNumber,
+        petOwner,
+        petOwnerUsername,
+        animalType,
+        isMissing,
+        geometry,
+        image,
+        markers,
+        posts,
+      },
+      context
+    ) => {
+      if (context.user) {
+        const pet = await Pet.create({
+          petName,
+          description,
+          microchipRegistry,
+          microchipNumber,
+          petOwner: context.user._id,
+          petOwnerUsername,
+          animalType,
+          isMissing,
+          geometry,
+          image,
+          markers,
+          posts,
+        });
+
+        // Return the created marker
+        return petId;
       } else {
         throw new AuthenticationError("Not logged in");
       }

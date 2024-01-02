@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
 import { Draw, Modify, Snap } from "ol/interaction.js";
@@ -7,6 +7,10 @@ import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer.js";
 import { get } from "ol/proj.js";
 
 const MapComponent = () => {
+  const [pointCoordinates, setPointCoordinates] = useState([]);
+  const [lineCoordinates, setLineCoordinates] = useState([]);
+  const [polygonCoordinates, setPolygonCoordinates] = useState([]);
+  const [circleCoordinates, setCircleCoordinates] = useState([]);
   const mapContainer = useRef(null);
   const typeSelect = useRef(null);
   const map = useRef(null);
@@ -67,6 +71,31 @@ const MapComponent = () => {
 
     if (map.current && draw.current) {
       map.current.addInteraction(draw.current);
+
+      draw.current.on("drawend", (event) => {
+        const feature = event.feature;
+        const geometry = feature.getGeometry();
+
+        if (geometry.getType() === "Point") {
+          const coordinates = geometry.getCoordinates();
+          console.log("Point coordinates:", coordinates);
+        }
+
+        if (geometry.getType() === "LineString") {
+          const coordinates = geometry.getCoordinates();
+          console.log("Line coordinates:", coordinates);
+        }
+
+        if (geometry.getType() === "Polygon") {
+          const coordinates = geometry.getCoordinates();
+          console.log("Polygon coordinates:", coordinates);
+        }
+
+        if (geometry.getType() === "Cirlce") {
+          const coordinates = geometry.getCoordinates();
+          console.log("Circle coordinates:", coordinates);
+        }
+      });
     }
 
     snap.current = new Snap({
@@ -76,6 +105,22 @@ const MapComponent = () => {
     if (map.current && snap.current) {
       map.current.addInteraction(snap.current);
     }
+
+    draw.current.on("drawend", (event) => {
+      const feature = event.feature;
+      const geometry = feature.getGeometry();
+      const coordinates = geometry.getCoordinates();
+
+      if (geometry.getType() === "Point") {
+        setPointCoordinates(coordinates);
+      } else if (geometry.getType() === "LineString") {
+        setLineCoordinates(coordinates);
+      } else if (geometry.getType() === "Polygon") {
+        setPolygonCoordinates(coordinates);
+      } else if (geometry.getType() === "Circle") {
+        setCircleCoordinates(coordinates);
+      }
+    });
   };
 
   const handleTypeChange = () => {
@@ -102,6 +147,22 @@ const MapComponent = () => {
           <option value='Circle'>Circle</option>
         </select>
       </form>
+      <div>
+        <h2>Point Coordinates:</h2>
+        <pre>{JSON.stringify(pointCoordinates, null, 2)}</pre>
+      </div>
+      <div>
+        <h2>LineString Coordinates:</h2>
+        <pre>{JSON.stringify(lineCoordinates, null, 2)}</pre>
+      </div>
+      <div>
+        <h2>Polygon Coordinates:</h2>
+        <pre>{JSON.stringify(polygonCoordinates, null, 2)}</pre>
+      </div>
+      <div>
+        <h2>Circle Coordinates:</h2>
+        <pre>{JSON.stringify(circleCoordinates, null, 2)}</pre>
+      </div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ db.once("open", async () => {
     await User.deleteMany({});
     await Pet.deleteMany({});
     await Marker.deleteMany({});
-    await Post.deleteMany({});
+    // await Post.deleteMany({});
 
     // Create Users
     await User.create(userSeeds);
@@ -70,45 +70,34 @@ db.once("open", async () => {
     //     }
     //   );
     // Create markers and assign random pet _id
-    for (const markersData of markerSeeds) {
-      const randomPetId = petIds[Math.floor(Math.random() * petIds.length)];
 
-      const pet = await Pet.findOne({ _id: randomPetId });
-
-      const marker = new Marker({
-        petId: randomPetId,
-        markerName: markersData.markerName,
-        markerDescription: markersData.markerDescription,
-        createdAt: markersData.createdAt || null,
-        createdBy: randomUserId,
-        coordinates: markersData.coordinates,
-        geometry: markersData.geometry || null,
-        image: markersData.image,
-      });
-
-      pet.markers.push(marker);
-
-      await pet.save();
+    for (let i = 0; i < userSeeds.length; i++) {
+      const { _id, randomPetId, randomUserId } = await Marker.create(
+        markerSeeds[i]
+      );
+      const pet = await Pet.findOneAndUpdate(
+        { petId: randomPetId, createdBy: randomUserId },
+        {
+          $addToSet: {
+            markers: _id,
+          },
+        }
+      );
     }
 
-    for (const postData of postSeeds) {
-      const randomPetId = petIds[Math.floor(Math.random() * petIds.length)];
-
-      const pet = await Pet.findOne({ _id: randomPetId });
-
-      const post = new Post({
-        petId: randomPetId,
-        postContent: postData.postContent,
-        createdAt: postData.createdAt || null,
-        createdBy: randomUserId,
-      });
-      await post.save();
-
-      // Add the marker to the pet's marker array
-      pet.posts.push(post);
-
-      await pet.save();
-    }
+    // for (let i = 0; i < userSeeds.length; i++) {
+    //   const { _id, randomPetId, randomUserId } = await Post.create(
+    //     postSeeds[i]
+    //   );
+    //   const pet = await Pet.findOneAndUpdate(
+    //     { petId: randomPetId, createdBy: randomUserId },
+    //     {
+    //       $addToSet: {
+    //         markers: _id,
+    //       },
+    //     }
+    //   );
+    // }
   } catch (err) {
     console.log("An error occurred:");
     console.error(err);

@@ -92,8 +92,10 @@ const typeDefs = `
     markers: [Marker]
     marker(markerId: ID!): Marker
     markersByPet(petId: ID!): [Marker]
-    posts(petId: ID!): [Post]
+    posts: [Post]
     post(postId: ID!): Post
+    postsByPet(petId: ID!): [Post]
+ 
 
   }
 
@@ -103,6 +105,7 @@ const typeDefs = `
     createMarker(marker: MarkerData): Marker
     createPet(pet: PetData): Pet
     addPost(postContent: String!): Post
+    updatePost(postContent: String!): Post
     deletePost(postId: ID!): Post
   }
 `;
