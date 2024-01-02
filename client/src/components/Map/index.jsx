@@ -5,6 +5,7 @@ import { Draw, Modify, Snap } from "ol/interaction.js";
 import { OSM, Vector as VectorSource } from "ol/source.js";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer.js";
 import { get } from "ol/proj.js";
+import "./style.css";
 
 const MapComponent = () => {
   const [pointCoordinates, setPointCoordinates] = useState([]);
@@ -132,36 +133,41 @@ const MapComponent = () => {
   };
 
   return (
-    <div>
-      <div
-        ref={mapContainer}
-        className='map'
-        style={{ width: "80%", height: "400px" }}
-      ></div>
-      <form>
-        <label htmlFor='type'>Geometry type &nbsp;</label>
-        <select id='type' ref={typeSelect} onChange={handleTypeChange}>
-          <option value='Point'>Point</option>
-          <option value='LineString'>LineString</option>
-          <option value='Polygon'>Polygon</option>
-          <option value='Circle'>Circle</option>
-        </select>
-      </form>
-      <div>
-        <h2>Point Coordinates:</h2>
-        <pre>{JSON.stringify(pointCoordinates, null, 2)}</pre>
+    <div className='flexbox-turn-on'>
+      <div className='flexbox-turn-on' id='map-controls'>
+        <div
+          ref={mapContainer}
+          className='map'
+          style={{ width: "80%", height: "400px" }}
+        ></div>
+        <form>
+          <label htmlFor='type'>Geometry type &nbsp;</label>
+          <select id='type' ref={typeSelect} onChange={handleTypeChange}>
+            <option value='Point'>Point</option>
+            <option value='LineString'>LineString</option>
+            <option value='Polygon'>Polygon</option>
+            <option value='Circle'>Circle</option>
+          </select>
+        </form>
       </div>
-      <div>
-        <h2>LineString Coordinates:</h2>
-        <pre>{JSON.stringify(lineCoordinates, null, 2)}</pre>
-      </div>
-      <div>
-        <h2>Polygon Coordinates:</h2>
-        <pre>{JSON.stringify(polygonCoordinates, null, 2)}</pre>
-      </div>
-      <div>
-        <h2>Circle Coordinates:</h2>
-        <pre>{JSON.stringify(circleCoordinates, null, 2)}</pre>
+
+      <div className='flexbox-turn-on' id='feature-array'>
+        <div>
+          <h2>Point Coordinates:</h2>
+          <pre>{JSON.stringify(pointCoordinates, null, 2)}</pre>
+        </div>
+        <div>
+          <h2>LineString Coordinates:</h2>
+          <pre>{JSON.stringify(lineCoordinates, null, 2)}</pre>
+        </div>
+        <div>
+          <h2>Polygon Coordinates:</h2>
+          <pre>{JSON.stringify(polygonCoordinates, null, 2)}</pre>
+        </div>
+        <div>
+          <h2>Circle Coordinates:</h2>
+          <pre>{JSON.stringify(circleCoordinates, null, 2)}</pre>
+        </div>
       </div>
     </div>
   );
