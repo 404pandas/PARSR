@@ -1,6 +1,11 @@
 .flexbox-turn-on {
   display: flex;
 }
+
+#and-another-one {
+  align-items: center;
+}
+
 #right-header > * {
   margin-left: 15px;
 }

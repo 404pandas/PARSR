@@ -8,6 +8,7 @@
   text-transform: none;
   font-style: unset !important;
 }
+
 @media screen and (max-width: 900px) {
   #xs-hidden {
     display: none !important;

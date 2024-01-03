@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useQuery, useState } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_PET } from "../../utils/queries";
 import { Link } from "react-router-dom";
 import "./style.css";
@@ -17,9 +17,10 @@ import CardContent from "@mui/material/CardContent";
 import CopyToClipboard from "react-copy-to-clipboard";
 import ContentPaste from "@mui/icons-material/ContentPaste";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import { useState } from "react";
 
 const Pet = () => {
-  const [copiedArray, setCopiedArray] = useState([]); // Track whether copy was successful for each pet
+  const [copySuccess, setCopySuccess] = useState([]); // Track whether copy was successful for each pet
 
   const { petId } = useParams();
   const { loading, error, data } = useQuery(QUERY_SINGLE_PET, {
@@ -35,7 +36,7 @@ const Pet = () => {
   }
 
   const pet = data?.pet;
-  // console.log("pet: " + JSON.stringify(pet._id));
+  console.log("pet: " + JSON.stringify(pet));
   // const petOwner = pet;
   // console.log(petOwner);
   if (!pet) {
@@ -62,18 +63,16 @@ const Pet = () => {
     color: "black",
   };
 
-  const handleCopy = (index) => {
+  const handleCopy = () => {
     // Create a copy of the current `copiedArray` and set the specific index to `true`
-    const updatedCopiedArray = [...copiedArray];
-    updatedCopiedArray[index] = true;
-    setCopiedArray(updatedCopiedArray);
+    setCopySuccess(true);
     // Schedule the change back to ContentPaste after 10 seconds
     setTimeout(() => {
-      const resetCopiedArray = [...copiedArray];
-      resetCopiedArray[index] = false;
-      setCopiedArray(resetCopiedArray);
+      setCopySuccess(false);
     }, 2000);
   };
+
+  console.log(pet.map);
 
   return (
     <div>
@@ -91,12 +90,11 @@ const Pet = () => {
               src='../../src/assets/images/SVG/hedgehog-01-front.svg'
               alt='Missing Pet'
             ></img>
-          )}
+          )}{" "}
           <Card style={cardStyle}>
             <Typography variant='h5' gutterBottom align='center'>
               {pet.petName}
             </Typography>
-
             <CardContent style={cardContentStyle}>
               <p>Description: {pet.description}</p>
               <p>Animal Type: {pet.animalType}</p>
@@ -109,9 +107,8 @@ const Pet = () => {
                 >
                   {pet.petOwnerUsername}
                 </Link>
-                {pet.map((pet, index) => (
+                <>
                   <>
-                    {" "}
                     <Typography variant='body1'>
                       <a
                         href='https://www.petmicrochiplookup.org/'
@@ -123,10 +120,10 @@ const Pet = () => {
                       : {pet.microchipNumber}
                       <CopyToClipboard
                         text={pet.microchipNumber}
-                        onCopy={() => handleCopy(index)} // Set copied state to true on copy
+                        onCopy={() => handleCopy()} // Set copied state to true on copy
                       >
                         <IconButton aria-label='delete'>
-                          {copiedArray[index] ? (
+                          {copySuccess ? (
                             <AssignmentTurnedInIcon />
                           ) : (
                             <ContentPaste />
@@ -135,10 +132,10 @@ const Pet = () => {
                       </CopyToClipboard>
                     </Typography>
                   </>
-                ))}
+                </>
               </Typography>
-            </CardContent>
-          </Card>
+            </CardContent>{" "}
+          </Card>{" "}
         </div>
         <div>
           <Box
