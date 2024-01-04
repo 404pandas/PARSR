@@ -106,11 +106,12 @@ const resolvers = {
       return Marker.findOne({ _id: markerId });
     },
     // markers by pet
-    markersByPet: async (parent, args) => {
+    markersByPet: async (parent, { petId }) => {
       try {
-        const markers = await Marker.find({ petId: args.petId })
-          .populate("petId")
-          .populate("createdBy");
+        const params = petId ? { petId } : {};
+        console.log(params);
+        const markers = await Pet.find({ petId: petId }).populate("markers");
+        console.log(markers);
 
         return markers;
       } catch (error) {

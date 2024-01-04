@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { QUERY_SINGLE_PET } from "../../utils/queries";
+import { QUERY_SINGLE_PET, QUERY_MARKER_BY_ID } from "../../utils/queries";
 import { Link } from "react-router-dom";
 import "./style.css";
 import Typography from "@mui/material/Typography";
@@ -27,6 +27,18 @@ const Pet = () => {
     variables: { petId },
   });
 
+  const petData = data?.pet;
+  // const { markerId } = pet.markers;
+
+  // const { markerLoading, markerError, markerData } = useQuery(
+  //   QUERY_MARKER_BY_ID,
+  //   { variables: { markerId } }
+  // );
+
+  // const marker = markerData?.marker;
+
+  // logging empty object {}
+  // console.log("Marker data" + JSON.stringify({ markerData }));
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -35,13 +47,6 @@ const Pet = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  const pet = data?.pet;
-  console.log("pet: " + JSON.stringify(pet));
-  // const petOwner = pet;
-  // console.log(petOwner);
-  if (!pet) {
-    return <div>Pet not found.</div>;
-  }
   const cardStyle = {
     color: "white",
     marginBottom: "16px",
@@ -72,16 +77,16 @@ const Pet = () => {
     }, 2000);
   };
 
-  console.log(pet.map);
+  console.log("pet" + JSON.stringify(petData.markers));
 
   return (
     <div>
       <div className='flexbox-turn-on'>
         <div>
           {" "}
-          {pet.image ? (
+          {petData.image ? (
             <img
-              src={`../../src/assets/images/SVG/${pet.image}`}
+              src={`../../src/assets/images/SVG/${petData.image}`}
               className='petImage'
               alt='Missing Pet'
             ></img>
@@ -93,19 +98,21 @@ const Pet = () => {
           )}{" "}
           <Card style={cardStyle}>
             <Typography variant='h5' gutterBottom align='center'>
-              {pet.petName}
+              {petData.petName}
             </Typography>
             <CardContent style={cardContentStyle}>
-              <p>Description: {pet.description}</p>
-              <p>Animal Type: {pet.animalType}</p>
-              <p>Is Missing: {pet.isMissing ? "Yes" : "No"}</p>
+              <p>Description: {petData.description}</p>
+              <p>Animal Type: {petData.animalType}</p>
+              <p>Is Missing: {petData.isMissing ? "Yes" : "No"}</p>
               <Typography variant='subtitle1'>
                 Owner:{" "}
                 <Link
-                  to={`/profile/${pet.petOwner ? pet.petOwner._id : ""}`}
+                  to={`/profile/${
+                    petData.petOwner ? petData.petOwner._id : ""
+                  }`}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  {pet.petOwnerUsername}
+                  {petData.petOwnerUsername}
                 </Link>
                 <>
                   <>
@@ -117,9 +124,9 @@ const Pet = () => {
                       >
                         Lookup Chip
                       </a>
-                      : {pet.microchipNumber}
+                      : {petData.microchipNumber}
                       <CopyToClipboard
-                        text={pet.microchipNumber}
+                        text={petData.microchipNumber}
                         onCopy={() => handleCopy()} // Set copied state to true on copy
                       >
                         <IconButton aria-label='delete'>
@@ -171,7 +178,13 @@ const Pet = () => {
           </Box>
         </div>
       </div>
-      <Map />
+      <div>
+        <Map />
+        {petData.markers &&
+          petData.markers.map((marker) => (
+            <div key={marker._id}>{marker._id}</div>
+          ))}
+      </div>
     </div>
   );
 };

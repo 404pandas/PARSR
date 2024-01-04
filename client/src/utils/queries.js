@@ -105,6 +105,9 @@ export const QUERY_SINGLE_PET = gql`
       isMissing
       geometry
       image
+      markers {
+        _id
+      }
     }
   }
 `;
@@ -159,53 +162,39 @@ export const QUERY_MARKERS = gql`
   }
 `;
 
-// Query for single marker by pet ID
-export const QUERY_MARKER_BY_PET = gql`
-  query Query($petId: ID!) {
-    markersByPet(petId: $petId) {
+export const QUERY_MARKER_BY_ID = gql`
+  query getMarker($markerId: ID!) {
+    marker(markerId: $markerId) {
       _id
       petId {
-        _id
         petName
-        image
       }
       markerName
       markerDescription
+      createdAt
       createdBy {
         _id
         username
-        email
       }
-      createdAt
       coordinates
       image
       geometry
     }
   }
 `;
-
-export const QUERY_MARKER_BY_ID = gql`
-  query Query($markerId: ID!) {
+export const QUERY_MARKER_BY_PETID = gql`
+  query getMarker($markerId: ID!) {
     marker(markerId: $markerId) {
       _id
       petId {
-        _id
         petName
-        petOwner {
-          username
-          email
-        }
-        petOwnerUsername
-        geometry
-        image
       }
       markerName
       markerDescription
       createdAt
       createdBy {
-        username
-        email
         _id
+        username
       }
       coordinates
       image
