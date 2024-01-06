@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { QUERY_SINGLE_PET, QUERY_MARKER_BY_ID } from "../../utils/queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_SINGLE_PET } from "../../utils/queries";
+import { ADD_POST, REMOVE_POST } from "../../utils/mutations";
 import { Link } from "react-router-dom";
 import "./style.css";
 import Typography from "@mui/material/Typography";
@@ -21,13 +22,56 @@ import { useState } from "react";
 
 const Pet = () => {
   const [copySuccess, setCopySuccess] = useState([]); // Track whether copy was successful for each pet
+  const [postContent, setPostContent] = useState("");
 
   const { petId } = useParams();
-  const { loading, error, data } = useQuery(QUERY_SINGLE_PET, {
+  console.log("param = " + JSON.stringify(petId));
+  const { loading, error, data, refetch } = useQuery(QUERY_SINGLE_PET, {
     variables: { petId },
   });
-
+  console.log("fetched data = " + JSON.stringify(data));
   const petData = data?.pet;
+  console.log("stored data = " + JSON.stringify(petData));
+  const [addPost] = useMutation(ADD_POST, {
+    onCompleted: () => {
+      refetch();
+    },
+  });
+  const [removePost] = useMutation(REMOVE_POST);
+
+  const handleRemovePost = async (postId) => {
+    try {
+      const { data } = await removePost({
+        variables: { postId },
+      });
+
+      console.log("Post deleted:", data.removePost);
+
+      refetch();
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await addPost({
+        variables: { petId, postContent },
+      });
+
+      // Handle the successful response, e.g., show a success message or reset the form
+      console.log("Post added:", data.addPost);
+
+      // Reset the form
+      setPostContent("");
+    } catch (error) {
+      // Handle errors, e.g., display an error message to the user
+      console.error("Error adding post:", error);
+    }
+  };
+
   // const { markerId } = pet.markers;
 
   // const { markerLoading, markerError, markerData } = useQuery(
@@ -77,7 +121,7 @@ const Pet = () => {
     }, 2000);
   };
 
-  console.log("pet" + JSON.stringify(petData.markers));
+  console.log("pet" + JSON.stringify(petData));
 
   return (
     <div>
@@ -149,32 +193,45 @@ const Pet = () => {
             sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
           >
             <List dense>
-              <ListItem
-                secondaryAction={
-                  <IconButton edge='end' aria-label='delete'>
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemText
-                  primary='Username here'
-                  secondary='This is a chat message'
-                />
-              </ListItem>{" "}
-              <Divider />
-              <ListItem
-                secondaryAction={
-                  <IconButton edge='end' aria-label='delete'>
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemText
-                  primary='Username'
-                  secondary='This is a very long chat message that will wrap to the next line. Insert some info about searching for a pet and talk to other users searching for the same pet.'
-                />
-              </ListItem>
+              {petData &&
+                petData.posts &&
+                petData.posts.map((post) => (
+                  <>
+                    {" "}
+                    <ListItem
+                      secondaryAction={
+                        <IconButton
+                          edge='end'
+                          aria-label='delete'
+                          onClick={() => handleRemovePost(post._id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      }
+                    >
+                      <ListItemText primary={post._id} />
+                      <ListItemText
+                        primary={post.createdBy}
+                        secondary={post.postText}
+                      />{" "}
+                    </ListItem>
+                    <Divider />{" "}
+                  </>
+                ))}
             </List>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor='postContent'>Post Content:</label>
+                <textarea
+                  id='postContent'
+                  name='postContent'
+                  value={postContent}
+                  onChange={(e) => setPostContent(e.target.value)}
+                  required
+                />
+              </div>
+              <button type='submit'>Add Post</button>
+            </form>
           </Box>
         </div>
       </div>
@@ -184,6 +241,7 @@ const Pet = () => {
           petData.markers.map((marker) => (
             <div key={marker._id}>{marker._id}</div>
           ))}
+        <div>Marker details will go here</div>
       </div>
     </div>
   );

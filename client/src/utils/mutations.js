@@ -138,3 +138,35 @@ export const ADD_MARKER = gql`
     }
   }
 `;
+
+export const ADD_POST = gql`
+  mutation addPost($petId: ID!, $postContent: String!) {
+    addPost(petId: $petId, postContent: $postContent) {
+      createdAt
+      createdBy {
+        _id
+      }
+      petId {
+        _id
+      }
+      postContent
+      _id
+    }
+  }
+`;
+
+export const REMOVE_POST = gql`
+  mutation removePost($postId: ID!) {
+    removePost(postId: $postId) {
+      createdAt
+      createdBy {
+        _id
+      }
+      petId {
+        _id
+      }
+      postContent
+      _id
+    }
+  }
+`;

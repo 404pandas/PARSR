@@ -27,9 +27,11 @@ const typeDefs = `
   }
 
   type Post {
+    _id: ID
     postContent: String
     createdBy: User
     createdAt: Date
+    petId: Pet
   }
 
   type Marker {
@@ -104,9 +106,9 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String!): Auth
     createMarker(marker: MarkerData): Marker
     createPet(pet: PetData): Pet
-    addPost(postContent: String!): Post
+    addPost(petId: ID!, postContent: String!): Post
     updatePost(postContent: String!): Post
-    deletePost(postId: ID!): Post
+    removePost(postId: ID!): Post
   }
 `;
 

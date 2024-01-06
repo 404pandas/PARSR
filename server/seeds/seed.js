@@ -83,14 +83,20 @@ db.once("open", async () => {
     }
 
     for (let i = 0; i < petSeeds.length; i++) {
-      // console.log(getRandomUserId());
-      const { _id } = await Post.create(postSeeds[i]);
+      const postData = {
+        ...postSeeds[i],
+        createdBy: getRandomUserId(),
+      };
+      const { _id } = await Post.create(postData);
+
       // console.log(_id);
       await Pet.findOneAndUpdate(
         { _id: getRandomPetId() },
         {
           $addToSet: {
             posts: _id,
+            createdBy: postData.createdBy,
+            postContent: postData.postContent,
           },
         }
       );

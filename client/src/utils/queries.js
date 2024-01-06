@@ -108,6 +108,15 @@ export const QUERY_SINGLE_PET = gql`
       markers {
         _id
       }
+      posts {
+        _id
+        createdBy {
+          _id
+          username
+        }
+        postContent
+        createdAt
+      }
     }
   }
 `;
@@ -202,3 +211,5 @@ export const QUERY_MARKER_BY_PETID = gql`
     }
   }
 `;
+
+// export const QUERY_POSTS_BY_PETID = gql`
