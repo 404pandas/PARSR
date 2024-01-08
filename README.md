@@ -96,7 +96,7 @@ It's currently not deployed until the prototype MVP is completed.
 
 Once completely built, this application will function as a deployed app on Heroku
 
-### Local Installation / Testing 
+### Local Installation / Testing
 
 1. Clone the rep
 
@@ -109,7 +109,6 @@ git clone https://github.com/404pandas/PARSR.git
 ```
 npm run install
 ```
-
 
 3. Seed the database
 
@@ -137,7 +136,6 @@ npm run develop
 
 ```
 
-
 <!-- USAGE EXAMPLES -->
 
 ## Usage
@@ -151,6 +149,7 @@ Once the app is functional, screenshots will be added in this section.
 #### MVP
 
 - [ ] Front End
+
   - [x] Routing
   - [ ] Map (Markers, Search area)
   - [x] User Auth
@@ -169,6 +168,7 @@ Once the app is functional, screenshots will be added in this section.
   - [x] Resolvers
   - [x] Seeds
   - [x] User Auth
+  - [ ] Migrate from MongoDB to Postgres (benefit more from a relational database)
 
 #### Future Development
 
