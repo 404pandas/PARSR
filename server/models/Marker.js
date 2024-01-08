@@ -1,42 +1,57 @@
-const { Schema, model } = require("mongoose");
+const { Model,  DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-const markerSchema = new Schema(
-  {
-    petId: {
-      type: Schema.Types.ObjectId,
-      ref: "Pet",
+const Pet = require("./Pet");
+class Marker extends Model {}
+
+Marker.init(
+    {
+        marker_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        petID: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Pet',
+                key: 'pet_id',
+            },
+        },
+        markerName: {
+            type: DataTypes.STRING,
+        },
+        markerDescription: {
+            type: DataTypes.STRING,
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+        },
+        createdBy: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'User',
+                key: 'user_id',
+            },
+        },
+        coordinates: {
+            type: DataTypes.ARRAY(DataTypes.FLOAT),
+        },
+        image: {
+            type: DataTypes.STRING,
+        },
+        geometry: {
+            type: DataTypes.STRING,
+        },
     },
-    markerName: {
-      type: String,
-    },
-    markerDescription: {
-      type: String,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    createdBy: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-    coordinates: {
-      type: [Number],
-    },
-    image: {
-      type: String,
-    },
-    goemetry: {
-      type: String,
-    },
-  },
-  {
-    toJSON: {
-      virtuals: true,
-    },
-  }
+    {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'marker',
+    }
 );
-
-const Marker = model("Marker", markerSchema);
-
 module.exports = Marker;

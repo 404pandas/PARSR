@@ -11,7 +11,7 @@ class User extends Model{
 
 User.init(
     {
-        id: {
+        user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
@@ -53,9 +53,4 @@ User.init(
         modelName: "user",
     }
 )
-
-User.hasMany(Pet, {
-    foreignKey: 'petOwner',
-    onDelete: 'CASCADE',
-});
 module.exports = User;

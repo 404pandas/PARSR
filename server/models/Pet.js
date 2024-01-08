@@ -1,11 +1,13 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const User = require("./User");
+const {Marker} = require("./index");
 
 class Pet extends Model {}
 
 Pet.init(
     {
-        id: {
+        pet_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
@@ -39,11 +41,11 @@ Pet.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        petOwner: {
+        ownerID: {
             type: DataTypes.INTEGER,
             references: {
                 model: 'User',
-                key: 'id',
+                key: 'user_id',
             },
         },
         isMissing: {
