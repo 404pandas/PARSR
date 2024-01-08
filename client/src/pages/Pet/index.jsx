@@ -38,6 +38,7 @@ const Pet = () => {
     },
   });
   const [removePost] = useMutation(REMOVE_POST);
+  const [removeMarker] = useMutation(REMOVE_POST);
 
   const handleRemovePost = async (postId) => {
     try {
@@ -72,6 +73,19 @@ const Pet = () => {
     }
   };
 
+  const handleRemoveMarker = async (markerId) => {
+    try {
+      const { data } = await removeMarker({
+        variables: { markerId },
+      });
+
+      console.log("Marker deleted:", data.removeMarker);
+
+      refetch();
+    } catch (error) {
+      console.error("Error deleting marker:", error);
+    }
+  };
   // const { markerId } = pet.markers;
 
   // const { markerLoading, markerError, markerData } = useQuery(
@@ -110,6 +124,7 @@ const Pet = () => {
     flexDirection: "column",
     border: "1px solid rgba(0, 0, 0, 0.54)",
     color: "black",
+    lineHeight: "1.5",
   };
 
   const handleCopy = () => {
@@ -125,80 +140,89 @@ const Pet = () => {
 
   return (
     <div>
-      <div className='flexbox-turn-on'>
-        <div>
-          {" "}
-          {petData.image ? (
-            <img
-              src={`../../src/assets/images/SVG/${petData.image}`}
-              className='petImage'
-              alt='Missing Pet'
-            ></img>
-          ) : (
-            <img
-              src='../../src/assets/images/SVG/hedgehog-01-front.svg'
-              alt='Missing Pet'
-            ></img>
-          )}{" "}
-          <Card style={cardStyle}>
-            <Typography variant='h5' gutterBottom align='center'>
-              {petData.petName}
-            </Typography>
-            <CardContent style={cardContentStyle}>
-              <p>Description: {petData.description}</p>
-              <p>Animal Type: {petData.animalType}</p>
-              <p>Is Missing: {petData.isMissing ? "Yes" : "No"}</p>
-              <Typography variant='subtitle1'>
-                Owner:{" "}
-                <Link
-                  to={`/profile/${
-                    petData.petOwner ? petData.petOwner._id : ""
-                  }`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {petData.petOwnerUsername}
-                </Link>
-                <>
-                  <>
-                    <Typography variant='body1'>
-                      <a
-                        href='https://www.petmicrochiplookup.org/'
-                        target='_blank'
-                        rel='noopener noreferrer'
+      <div id='pet-top'>
+        <div id='top-left'>
+          <div className='flexbox-turn-on'>
+            <div id='pet-info'>
+              {" "}
+              {petData.image ? (
+                <img
+                  src={`../../src/assets/images/SVG/${petData.image}`}
+                  className='petImage'
+                  alt='Missing Pet'
+                ></img>
+              ) : (
+                <img
+                  src='../../src/assets/images/SVG/hedgehog-01-front.svg'
+                  alt='Missing Pet'
+                ></img>
+              )}{" "}
+              <Card style={cardStyle}>
+                <Typography variant='h5' gutterBottom align='center'>
+                  {petData.petName}
+                </Typography>
+                <div id='line-height'>
+                  <CardContent style={cardContentStyle}>
+                    <p>Description: {petData.description}</p>
+                    <p>Animal Type: {petData.animalType}</p>
+                    <p>Is Missing: {petData.isMissing ? "Yes" : "No"}</p>
+                    <Typography variant='subtitle1'>
+                      Owner:{" "}
+                      <Link
+                        to={`/profile/${
+                          petData.petOwner ? petData.petOwner._id : ""
+                        }`}
+                        style={{ textDecoration: "none", color: "inherit" }}
                       >
-                        Lookup Chip
-                      </a>
-                      : {petData.microchipNumber}
-                      <CopyToClipboard
-                        text={petData.microchipNumber}
-                        onCopy={() => handleCopy()} // Set copied state to true on copy
-                      >
-                        <IconButton aria-label='delete'>
-                          {copySuccess ? (
-                            <AssignmentTurnedInIcon />
-                          ) : (
-                            <ContentPaste />
-                          )}
-                        </IconButton>
-                      </CopyToClipboard>
+                        {petData.petOwnerUsername}
+                      </Link>
+                      <>
+                        <>
+                          <Typography variant='body1'>
+                            <a
+                              href='https://www.petmicrochiplookup.org/'
+                              target='_blank'
+                              rel='noopener noreferrer'
+                            >
+                              Lookup Chip
+                            </a>
+                            : {petData.microchipNumber}
+                            <CopyToClipboard
+                              text={petData.microchipNumber}
+                              onCopy={() => handleCopy()} // Set copied state to true on copy
+                            >
+                              <IconButton aria-label='delete'>
+                                {copySuccess ? (
+                                  <AssignmentTurnedInIcon />
+                                ) : (
+                                  <ContentPaste />
+                                )}
+                              </IconButton>
+                            </CopyToClipboard>
+                          </Typography>
+                        </>
+                      </>
                     </Typography>
-                  </>
-                </>
-              </Typography>
-            </CardContent>{" "}
-          </Card>{" "}
+                  </CardContent>{" "}
+                </div>
+              </Card>{" "}
+            </div>
+          </div>
         </div>
-        <div>
+
+        <div id='top-right'>
           <Box
             sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            id='pet-chat'
           >
             <List dense>
               {petData &&
                 petData.posts &&
-                petData.posts.map((post) => (
+                petData.posts.map((post, index) => (
                   <>
                     {" "}
                     <ListItem
+                      className='posts'
                       secondaryAction={
                         <IconButton
                           edge='end'
@@ -211,9 +235,9 @@ const Pet = () => {
                     >
                       <ListItemText primary={post._id} />
                       <ListItemText
-                        primary={post.createdBy}
-                        secondary={post.postText}
-                      />{" "}
+                        primary='Username'
+                        secondary='Example Text Content'
+                      />
                     </ListItem>
                     <Divider />{" "}
                   </>
@@ -235,13 +259,39 @@ const Pet = () => {
           </Box>
         </div>
       </div>
-      <div>
-        <Map />
-        {petData.markers &&
-          petData.markers.map((marker) => (
-            <div key={marker._id}>{marker._id}</div>
-          ))}
-        <div>Marker details will go here</div>
+      <div id='pet-bottom'>
+        <div id='bottom-left'>
+          <Map />
+        </div>
+        <div id='bottom-right'>
+          <List dense>
+            {petData.markers &&
+              petData.markers.map((marker, index) => (
+                <>
+                  <ListItem
+                    className='markers'
+                    key={marker._id}
+                    secondaryAction={
+                      <IconButton
+                        edge='end'
+                        aria-label='delete'
+                        onClick={() => handleRemoveMarker(marker._id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    }
+                  >
+                    <ListItemText primary={marker[index] + 1} />{" "}
+                    <ListItemText primary={marker._id} />
+                    <ListItemText
+                      primary='Username'
+                      secondary='Marker Name'
+                    />{" "}
+                  </ListItem>
+                </>
+              ))}
+          </List>
+        </div>
       </div>
     </div>
   );

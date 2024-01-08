@@ -152,22 +152,30 @@ const MapComponent = () => {
       </div>
 
       <div className='flexbox-turn-on' id='feature-array'>
-        <div>
-          <h2>Point Coordinates:</h2>
-          <pre>{JSON.stringify(pointCoordinates, null, 2)}</pre>
-        </div>
-        <div>
-          <h2>LineString Coordinates:</h2>
-          <pre>{JSON.stringify(lineCoordinates, null, 2)}</pre>
-        </div>
-        <div>
-          <h2>Polygon Coordinates:</h2>
-          <pre>{JSON.stringify(polygonCoordinates, null, 2)}</pre>
-        </div>
-        <div>
-          <h2>Circle Coordinates:</h2>
-          <pre>{JSON.stringify(circleCoordinates, null, 2)}</pre>
-        </div>
+        {pointCoordinates.length > 0 ? (
+          <div>
+            <h2>Point Coordinates:</h2>
+            <pre>{JSON.stringify(pointCoordinates, null, 2)}</pre>
+          </div>
+        ) : null}
+        {lineCoordinates.length > 0 ? (
+          <div>
+            <h2>LineString Coordinates:</h2>
+            <pre>{JSON.stringify(lineCoordinates, null, 2)}</pre>
+          </div>
+        ) : null}
+        {polygonCoordinates.length > 0 ? (
+          <div>
+            <h2>Polygon Coordinates:</h2>
+            <pre>{JSON.stringify(polygonCoordinates, null, 2)}</pre>
+          </div>
+        ) : null}
+        {circleCoordinates.length > 0 ? (
+          <div>
+            <h2>Circle Coordinates:</h2>
+            <pre>{JSON.stringify(circleCoordinates, null, 2)}</pre>
+          </div>
+        ) : null}
       </div>
     </div>
   );
