@@ -162,6 +162,8 @@ Once the app is functional, screenshots will be added in this section.
   - [ ] 404 Page
   - [ ] Login Form
   - [ ] Sign Up Form
+  - [ ] Test react-ol-wrapper library
+  - [ ] ? Migrate from ol to react-ol-wrapper ?
 
 - [ ] Back End
   - [x] Typedefs
