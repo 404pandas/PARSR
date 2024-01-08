@@ -5,24 +5,29 @@
 //
 // module.exports = mongoose.connection;
 
-const { Pool } = require('pg');
+const { Sequelize } = require('sequelize');
 const path = require('path');
-require("dotenv").config({ path: path.resolve(__dirname, '../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 console.log(process.env.PG_USER);
 
-const pool = new Pool({
-    user: process.env.PG_USER,
+// Sequelize instance
+const sequelize = new Sequelize({
+    dialect: 'postgres',
     host: process.env.PG_HOST,
     database: process.env.PG_DATABASE,
+    username: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     port: process.env.PG_PORT,
 });
 
-pool.query('SELECT NOW()', (err, result) => {
-    if (err) {
-        return console.error('Error executing query', err);
-    }
-    console.log(`Successfully connected to database at ${result.rows[0].now} on port ${process.env.PG_PORT}`);
-    pool.end();
-});
+sequelize.authenticate()
+    .then(() => {
+        console.log('Connection to the database has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+        process.exit(-1);
+    });
+
+module.exports = sequelize;
