@@ -281,6 +281,7 @@ const Pet = () => {
                       </IconButton>
                     }
                   >
+                    {/* Possible fix = removing marker for the index? */}
                     <ListItemText primary={marker[index] + 1} />{" "}
                     <ListItemText primary={marker._id} />
                     <ListItemText
