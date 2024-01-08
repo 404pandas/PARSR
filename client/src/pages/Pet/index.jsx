@@ -218,7 +218,7 @@ const Pet = () => {
             <List dense>
               {petData &&
                 petData.posts &&
-                petData.posts.map((post, index) => (
+                petData.posts.map((post) => (
                   <>
                     {" "}
                     <ListItem
