@@ -8,7 +8,7 @@
 [![Forks](https://img.shields.io/github/forks/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/network/members)
 [![Stargazers](https://img.shields.io/github/stars/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/stargazers)
 [![Issues](https://img.shields.io/github/issues/404pandas/PARSR.svg?style=plastic&logo=appveyor)](https://github.com/404pandas/PARSR/issues)
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=appveyor&logo=linkedin&colorB=555)](https://linkedin.com/in/LinkedInUsername)
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=plastic&logo=appveyor&logo=linkedin&colorB=555)](https://linkedin.com/in/404pandas)
 
 </div>
 
@@ -16,13 +16,17 @@
 
 <div align="center">
   <a href="https://github.com/404pandas/PARSR">
-    <img src="/client/src/images/FFRlogo.png" alt="Logo" width="80" height="80">
+    <img src="./client/src/assets/images/parsr-logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">PARSR</h3>
+  <h3 align="center">PARSR</h3>
 
   <p align="center">
-Project Animal Reunification Search & Rescue    <br />
+    Project Animal Reunification Search & Rescue    <br />
+    <a href="https://www.allanimalrr.org/">
+      <img src="./client/src/assets/images/aarr.png" alt="Logo" width="80" height="80">
+    </a><br />
+    Brought to you by All Animal Rehabilitation & Release<br />
     <a href="https://github.com/404pandas/PARSR"><strong>Explore the docs »</strong></a>
     <br />
     <br />
@@ -31,6 +35,7 @@ Project Animal Reunification Search & Rescue    <br />
     <a href="https://github.com/404pandas/PARSR/issues">Report Bug</a>
     ·
     <a href="https://github.com/404pandas/PARSR/issues">Request Feature</a>
+
   </p>
 </div>
 
@@ -67,7 +72,7 @@ Project Animal Reunification Search & Rescue    <br />
 <!-- ![Screenshot alt description](directPathOfScreenshots) -->
 
 This project was built with the MERN stack and Apollo + GraphQL.
-It's currently not operational as the styling is switched to utilizing MUI.
+It's currently not deployed until the prototype MVP is completed.
 
 ### Built With
 
@@ -91,10 +96,45 @@ It's currently not operational as the styling is switched to utilizing MUI.
 
 Once completely built, this application will function as a deployed app on Heroku
 
-### Installation
+### Local Installation / Testing
 
-1. Clone the repo
-   git clone https://github.com/404pandas/PARSR.git
+1. Clone the rep
+
+```
+git clone https://github.com/404pandas/PARSR.git
+```
+
+2. Install dependencies
+
+```
+npm run install
+```
+
+3. Seed the database
+
+```
+npm run seed
+```
+
+4. Launch the app in development environments
+
+```
+npm run develop
+```
+
+5. Visit:
+
+[localhost]()
+
+```
+
+```
+
+[graphQL]()
+
+```
+
+```
 
 <!-- USAGE EXAMPLES -->
 
@@ -106,9 +146,37 @@ Once the app is functional, screenshots will be added in this section.
 
 ## Roadmap
 
-- [ ] Map
-- [ ] Stripe
-- [ ] Twilio
+#### MVP
+
+- [ ] Front End
+
+  - [x] Routing
+  - [ ] Map (Markers, Search area)
+  - [x] User Auth
+  - [ ] User Profile Page
+  - [x] Landing Page
+  - [ ] Pet Page
+  - [ ] Owner Page
+  - [ ] Map Page
+  - [ ] Error Page
+  - [ ] 404 Page
+  - [ ] Login Form
+  - [ ] Sign Up Form
+  - [ ] Test react-ol-wrapper library
+  - [ ] ? Migrate from ol to react-ol-wrapper ?
+
+- [ ] Back End
+  - [x] Typedefs
+  - [x] Resolvers
+  - [x] Seeds
+  - [x] User Auth
+  - [ ] Migrate from MongoDB to Postgres (benefit more from a relational database)
+
+#### Future Development
+
+- [ ] Stripe (Donate Page)
+- [ ] Chat
+- [ ] Search
 
 See the [open issues](https://github.com/404pandas/PARSR/issues) for a full list of proposed features (and known issues).
 
@@ -139,9 +207,19 @@ See LICENSE.txt for more information.
 
 ## Contact
 
-Mary Elenius - mary.panda.jackson@gmail.com
+[Mary Elenius](https://maryelenius.com/d20) - mary.panda.jackson@gmail.com
 
-Project Link: [https://github.com/404pandas/PARSR](https://github.com/404pandas/PARSR)
+in association with:
+
+[All Animal Rehabilitation and Release](https://www.allanimalrr.org)
+
+Project Links:
+
+[Figma Board- link later]()
+
+[Github Repository](https://github.com/404pandas/PARSR)
+
+[Deployment- link later]()
 
 <!-- ACKNOWLEDGMENTS -->
 

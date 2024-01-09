@@ -1,50 +1,49 @@
-const { gql } = require('apollo-server-express');
+const typeDefs = `
 
-  // 
-  // type <example> {
-  //  stuff: <dataType>
-  // }
-  // ^ This defines <example> fields and data type for each field
-  // Acceptable data types - String, Int, Float, Boolean, and ID
-  // Adding ! at the end of a datatype means the field is required
-  // 
-  // Future development //
-  // 
-  // Change animalType from string to enum AllowedType //
-  // enum AllowedType {
-  //   DOG
-  //   CAT
-  //   PENGUIN
-  //   HORSE
-  // }
-  // Query for AllowedType //
-  // 
-  // type Query {
-  // animalType: AllowedType
-  // }
-  // 
-  // Add "isMissing" boolean option //
-  // Query defines entry points for read operations
-  // Mutation defines entry points for write operations
+  scalar GeoJSON
+  scalar Date
 
-  // savedPets is a virtual
-
-const typeDefs = gql`
   type User {
-    _id: ID!
-    username: String!
-    email: String!
+    _id: ID
+    username: String
+    email: String
     pets: [Pet]
-    savedPets: [Pet]
   }
 
   type Pet {
-    _id: ID!
-    petName: String!
-    animalType: String!
-    description: String!
+    _id: ID
+    petName: String
+    description: String
     microchipRegistry: String
-    microchipNumber: Int
+    microchipNumber: String
+    petOwner: User
+    petOwnerUsername: String
+    animalType: AnimalType
+    isMissing: Boolean
+    geometry: GeoJSON
+    image: String
+    markers: [Marker]
+    posts: [Post]
+  }
+
+  type Post {
+    _id: ID
+    postContent: String
+    createdBy: User
+    createdAt: Date
+    petId: Pet
+  }
+
+  type Marker {
+    _id: ID
+    petId: Pet
+    markerName: String
+    markerDescription: String
+    createdAt: Date
+    createdBy: User
+    coordinates: [Float]
+    image: String
+    geometry: GeoJSON
   }
 
   type Auth {
@@ -52,21 +51,64 @@ const typeDefs = gql`
     user: User
   }
 
+
+  input MarkerData {
+    markerName: String!
+    markerDescription: String
+    createdAt: Date
+    coordinates: [Float]
+    image: String
+    geometry: GeoJSON
+    petId: ID!
+  }
+
+  input PetData {
+    id: Int!
+    petName: String
+    markers: [MarkerData]
+  }
+
+
+  enum AnimalType {
+    DOG
+    CAT
+    BIRD
+    FERRET
+    FISH
+    FROG
+    GP
+    HAMSTER
+    HEDGEHOG
+    RABBIT
+    SNAKE
+    OTHER
+  }
+
   type Query {
     users: [User]
-    user(userId: ID!): User
-    pets: [Pet] 
-    pet(petId: ID!): Pet
     me: User
+    user(userId: ID!): User
+    pets: [Pet]
+    petsByMissing(isMissing: Boolean!): [Pet]
+    pet(petId: ID!): Pet
+    markers: [Marker]
+    marker(markerId: ID!): Marker
+    markersByPet(petId: ID!): [Marker]
+    posts: [Post]
+    post(postId: ID!): Post
+    postsByPet(petId: ID!): [Post]
+ 
+
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    updateUser(username: String!, email: String!, password: String!): User
-    addPet(petId: ID!, petName: String!, animalType: String!, description: String!, microchipRegistry: String, microchipNumber: Int): Pet
-    updatePet(petId: ID!, petname: String!, animalType: String!, description: String!, microchipRegistry: String, microchipNumber: Int): Pet
-    removePet(petId: ID!): Pet
+    createMarker(marker: MarkerData): Marker
+    createPet(pet: PetData): Pet
+    addPost(petId: ID!, postContent: String!): Post
+    updatePost(postContent: String!): Post
+    removePost(postId: ID!): Post
   }
 `;
 

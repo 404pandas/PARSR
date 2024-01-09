@@ -1,50 +1,85 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
-// Typedefs for pet
-// type Pet {
-//   _id: ID!
-//   petName: String!
-//   animalType: String!
-//   description: String!
-//   microchipRegistry: String
-//   microchipNumber: Int
-// }
-
-const thoughtSchema = new Schema({
-  thoughtText: {
-    type: String,
-    required: 'You need to leave a thought!',
-    minlength: 1,
-    maxlength: 280,
-    trim: true,
-  },
-  thoughtAuthor: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
-  },
-  comments: [
-    {
-      commentText: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 280,
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => dateFormat(timestamp),
-      },
+const petSchema = new Schema(
+  {
+    petName: {
+      type: String,
+      minlength: 1,
+      maxlength: 280,
+      trim: true,
+      required: true,
     },
-  ],
-});
+    animalType: {
+      type: String,
+      enum: [
+        "DOG",
+        "CAT",
+        "BIRD",
+        "FERRET",
+        "FISH",
+        "FROG",
+        "GP",
+        "HAMSTER",
+        "HEDGEHOG",
+        "RABBIT",
+        "SNAKE",
+        "OTHER",
+      ],
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    microchipRegistry: {
+      type: String,
+      required: true,
+    },
+    microchipNumber: {
+      type: String,
+      required: true,
+    },
+    petOwner: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    petOwnerUsername: {
+      type: String,
+      ref: "User",
+    },
+    //  Create markers and add them to pets
+    //  pets = markers and users = pets
+    isMissing: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    geometry: {
+      type: String,
+    },
+    image: {
+      type: String,
+    },
+    markers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Marker",
+      },
+    ],
+    posts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
+);
 
-const Thought = model('Thought', thoughtSchema);
+const Pet = model("Pet", petSchema);
 
-module.exports = Thought;
+module.exports = Pet;
