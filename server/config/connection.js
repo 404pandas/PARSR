@@ -1,15 +1,6 @@
-// const mongoose = require("mongoose");
-// require("dotenv").config();
-//
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/PARSR");
-//
-// module.exports = mongoose.connection;
-
 const { Sequelize } = require('sequelize');
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-
-console.log(process.env.PG_USER);
 
 // Sequelize instance
 const sequelize = new Sequelize({

@@ -15,7 +15,7 @@ Marker.init(
         petID: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'Pet',
+                model: "pet",
                 key: 'pet_id',
             },
         },
@@ -32,7 +32,7 @@ Marker.init(
         createdBy: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'User',
+                model: "user",
                 key: 'user_id',
             },
         },

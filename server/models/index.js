@@ -3,8 +3,6 @@ const Pet = require("./Pet");
 const Marker = require("./Marker");
 const Post = require("./Post");
 
-Pet.belongsTo(User, {foreignKey: "ownerID"});
-User.hasMany(Pet, {foreignKey: "ownerID"});
 
 Marker.belongsTo(Pet, {foreignKey: "petID"});
 Pet.hasMany(Marker, {foreignKey: "petID"});
@@ -14,6 +12,9 @@ User.hasMany(Marker, {foreignKey: "createdBy"})
 
 Post.belongsTo(User, {foreignKey: "createdBy"});
 User.hasMany(Post, {foreignKey: "createdBy"});
+
+Pet.belongsTo(User, {foreignKey: "ownerID"});
+User.hasMany(Pet, {foreignKey: "ownerID"});
 
 module.exports = { User, Pet, Marker, Post };
 

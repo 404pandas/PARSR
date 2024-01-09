@@ -44,7 +44,7 @@ Pet.init(
         ownerID: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'User',
+                model: 'user',
                 key: 'user_id',
             },
         },

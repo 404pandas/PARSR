@@ -10,11 +10,16 @@ const seedDatabase = async () => {
     // Initialize Database
     await sequelize.sync({ force: true });
 
+    console.log("Test");
     // Seed Users
     const users = await User.bulkCreate(userSeeds, {
         individualHooks: true,
         returning: true,
     });
+
+    console.log("============================================");
+    console.log("Users Completed");
+    console.log("============================================");
 
     // Seed Pets
     const pets = await Pet.bulkCreate(
@@ -26,6 +31,10 @@ const seedDatabase = async () => {
             returning: true,
         }
     );
+
+    console.log("============================================");
+    console.log("Pets Completed");
+    console.log("============================================");
 
     // Seed Markers
     const markers = await Marker.bulkCreate(
@@ -39,6 +48,10 @@ const seedDatabase = async () => {
         }
     );
 
+    console.log("============================================");
+    console.log("Markers Completed");
+    console.log("============================================");
+
     // Seed Posts
     const posts = await Post.bulkCreate(
         postSeeds.map((post) => ({
@@ -50,7 +63,12 @@ const seedDatabase = async () => {
         }
     );
 
+    console.log("============================================");
+    console.log("Posts Completed");
+    console.log("============================================");
+
     process.exit(0);
 };
+
 
 seedDatabase();

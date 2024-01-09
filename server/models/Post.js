@@ -1,7 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const dateFormat = require('../utils/dateFormat');
-const User = require("./User");
 
 class Post extends Model {}
 
@@ -27,7 +26,7 @@ Post.init(
         createdBy: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'User',
+                model: 'user',
                 key: 'user_id',
             },
         },
