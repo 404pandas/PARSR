@@ -1,50 +1,55 @@
-const { Schema, model } = require("mongoose");
+const { Model, DataTypes } = require('sequelize');
 const bcrypt = require("bcrypt");
+const sequelize = require('../config/connection');
 
-const petSchema = require("./Pet").schema;
+class User extends Model{
+    checkPassword(loginPW) {
+        return bcrypt.compareSync(loginPW, this.password);
+    }
+}
 
-const userSchema = new Schema(
-  {
-    username: {
-      type: String,
-      unique: true,
-      trim: true,
+User.init(
+    {
+        user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        username: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: false,
+            validate: {
+                isEmail: true,
+            },
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     },
-    email: {
-      type: String,
-      unique: true,
-      match: [/.+@.+\..+/, "Must use a valid email address"],
-    },
-    password: {
-      type: String,
-      required: true,
-      minlength: 3,
-    },
-    pets: [petSchema],
-  },
-  // Sets this to use virtual below
-  {
-    toJSON: {
-      virtuals: true,
-    },
-  }
-);
-
-// Hashes user password
-userSchema.pre("save", async function (next) {
-  if (this.isNew || this.isModified("password")) {
-    const saltRounds = 12;
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
-
-  next();
-});
-
-// Method to compare and validate password for logging in
-userSchema.methods.isCorrectPassword = async function (password) {
-  return bcrypt.compare(password, this.password);
-};
-
-const User = model("User", userSchema);
-
+    {
+        hooks: {
+            beforeCreate: async (newUserData) => {
+                newUserData.password = await bcrypt.hash(newUserData.password, 10);
+                return newUserData;
+            },
+            beforeUpdate: async (updateUserData) => {
+                updateUserData.password = await bcrypt.hash(updateUserData.password, 10);
+                return updateUserData;
+            },
+        },
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: "user",
+    }
+)
 module.exports = User;

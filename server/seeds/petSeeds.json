@@ -1,7 +1,7 @@
 [
   {
-    "petName": "Fluffy",
-    "animalType": "CAT",
+    "name": "Fluffy",
+    "animal": "CAT",
     "description": "A cute and fluffy white cat with blue eyes.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567890",
@@ -11,8 +11,8 @@
     "posts": [null]
   },
   {
-    "petName": "Buddy",
-    "animalType": "DOG",
+    "name": "Buddy",
+    "animal": "DOG",
     "description": "A friendly golden retriever with a wagging tail.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543210",
@@ -22,8 +22,8 @@
     "posts": [null]
   },
   {
-    "petName": "Whiskers",
-    "animalType": "CAT",
+    "name": "Whiskers",
+    "animal": "CAT",
     "description": "A mischievous tabby cat with a playful personality.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543610",
@@ -33,8 +33,8 @@
     "posts": [null]
   },
   {
-    "petName": "Snowball",
-    "animalType": "OTHER",
+    "name": "Snowball",
+    "animal": "OTHER",
     "description": "A fluffy white rabbit with floppy ears.",
     "microchipRegistry": "PetID",
     "microchipNumber": "5432109876",
@@ -44,8 +44,8 @@
     "posts": [null]
   },
   {
-    "petName": "Whiskers Jr.",
-    "animalType": "CAT",
+    "name": "Whiskers Jr.",
+    "animal": "CAT",
     "description": "The offspring of mischievous Whiskers.",
     "microchipRegistry": "PetID",
     "microchipNumber": "1234567891",
@@ -55,8 +55,8 @@
     "posts": [null]
   },
   {
-    "petName": "Rex",
-    "animalType": "DOG",
+    "name": "Rex",
+    "animal": "DOG",
     "description": "A playful and energetic border collie.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567892",
@@ -66,8 +66,8 @@
     "posts": [null]
   },
   {
-    "petName": "Smokey",
-    "animalType": "CAT",
+    "name": "Smokey",
+    "animal": "CAT",
     "description": "A gray cat with a mysterious aura.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543611",
@@ -77,8 +77,8 @@
     "posts": [null]
   },
   {
-    "petName": "Lucky",
-    "animalType": "DOG",
+    "name": "Lucky",
+    "animal": "DOG",
     "description": "A fortunate Labrador retriever.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543612",
@@ -88,8 +88,8 @@
     "posts": [null]
   },
   {
-    "petName": "Mittens",
-    "animalType": "CAT",
+    "name": "Mittens",
+    "animal": "CAT",
     "description": "A playful cat with white paws.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567893",
@@ -99,8 +99,8 @@
     "posts": [null]
   },
   {
-    "petName": "Max",
-    "animalType": "DOG",
+    "name": "Max",
+    "animal": "DOG",
     "description": "A loyal German Shepherd.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543613",
@@ -110,8 +110,8 @@
     "posts": [null]
   },
   {
-    "petName": "Fluffy2",
-    "animalType": "DOG",
+    "name": "Fluffy2",
+    "animal": "DOG",
     "description": "A fluffy white dog with brown spots.",
     "microchipRegistry": "PetID",
     "microchipNumber": "1234567894",
@@ -121,8 +121,8 @@
     "posts": [null]
   },
   {
-    "petName": "Tiger",
-    "animalType": "CAT",
+    "name": "Tiger",
+    "animal": "CAT",
     "description": "A striped orange cat with a fierce look.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567895",
@@ -132,8 +132,8 @@
     "posts": [null]
   },
   {
-    "petName": "Rocky",
-    "animalType": "DOG",
+    "name": "Rocky",
+    "animal": "DOG",
     "description": "A strong and muscular boxer breed.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543614",
@@ -143,8 +143,8 @@
     "posts": [null]
   },
   {
-    "petName": "Bella",
-    "animalType": "CAT",
+    "name": "Bella",
+    "animal": "CAT",
     "description": "A graceful and elegant Siamese cat.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567896",
@@ -154,8 +154,8 @@
     "posts": [null]
   },
   {
-    "petName": "Lola",
-    "animalType": "DOG",
+    "name": "Lola",
+    "animal": "DOG",
     "description": "A small and adorable Chihuahua.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543615",
@@ -165,8 +165,8 @@
     "posts": [null]
   },
   {
-    "petName": "Spike",
-    "animalType": "DOG",
+    "name": "Spike",
+    "animal": "DOG",
     "description": "A tough and spiky-haired bulldog.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543616",
@@ -176,8 +176,8 @@
     "posts": [null]
   },
   {
-    "petName": "Angel",
-    "animalType": "DOG",
+    "name": "Angel",
+    "animal": "DOG",
     "description": "A gentle and angelic Bichon Frise.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543617",
@@ -187,8 +187,8 @@
     "posts": [null]
   },
   {
-    "petName": "Lily",
-    "animalType": "CAT",
+    "name": "Lily",
+    "animal": "CAT",
     "description": "A playful and curious kitten.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567897",
@@ -198,8 +198,8 @@
     "posts": [null]
   },
   {
-    "petName": "Oreo",
-    "animalType": "DOG",
+    "name": "Oreo",
+    "animal": "DOG",
     "description": "A black and white Border Collie.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543618",
@@ -209,8 +209,8 @@
     "posts": [null]
   },
   {
-    "petName": "Shadow",
-    "animalType": "DOG",
+    "name": "Shadow",
+    "animal": "DOG",
     "description": "A mysterious and elusive dog.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543619",
@@ -220,8 +220,8 @@
     "posts": [null]
   },
   {
-    "petName": "Simba",
-    "animalType": "CAT",
+    "name": "Simba",
+    "animal": "CAT",
     "description": "A regal and majestic lion-like cat.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567898",
@@ -231,8 +231,8 @@
     "posts": [null]
   },
   {
-    "petName": "Teddy",
-    "animalType": "DOG",
+    "name": "Teddy",
+    "animal": "DOG",
     "description": "A fluffy and cuddly Pomeranian.",
     "microchipRegistry": "PetID",
     "microchipNumber": "9876543620",
@@ -242,8 +242,8 @@
     "posts": [null]
   },
   {
-    "petName": "Misty",
-    "animalType": "CAT",
+    "name": "Misty",
+    "animal": "CAT",
     "description": "A mysterious and foggy cat.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "1234567899",
@@ -253,8 +253,8 @@
     "posts": [null]
   },
   {
-    "petName": "Marty",
-    "animalType": "BIRD",
+    "name": "Marty",
+    "animal": "BIRD",
     "description": "A mysterious and foggy bird.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "12345557899",
@@ -264,8 +264,8 @@
     "posts": [null]
   },
   {
-    "petName": "Fer",
-    "animalType": "FERRET",
+    "name": "Fer",
+    "animal": "FERRET",
     "description": "A weird ferret.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "12345653899",
@@ -275,8 +275,8 @@
     "posts": [null]
   },
   {
-    "petName": "Fish",
-    "animalType": "FISH",
+    "name": "Fish",
+    "animal": "FISH",
     "description": "A floaty fish who has attitude.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "5253524",
@@ -286,8 +286,8 @@
     "posts": [null]
   },
   {
-    "petName": "Hamtaro",
-    "animalType": "HAMSTER",
+    "name": "Hamtaro",
+    "animal": "HAMSTER",
     "description": "A small hamster who is famous.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "5254353524",
@@ -297,8 +297,8 @@
     "posts": [null]
   },
   {
-    "petName": "Herry",
-    "animalType": "HAMSTER",
+    "name": "Herry",
+    "animal": "HAMSTER",
     "description": "Herry Potter is cool.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "52543453524",
@@ -308,8 +308,8 @@
     "posts": [null]
   },
   {
-    "petName": "Fernando",
-    "animalType": "FROG",
+    "name": "Fernando",
+    "animal": "FROG",
     "description": "A slimey frog who has no cares in the world.",
     "microchipRegistry": "PetID",
     "microchipNumber": "52535ff24",
@@ -319,8 +319,8 @@
     "posts": [null]
   },
   {
-    "petName": "Gizmo",
-    "animalType": "GP",
+    "name": "Gizmo",
+    "animal": "GP",
     "description": "A sparky guinea pig who loves carrots.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "5253543424",
@@ -330,8 +330,8 @@
     "posts": [null]
   },
   {
-    "petName": "Aimee",
-    "animalType": "HEDGEHOG",
+    "name": "Aimee",
+    "animal": "HEDGEHOG",
     "description": "A cute hedgehog who loves to roll around.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "525353343424",
@@ -341,8 +341,8 @@
     "posts": [null]
   },
   {
-    "petName": "Alpha",
-    "animalType": "RABBIT",
+    "name": "Alpha",
+    "animal": "RABBIT",
     "description": "A cute rabbit who loves to eat carrots and hop around.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "525353343424",
@@ -352,8 +352,8 @@
     "posts": [null]
   },
   {
-    "petName": "Vader",
-    "animalType": "DOG",
+    "name": "Vader",
+    "animal": "DOG",
     "description": "Rest in Peace, babe.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "52535453424",
@@ -363,8 +363,8 @@
     "posts": [null]
   },
   {
-    "petName": "Gizmo",
-    "animalType": "GP",
+    "name": "Gizmo",
+    "animal": "GP",
     "description": "A sparky guinea pig who loves carrots.",
     "microchipRegistry": "PetRegistry",
     "microchipNumber": "5253543424",

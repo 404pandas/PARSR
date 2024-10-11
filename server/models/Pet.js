@@ -1,85 +1,71 @@
-const { Schema, model } = require("mongoose");
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
+const User = require("./User");
+const {Marker} = require("./index");
 
-const petSchema = new Schema(
-  {
-    petName: {
-      type: String,
-      minlength: 1,
-      maxlength: 280,
-      trim: true,
-      required: true,
+class Pet extends Model {}
+
+Pet.init(
+    {
+        pet_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [1, 280],
+            },
+        },
+        animal: {
+           type: DataTypes.STRING,
+           allowNull: false,
+           validate: {
+               isIn: [
+                   ['DOG', 'CAT', 'BIRD', 'FERRET', 'FISH', 'FROG', 'GP', 'HAMSTER', 'HEDGEHOG', 'RABBIT', 'SNAKE', 'OTHER'],
+               ],
+           },
+        },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        microchipRegistry: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        microchipNumber: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        ownerID: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'user',
+                key: 'user_id',
+            },
+        },
+        isMissing: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false,
+        },
+        geometry: {
+            type: DataTypes.STRING,
+        },
+        image: {
+            type: DataTypes.STRING,
+        },
     },
-    animalType: {
-      type: String,
-      enum: [
-        "DOG",
-        "CAT",
-        "BIRD",
-        "FERRET",
-        "FISH",
-        "FROG",
-        "GP",
-        "HAMSTER",
-        "HEDGEHOG",
-        "RABBIT",
-        "SNAKE",
-        "OTHER",
-      ],
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    microchipRegistry: {
-      type: String,
-      required: true,
-    },
-    microchipNumber: {
-      type: String,
-      required: true,
-    },
-    petOwner: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
-    petOwnerUsername: {
-      type: String,
-      ref: "User",
-    },
-    //  Create markers and add them to pets
-    //  pets = markers and users = pets
-    isMissing: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    geometry: {
-      type: String,
-    },
-    image: {
-      type: String,
-    },
-    markers: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Marker",
-      },
-    ],
-    posts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Post",
-      },
-    ],
-  },
-  {
-    toJSON: {
-      virtuals: true,
-    },
-  }
+    {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'pet',
+    }
 );
-
-const Pet = model("Pet", petSchema);
-
 module.exports = Pet;
