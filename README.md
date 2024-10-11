@@ -78,24 +78,7 @@ It's currently not deployed until the prototype MVP is completed.
 
 <div align="center">
 
-![Javascript](https://img.shields.io/badge/Language-JavaScript-ff0000?style=plastic&logo=JavaScript&logoWidth=10)  
-![Postgres](https://img.shields.io/badge/Database-Postgres-80ff00?style=plastic&logo=PostgreSQL&logoWidth=10)  
-![Heroku](https://img.shields.io/badge/Cloud-Heroku-00ff00?style=plastic&logo=Heroku&logoWidth=10)  
-![Node.js](https://img.shields.io/badge/Framework-Node.js-ff0000?style=plastic&logo=Node.js&logoWidth=10)  
-![React](https://img.shields.io/badge/Framework-React.js-ff8000?style=plastic&logo=React&logoWidth=10)  
-![Express](https://img.shields.io/badge/Framework-Express-80ff00?style=plastic&logo=Express&logoWidth=10)  
-![npm](https://img.shields.io/badge/Tools-npm-ff0000?style=plastic&logo=npm&logoWidth=10)  
-![VS Code](https://img.shields.io/badge/IDE-VSCode-ff0000?style=plastic&logo=VisualStudioCode&logoWidth=10)  
-![MUI](https://img.shields.io/badge/Package-MUI-ff0000?style=plastic&logo=MUI&logoWidth=10)  
-![Apollo](https://img.shields.io/badge/GraphQL-ApolloServer-00f?style=plastic&logo=apollo-graphql&logoWidth=10)  
-![GraphQL](https://img.shields.io/badge/Query-GraphQL-ff1493?style=plastic&logo=GraphQL&logoWidth=10)  
-![Stripe](https://img.shields.io/badge/API-Stripe-00c5ff?style=plastic&logo=Stripe&logoWidth=10)  
-![Nodemon](https://img.shields.io/badge/Dev%20Tool-Nodemon-76d04b?style=plastic&logo=nodemon&logoWidth=10)  
-![Bcrypt](https://img.shields.io/badge/Password%20Hashing-Bcrypt-blue?style=plastic&logo=Bcrypt&logoWidth=10)  
-![JWT](https://img.shields.io/badge/Auth-JWT-black?style=plastic&logo=JSON-web-tokens&logoWidth=10)  
-![Google Maps](https://img.shields.io/badge/Maps-Google%20Maps-4285F4?style=plastic&logo=google-maps&logoWidth=10)  
-![Vite](https://img.shields.io/badge/Dev%20Tool-Vite-yellow?style=plastic&logo=vite&logoWidth=10)  
-![ESLint](https://img.shields.io/badge/Linter-ESLint-purple?style=plastic&logo=ESLint&logoWidth=10)
+![Javascript](https://img.shields.io/badge/Language-JavaScript-ff0000?style=plastic&logo=JavaScript&logoWidth=10) ![Postgres](https://img.shields.io/badge/Database-Postgres-80ff00?style=plastic&logo=PostgreSQL&logoWidth=10) ![Heroku](https://img.shields.io/badge/Cloud-Heroku-00ff00?style=plastic&logo=Heroku&logoWidth=10) ![Node.js](https://img.shields.io/badge/Framework-Node.js-ff0000?style=plastic&logo=Node.js&logoWidth=10) ![React](https://img.shields.io/badge/Framework-React.js-ff8000?style=plastic&logo=React&logoWidth=10) ![Express](https://img.shields.io/badge/Framework-Express-80ff00?style=plastic&logo=Express&logoWidth=10) ![npm](https://img.shields.io/badge/Tools-npm-ff0000?style=plastic&logo=npm&logoWidth=10) ![VS Code](https://img.shields.io/badge/IDE-VSCode-ff0000?style=plastic&logo=VisualStudioCode&logoWidth=10) ![MUI](https://img.shields.io/badge/Package-MUI-ff0000?style=plastic&logo=MUI&logoWidth=10) ![Apollo](https://img.shields.io/badge/GraphQL-ApolloServer-00f?style=plastic&logo=apollo-graphql&logoWidth=10) ![GraphQL](https://img.shields.io/badge/Query-GraphQL-ff1493?style=plastic&logo=GraphQL&logoWidth=10) ![Stripe](https://img.shields.io/badge/API-Stripe-00c5ff?style=plastic&logo=Stripe&logoWidth=10) ![Nodemon](https://img.shields.io/badge/Dev%20Tool-Nodemon-76d04b?style=plastic&logo=nodemon&logoWidth=10) ![Bcrypt](https://img.shields.io/badge/Password%20Hashing-Bcrypt-blue?style=plastic&logo=Bcrypt&logoWidth=10) ![JWT](https://img.shields.io/badge/Auth-JWT-black?style=plastic&logo=JSON-web-tokens&logoWidth=10) ![Google Maps](https://img.shields.io/badge/Maps-Google%20Maps-4285F4?style=plastic&logo=google-maps&logoWidth=10) ![Vite](https://img.shields.io/badge/Dev%20Tool-Vite-yellow?style=plastic&logo=vite&logoWidth=10) ![ESLint](https://img.shields.io/badge/Linter-ESLint-purple?style=plastic&logo=ESLint&logoWidth=10)
 
 </div>
 
