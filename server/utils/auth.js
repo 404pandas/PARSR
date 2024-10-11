@@ -1,7 +1,7 @@
 const { GraphQLError } = require("graphql");
 const jwt = require("jsonwebtoken");
 
-const secret = "puppos";
+const secret = process.env.JWT_SECRET || "default_secret"; // Use environment variable for secret
 const expiration = "2h";
 
 module.exports = {
@@ -9,31 +9,30 @@ module.exports = {
     // Token sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
 
-    // Splits token string into an array and returns actual token
+    // If there's an authorization header, extract the token
     if (req.headers.authorization) {
-      token = token.split(" ").pop().trim();
+      token = token.split(" ").pop().trim(); // Get token part after 'Bearer '
     }
 
     console.log("token: ", token);
 
     if (!token) {
-      return req;
+      return req; // No token provided, return request as is
     }
 
-    // If token verified, adds decoded user's data to req so it can be accessed in server/schemas/resolvers.js
+    // Verify token and add user data to req object
     try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
-    } catch {
-      console.log("Invalid token!");
+      const { data } = jwt.verify(token, secret); // Verify the token
+      req.user = data; // Attach user data to request
+    } catch (err) {
+      console.log("Invalid token!", err); // Log error for debugging
     }
 
-    // Rreturns req object to be passed to server/schemas/resolvers.js as "context" *IMPORTANT CONCEPT TO LEARN!*
-    return req;
+    return req; // Return the modified request object
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
 
-    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration }); // Sign the token
   },
 };

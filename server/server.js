@@ -20,16 +20,20 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  formatError: (err) => {
+    console.error(err); // Log the error
+    return err; // Return the error to the client
+  },
 });
 
 // New instance of Apollo server w/ GraphQL schema
-
 const startApolloServer = async () => {
   await server.start();
 
-  // Middleware- sets up bode parsing, static, and route
+  // Middleware- sets up body parsing, static, and route
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
+
   // static assets
   app.use("/images", express.static(path.join(__dirname, "../client/images")));
   app.use(
@@ -48,12 +52,19 @@ const startApolloServer = async () => {
     });
   }
 
+  // Synchronize Sequelize models with the database
+  try {
+    await db.sync(); // Sync models with the database
+    console.log("Database synced successfully.");
+  } catch (error) {
+    console.error("Database sync error:", error);
+    process.exit(1); // Exit process if there is an error
+  }
+
   // Starts server on port
-  db.once("open", () => {
-    app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
-      console.log(`GraphQL at http://localhost:${PORT}/graphql`);
-    });
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+    console.log(`GraphQL at http://localhost:${PORT}/graphql`);
   });
 };
 

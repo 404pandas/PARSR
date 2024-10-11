@@ -3,19 +3,19 @@ const Pet = require("./Pet");
 const Marker = require("./Marker");
 const Post = require("./Post");
 
+// Marker associations
+Marker.belongsTo(Pet, { foreignKey: "pet_id" });
+Pet.hasMany(Marker, { foreignKey: "pet_id" });
 
-Marker.belongsTo(Pet, {foreignKey: "petID"});
-Pet.hasMany(Marker, {foreignKey: "petID"});
+Marker.belongsTo(User, { foreignKey: "created_by" });
+User.hasMany(Marker, { foreignKey: "created_by" });
 
-Marker.belongsTo(User, {foreignKey: "createdBy"});
-User.hasMany(Marker, {foreignKey: "createdBy"})
+// Post associations
+Post.belongsTo(User, { foreignKey: "created_by" });
+User.hasMany(Post, { foreignKey: "created_by" });
 
-Post.belongsTo(User, {foreignKey: "createdBy"});
-User.hasMany(Post, {foreignKey: "createdBy"});
-
-Pet.belongsTo(User, {foreignKey: "ownerID"});
-User.hasMany(Pet, {foreignKey: "ownerID"});
+// Pet associations
+Pet.belongsTo(User, { foreignKey: "owner_id" });
+User.hasMany(Pet, { foreignKey: "owner_id" });
 
 module.exports = { User, Pet, Marker, Post };
-
-

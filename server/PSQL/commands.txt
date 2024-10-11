@@ -1,0 +1,2 @@
+DROP DATABASE parsr_db;
+CREATE DATABASE parsr_db;
