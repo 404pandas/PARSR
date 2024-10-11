@@ -71,22 +71,31 @@
 <!-- Add screenshots using the following format: -->
 <!-- ![Screenshot alt description](directPathOfScreenshots) -->
 
-This project was built with the MERN stack and Apollo + GraphQL.
+This project was built with the PERN stack and Apollo + GraphQL.
 It's currently not deployed until the prototype MVP is completed.
 
 ### Built With
 
 <div align="center">
 
-[![Javascript](https://img.shields.io/badge/Language-JavaScript-ff0000?style=plastic&logo=JavaScript&logoWidth=10)](https://javascript.info/)
-[![MongoDB](https://img.shields.io/badge/Database-MongoDB-80ff00?style=plastic&logo=MongoDB&logoWidth=10)](https://www.mongodb.com/home)
-[![Heroku](https://img.shields.io/badge/Cloud-Heroku-00ff00?style=plastic&logo=Heroku&logoWidth=10)](https://devcenter.heroku.com/categories/reference)
-[![Node.js](https://img.shields.io/badge/Framework-Node.js-ff0000?style=plastic&logo=Node.js&logoWidth=10)](https://nodejs.org/en/)
-[![React](https://img.shields.io/badge/Framework-React.js-ff8000?style=plastic&logo=React&logoWidth=10)](https://reactjs.org/docs/getting-started.html)
-[![Express](https://img.shields.io/badge/Framework-Express-80ff00?style=plastic&logo=Express&logoWidth=10)](https://expressjs.com/)
-[![npm](https://img.shields.io/badge/Tools-npm-ff0000?style=plastic&logo=npm&logoWidth=10)](https://www.npmjs.com/)
-[![VS Code](https://img.shields.io/badge/IDE-VSCode-ff0000?style=plastic&logo=VisualStudioCode&logoWidth=10)](https://code.visualstudio.com/docs)
-[![MUI](https://img.shields.io/badge/Package-MUI-ff0000?style=plastic&logo=MUI&logoWidth=10)](https://mui.com/)
+![Javascript](https://img.shields.io/badge/Language-JavaScript-ff0000?style=plastic&logo=JavaScript&logoWidth=10)  
+![Postgres](https://img.shields.io/badge/Database-Postgres-80ff00?style=plastic&logo=PostgreSQL&logoWidth=10)  
+![Heroku](https://img.shields.io/badge/Cloud-Heroku-00ff00?style=plastic&logo=Heroku&logoWidth=10)  
+![Node.js](https://img.shields.io/badge/Framework-Node.js-ff0000?style=plastic&logo=Node.js&logoWidth=10)  
+![React](https://img.shields.io/badge/Framework-React.js-ff8000?style=plastic&logo=React&logoWidth=10)  
+![Express](https://img.shields.io/badge/Framework-Express-80ff00?style=plastic&logo=Express&logoWidth=10)  
+![npm](https://img.shields.io/badge/Tools-npm-ff0000?style=plastic&logo=npm&logoWidth=10)  
+![VS Code](https://img.shields.io/badge/IDE-VSCode-ff0000?style=plastic&logo=VisualStudioCode&logoWidth=10)  
+![MUI](https://img.shields.io/badge/Package-MUI-ff0000?style=plastic&logo=MUI&logoWidth=10)  
+![Apollo](https://img.shields.io/badge/GraphQL-ApolloServer-00f?style=plastic&logo=apollo-graphql&logoWidth=10)  
+![GraphQL](https://img.shields.io/badge/Query-GraphQL-ff1493?style=plastic&logo=GraphQL&logoWidth=10)  
+![Stripe](https://img.shields.io/badge/API-Stripe-00c5ff?style=plastic&logo=Stripe&logoWidth=10)  
+![Nodemon](https://img.shields.io/badge/Dev%20Tool-Nodemon-76d04b?style=plastic&logo=nodemon&logoWidth=10)  
+![Bcrypt](https://img.shields.io/badge/Password%20Hashing-Bcrypt-blue?style=plastic&logo=Bcrypt&logoWidth=10)  
+![JWT](https://img.shields.io/badge/Auth-JWT-black?style=plastic&logo=JSON-web-tokens&logoWidth=10)  
+![Google Maps](https://img.shields.io/badge/Maps-Google%20Maps-4285F4?style=plastic&logo=google-maps&logoWidth=10)  
+![Vite](https://img.shields.io/badge/Dev%20Tool-Vite-yellow?style=plastic&logo=vite&logoWidth=10)  
+![ESLint](https://img.shields.io/badge/Linter-ESLint-purple?style=plastic&logo=ESLint&logoWidth=10)
 
 </div>
 
@@ -149,7 +158,6 @@ Once the app is functional, screenshots will be added in this section.
 #### MVP
 
 - [ ] Front End
-
   - [x] Routing
   - [ ] Map (Markers, Search area)
   - [x] User Auth
@@ -162,8 +170,7 @@ Once the app is functional, screenshots will be added in this section.
   - [ ] 404 Page
   - [ ] Login Form
   - [ ] Sign Up Form
-  - [ ] Test react-ol-wrapper library
-  - [ ] ? Migrate from ol to react-ol-wrapper ?
+  - [ ] Migrate to Google Maps
 
 - [ ] Back End
   - [x] Typedefs
@@ -207,7 +214,7 @@ See LICENSE.txt for more information.
 
 ## Contact
 
-[Mary Elenius](https://maryelenius.com/d20) - mary.panda.jackson@gmail.com
+[Mary Elenius](https://maryelenius.com/) - mary.panda.jackson@gmail.com
 
 in association with:
 
