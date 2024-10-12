@@ -65,6 +65,7 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
 // Query for all pets
 export const QUERY_PETS = gql`
   query getPets {
@@ -86,6 +87,7 @@ export const QUERY_PETS = gql`
     }
   }
 `;
+
 // Query for single pet
 export const QUERY_SINGLE_PET = gql`
   query getSinglePet($petId: ID!) {
@@ -123,8 +125,8 @@ export const QUERY_SINGLE_PET = gql`
 
 // Query for all missing pets
 export const QUERY_MISSING_PETS = gql`
-  query getMissingPets {
-    petsByMissing(isMissing: true) {
+  query getMissingPets($isMissing: Boolean!) {
+    petsByMissing(isMissing: $isMissing) {
       _id
       petName
       description
@@ -135,11 +137,22 @@ export const QUERY_MISSING_PETS = gql`
         username
         email
       }
-      animalType
       petOwnerUsername
+      animalType
       isMissing
       geometry
       image
+      posts {
+        _id
+        postContent
+        createdBy {
+          username
+        }
+        createdAt
+        petId {
+          _id
+        }
+      }
     }
   }
 `;
@@ -171,6 +184,7 @@ export const QUERY_MARKERS = gql`
   }
 `;
 
+// Query for single marker by ID
 export const QUERY_MARKER_BY_ID = gql`
   query getMarker($markerId: ID!) {
     marker(markerId: $markerId) {
@@ -191,9 +205,11 @@ export const QUERY_MARKER_BY_ID = gql`
     }
   }
 `;
+
+// Query for single marker by Pet ID
 export const QUERY_MARKER_BY_PETID = gql`
-  query getMarker($markerId: ID!) {
-    marker(markerId: $markerId) {
+  query getMarker($petId: ID!) {
+    markersByPet(petId: $petId) {
       _id
       petId {
         petName
@@ -211,5 +227,3 @@ export const QUERY_MARKER_BY_PETID = gql`
     }
   }
 `;
-
-// export const QUERY_POSTS_BY_PETID = gql`

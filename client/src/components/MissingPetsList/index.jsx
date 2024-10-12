@@ -13,7 +13,9 @@ import ContentPaste from "@mui/icons-material/ContentPaste";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
 const MissingPetsList = () => {
-  const { loading, error, data } = useQuery(QUERY_MISSING_PETS);
+  const { loading, error, data } = useQuery(QUERY_MISSING_PETS, {
+    variables: { isMissing: true }, // Set the variable here
+  });
   const [copiedArray, setCopiedArray] = useState([]); // Track whether copy was successful for each pet
 
   if (loading) return <p>Loading...</p>;

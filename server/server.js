@@ -24,6 +24,9 @@ const server = new ApolloServer({
     console.error(err); // Log the error
     return err; // Return the error to the client
   },
+  context: ({ req }) => {
+    return { user: req.user }; // Pass user info to context
+  },
 });
 
 // New instance of Apollo server w/ GraphQL schema
@@ -54,7 +57,7 @@ const startApolloServer = async () => {
 
   // Synchronize Sequelize models with the database
   try {
-    await db.sync(); // Sync models with the database
+    await db.sync({ force: true }); // Sync models with the database
     console.log("Database synced successfully.");
   } catch (error) {
     console.error("Database sync error:", error);

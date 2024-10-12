@@ -24,6 +24,7 @@ module.exports = {
     try {
       const { data } = jwt.verify(token, secret); // Verify the token
       req.user = data; // Attach user data to request
+      console.log("req.user: ", req.user);
     } catch (err) {
       console.log("Invalid token!", err); // Log error for debugging
     }

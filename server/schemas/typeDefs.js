@@ -15,7 +15,7 @@ const typeDefs = `
     petName: String
     description: String
     microchipRegistry: String
-    microchipNumber: String
+    microchipNumber: Int
     petOwner: User
     petOwnerUsername: String
     animalType: AnimalType
@@ -51,7 +51,6 @@ const typeDefs = `
     user: User
   }
 
-
   input MarkerData {
     markerName: String!
     markerDescription: String
@@ -63,11 +62,27 @@ const typeDefs = `
   }
 
   input PetData {
-    id: Int!
+    _id: ID!
     petName: String
-    markers: [MarkerData]
+    description: String
+    microchipRegistry: String
+    microchipNumber: Int  # Updated to Int
+    animalType: AnimalType
+    isMissing: Boolean
+    geometry: GeoJSON
+    image: String
   }
 
+   input UpdatePetData {
+    petName: String
+    description: String
+    microchipRegistry: String
+    microchipNumber: Int
+    animalType: AnimalType
+    isMissing: Boolean
+    geometry: GeoJSON
+    image: String
+  }
 
   enum AnimalType {
     DOG
@@ -97,15 +112,15 @@ const typeDefs = `
     posts: [Post]
     post(postId: ID!): Post
     postsByPet(petId: ID!): [Post]
- 
-
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     createMarker(marker: MarkerData): Marker
-    createPet(pet: PetData): Pet
+    addPet(pet: PetData): Pet  
+    updatePet(petId: ID!, petData: UpdatePetData!): Pet  
+    removePet(petId: ID!): Pet  
     addPost(petId: ID!, postContent: String!): Post
     updatePost(postContent: String!): Post
     removePost(postId: ID!): Post

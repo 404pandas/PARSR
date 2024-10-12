@@ -10,6 +10,7 @@ const sequelize = new Sequelize({
   username: process.env.PG_USER,
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
+  logging: console.log, // Log SQL queries
 });
 
 sequelize

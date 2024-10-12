@@ -1,3 +1,4 @@
+import { StrictMode } from "react";
 import { Outlet } from "react-router-dom";
 import {
   ApolloClient,
@@ -39,9 +40,11 @@ const App = () => {
   return (
     <>
       <ApolloProvider client={client}>
-        <Navbar />
-        <Outlet />
-        <Footer />
+        <StrictMode>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </StrictMode>
       </ApolloProvider>
     </>
   );

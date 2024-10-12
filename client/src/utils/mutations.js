@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-
 // Mutation for login
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -139,6 +138,7 @@ export const ADD_MARKER = gql`
   }
 `;
 
+// Mutation for adding a post
 export const ADD_POST = gql`
   mutation addPost($petId: ID!, $postContent: String!) {
     addPost(petId: $petId, postContent: $postContent) {
@@ -155,6 +155,7 @@ export const ADD_POST = gql`
   }
 `;
 
+// Mutation for removing a post
 export const REMOVE_POST = gql`
   mutation removePost($postId: ID!) {
     removePost(postId: $postId) {

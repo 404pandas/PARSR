@@ -47,11 +47,9 @@ Pet.init(
     },
     microchip_registry: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     microchip_number: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     owner_id: {
       type: DataTypes.INTEGER,

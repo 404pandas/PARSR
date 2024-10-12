@@ -9,7 +9,7 @@ const Post = require("../models/Post");
 const { signToken } = require("../utils/auth");
 const { GraphQLScalarType, Kind } = require("graphql");
 
-// custom scalar for GeoJSON
+// Custom scalar for GeoJSON
 const GeoJSONType = new GraphQLScalarType({
   name: "GeoJSON",
   description: "A GeoJSON object",
@@ -31,204 +31,137 @@ const GeoJSONType = new GraphQLScalarType({
   },
 });
 
-// Cusotm Scalar for date
+// Custom Scalar for Date
 const DateScalar = new GraphQLScalarType({
   name: "Date",
   description: "Date custom scalar type",
   parseValue(value) {
-    // Convert the input value (e.g., from a JSON payload) to a Date object
     return new Date(value);
   },
   serialize(value) {
-    // Convert the Date object to a string for JSON serialization
     return value.toISOString();
   },
   parseLiteral(ast) {
-    // Parse the date string from the GraphQL query into a Date object
-    if (ast.kind === Kind.STRING) {
-      return new Date(ast.value);
+    if (ast.kind === Kind.INT) {
+      return new Date(parseInt(ast.value, 10)); // Convert from integer timestamp
     }
     return null;
   },
 });
 
-// Creates the functions that fulfill the queries defined in typeDefs
 const resolvers = {
   Query: {
-    // Multiple users
     users: async () => {
-      return User.find().populate("pets");
+      return User.findAll().populate("pets");
     },
-    // user profile
-    me: async (parent, args, context) => {
-      if (context.user) {
-        // Populate the pets subdocument on every instance of User
-        const userData = await User.findOne({ _id: context.user._id })
-          .select("-__v -password")
-          .populate({
-            path: "pets",
-            populate: { path: "petOwner" }, // Populate petOwner
-          });
-        return userData;
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
-    //  Single user
-    user: async (parent, { userId }) => {
-      const user = await User.findOne({ _id: userId }).populate("pets");
-
-      user.pets.sort((a, b) => b.petName - a.petName);
-
+    user: async (parent, args, context) => {
+      const user = await User.findOne({
+        where: {
+          user_id: context.user.user_id,
+        },
+        include: [
+          {
+            model: Pet,
+            as: "pets",
+          },
+        ],
+      });
+      user.pets.sort((a, b) => a.petName.localeCompare(b.petName));
       return user;
     },
-    // all pets
-    pets: async (parent, { userId }) => {
-      const params = userId ? { userId } : {};
-      return Pet.find(params).sort({ petName: -1 });
-    },
-    // pets by missing === true
-    petsByMissing: async (_, { isMissing }) => {
-      try {
-        // Query the database to find pets based on the isMissing parameter
-        const pets = await Pet.find({ isMissing: true });
-        return pets;
-      } catch (error) {
-        throw new Error("Failed to fetch pets by missing status");
+    me: async (parent, args, context) => {
+      console.log("Context User: ", context.user._id);
+      if (context.user) {
+        try {
+          const user = await User.findByPk(context.user._id);
+          console.log("User with pets: ", user);
+          return user;
+        } catch (error) {
+          console.error("Error retrieving user data: ", error);
+          throw new Error("Failed to retrieve user data");
+        }
       }
+      throw new AuthenticationError("Not logged in");
     },
-    // single pet
+    pets: async () => {
+      const pet = await Pet.findAll();
+      return pet;
+    },
     pet: async (parent, { petId }) => {
-      return Pet.findOne({ _id: petId });
+      return Pet.findById(petId)
+        .populate("petOwner")
+        .populate("markers")
+        .populate("posts");
     },
-    // all markers
+    petsByMissing: async (parent, { isMissing }, context) => {
+      return await Pet.findAll({ where: { is_missing: isMissing } });
+    },
     markers: async () => {
-      return Marker.find().sort({ createdAt: -1 });
+      return Marker.find().populate("petId").populate("createdBy");
     },
-    // single marker
     marker: async (parent, { markerId }) => {
-      return Marker.findOne({ _id: markerId });
+      return Marker.findById(markerId).populate("petId").populate("createdBy");
     },
-    // markers by pet
     markersByPet: async (parent, { petId }) => {
-      const params = petId ? { petId } : {};
+      return Marker.findOne({ where: petId })
+        .populate("petId")
+        .populate("createdBy");
+    },
+    postsByPet: async (parent, { petId }) => {
       try {
-        const markers = await Pet.find(params).populate("markers");
-        console.log(markers);
-
-        return markers;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    },
-    // all posts
-    posts: async () => {
-      return Post.find().sort({ createdAt: -1 });
-    },
-    // single marker
-    post: async (parent, { postId }) => {
-      return Post.findOne({ _id: postId });
-    },
-    // posts by pet
-    postsByPet: async (parent, args) => {
-      try {
-        const posts = await Post.find({ petId: args.petId })
+        return await Post.findOne({ where: petId })
           .populate("petId")
           .populate("createdBy");
-
-        return posts;
       } catch (error) {
-        throw new Error(error.message);
+        throw new Error(
+          `Failed to fetch posts for pet ID ${petId}: ${error.message}`
+        );
       }
     },
   },
-  // Defines the functions that will fulfill the mutations
+
   Mutation: {
-    // login
     login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
-
+      const user = await User.findOne({ where: { email } });
       if (!user) {
-        throw new AuthenticationError("No user found with this email address");
+        throw new AuthenticationError("No user found with this email address.");
       }
 
-      const correctPassword = await user.isCorrectPassword(password);
-
-      if (!correctPassword) {
-        throw new AuthenticationError("Incorrect Credentials");
+      // Call the correct method to check the password
+      const correctPw = await User.beforeUpdate(password);
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect password.");
       }
 
-      const token = signToken(user);
+      // Sign the token with the user's _id
+      const token = signToken({
+        username: user.username,
+        email: user.email,
+        _id: user.user_id,
+      });
       return { token, user };
     },
-    // add user
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
-      const token = signToken(user);
+      // Sign the token with the user's user
+      const token = signToken({
+        username: user.username,
+        email: user.email,
+        _id: user.user_id,
+      });
       return { token, user };
     },
-    // create marker
-    createMarker: async (
+    addPet: async (
       parent,
       {
-        petId,
-        markerName,
-        markerDescription,
-        createdAt,
-        coordinates,
-        image,
-        geometry,
-      },
-      context
-    ) => {
-      if (context.user) {
-        // Check if the petId exists and retrieve the corresponding pet
-        const pet = Pet.findOne({ _id: petId });
-
-        if (!pet) {
-          throw new Error("Pet not found");
-        }
-
-        console.log(pet);
-
-        const marker = await Marker.create({
-          markerName,
-          markerDescription,
-          createdAt,
-          coordinates,
-          image,
-          geometry,
-          petId: pet.id,
-          createdBy: context.user._id,
-        });
-        // Populate the createdBy field with the user data
-        const populatedMarker = await Marker.findById(marker._id).populate(
-          "createdBy",
-          "petId"
-        );
-
-        // Return the created marker
-        return populatedMarker;
-      } else {
-        throw new AuthenticationError("Not logged in");
-      }
-    },
-    // create Pet
-    createPet: async (
-      parent,
-      {
-        petId,
         petName,
         description,
         microchipRegistry,
         microchipNumber,
-        petOwner,
-        petOwnerUsername,
         animalType,
         isMissing,
         geometry,
         image,
-        markers,
-        posts,
       },
       context
     ) => {
@@ -238,93 +171,86 @@ const resolvers = {
           description,
           microchipRegistry,
           microchipNumber,
-          petOwner: context.user._id,
-          petOwnerUsername,
+          petOwner: context.user.user_id,
           animalType,
           isMissing,
           geometry,
           image,
-          markers,
-          posts,
         });
-
-        // Return the created marker
-        return petId;
-      } else {
-        throw new AuthenticationError("Not logged in");
-      }
-    },
-    // Add a post to a pet
-    addPost: async (_, { postContent, petId }, context) => {
-      if (context.user) {
-        const params = petId ? { petId } : {};
-        const pet = Pet.findById(params);
-        // Find the pet by ID
-        console.log("petID" + pet);
-        console.log("pet id: " + pet._id);
-        const post = await Post.create({
-          postContent,
-          petId: pet._id,
-          createdBy: context.user._id,
-        });
-        await Pet.findOneAndUpdate(
-          { _id: pet._id },
-          { $addToSet: { posts: post._id } }
-        ).populate("petId");
-        return post;
-      }
-      throw new AuthenticationError("Not logged in");
-    },
-
-    // Update a post on a pet
-    updatePost: async (_, { postId, postContent }, context) => {
-      if (context.user) {
-        // Find the pet by ID
-        const pet = await Pet.findById(postId);
-
-        if (!pet) {
-          throw new Error("Pet not found");
-        }
-
-        // Find the post within the pet's posts array
-        const postToUpdate = pet.posts.find(
-          (post) => post._id.toString() === postId
-        );
-
-        if (!postToUpdate) {
-          throw new Error("Post not found");
-        }
-
-        // Update the post's content
-        postToUpdate.content = postContent;
-
-        await pet.save();
-
         return pet;
       }
       throw new AuthenticationError("Not logged in");
     },
-
-    // Delete a post from a pet
-    removePost: async (_, { postId, petId }, context) => {
+    updatePet: async (
+      parent,
+      {
+        id,
+        petName,
+        animalType,
+        description,
+        microchipRegistry,
+        microchipNumber,
+        isMissing,
+      },
+      context
+    ) => {
       if (context.user) {
-        return Pet.findOneAndUpdate(
-          { _id: petId },
+        const pet = await Pet.findOneAndUpdate(
+          { _id: id },
           {
-            $pull: {
-              posts: {
-                _id: postId,
-                createdBy: context.user._id,
-              },
-            },
+            petName,
+            animalType,
+            description,
+            microchipRegistry,
+            microchipNumber,
+            isMissing,
           },
           { new: true }
         );
-      } else {
-        throw new AuthenticationError("Not logged in");
+        return pet;
       }
+      throw new AuthenticationError("Not logged in");
+    },
+    removePet: async (parent, { petId }, context) => {
+      if (context.user) {
+        const pet = await Pet.findOneAndDelete({ _id: petId });
+        return pet;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+    createMarker: async (parent, { marker }, context) => {
+      if (context.user) {
+        const newMarker = await Marker.create({
+          ...marker,
+          createdBy: context.user.user_id,
+        });
+        return newMarker;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+    addPost: async (parent, { petId, postContent }, context) => {
+      if (context.user) {
+        const post = await Post.create({
+          petId,
+          postContent,
+          createdBy: context.user.user_id,
+        });
+        return post;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+    removePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        const post = await Post.findOneAndDelete({ _id: postId });
+        return post;
+      }
+      throw new AuthenticationError("Not logged in");
     },
   },
+
+  // Scalars
+  GeoJSON: GeoJSONType,
+  Date: DateScalar,
 };
 
 module.exports = resolvers;
